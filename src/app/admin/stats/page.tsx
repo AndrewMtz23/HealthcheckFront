@@ -76,27 +76,27 @@ const AdminStatsPage = () => {
 
   if (loading) {
     return (
-      <div className="min-h-screen pt-16 bg-gray-50 flex justify-center items-center">
+      <div className="min-h-screen pt-16 bg-gray-50 dark:bg-slate-950 flex justify-center items-center">
         <div className="animate-spin rounded-full h-12 w-12 border-t-2 border-b-2 border-blue-500"></div>
       </div>
     );
   }
 
   return (
-    <div className="min-h-screen pt-16 bg-gray-50">
+    <div className="min-h-screen pt-16 bg-gray-50 dark:bg-slate-950">
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-10">
-        <div className="bg-white shadow rounded-lg">
-          <div className="px-4 py-5 sm:px-6 border-b border-gray-200">
+        <div className="bg-white dark:bg-slate-900 shadow rounded-lg">
+          <div className="px-4 py-5 sm:px-6 border-b border-gray-200 dark:border-slate-700">
             <div className="flex items-center justify-between">
               <div>
-                <h1 className="text-xl font-semibold text-gray-900">Estadísticas del Sistema</h1>
-                <p className="mt-1 text-sm text-gray-500">
+                <h1 className="text-xl font-semibold text-gray-900 dark:text-slate-100">Estadísticas del Sistema</h1>
+                <p className="mt-1 text-sm text-gray-500 dark:text-slate-400">
                   Visualiza datos sobre el uso y rendimiento de la plataforma
                 </p>
               </div>
               <Link
                 href="/admin/dashboard"
-                className="inline-flex items-center px-3 py-1.5 border border-gray-300 text-sm font-medium rounded-md text-gray-700 bg-white hover:bg-gray-50"
+                className="inline-flex items-center px-3 py-1.5 border border-gray-300 dark:border-slate-600 text-sm font-medium rounded-md text-gray-700 dark:text-slate-200 bg-white dark:bg-slate-900 hover:bg-gray-50 dark:hover:bg-slate-950"
               >
                 Volver
               </Link>
@@ -105,7 +105,7 @@ const AdminStatsPage = () => {
 
           <div className="px-4 py-5 sm:p-6">
             {error && (
-              <div className="mb-4 bg-red-50 text-red-700 p-4 rounded-md">
+              <div className="mb-4 bg-red-50 dark:bg-red-950/40 text-red-700 dark:text-red-300 p-4 rounded-md">
                 <div className="flex">
                   <div className="flex-shrink-0">
                     <svg className="h-5 w-5 text-red-400" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 20 20" fill="currentColor">
@@ -126,19 +126,19 @@ const AdminStatsPage = () => {
             ) : stats ? (
               <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
                 {/* Clasificación de Noticias */}
-                <div className="bg-white p-6 rounded-lg border border-gray-200 shadow-sm">
-                  <h3 className="text-lg font-medium text-gray-900 mb-4">Distribución por Clasificación</h3>
+                <div className="bg-white dark:bg-slate-900 p-6 rounded-lg border border-gray-200 dark:border-slate-700 shadow-sm">
+                  <h3 className="text-lg font-medium text-gray-900 dark:text-slate-100 mb-4">Distribución por Clasificación</h3>
                   <div className="space-y-4">
                     {stats.classificationStats && stats.classificationStats.length > 0 ? (
                       stats.classificationStats.map((stat, index) => (
                         <div key={index}>
                           <div className="flex justify-between items-center mb-1">
-                            <span className="text-sm font-medium text-gray-700 capitalize">
+                            <span className="text-sm font-medium text-gray-700 dark:text-slate-200 capitalize">
                               {stat.clasificacion}
                             </span>
-                            <span className="text-sm font-medium text-gray-900">{stat.total}</span>
+                            <span className="text-sm font-medium text-gray-900 dark:text-slate-100">{stat.total}</span>
                           </div>
-                          <div className="w-full bg-gray-200 rounded-full h-2.5">
+                          <div className="w-full bg-gray-200 dark:bg-slate-700 rounded-full h-2.5">
                             <div 
                               className={`h-2.5 rounded-full ${
                                 stat.clasificacion === 'verdadera' 
@@ -155,23 +155,23 @@ const AdminStatsPage = () => {
                         </div>
                       ))
                     ) : (
-                      <p className="text-sm text-gray-500">No hay datos de clasificación disponibles</p>
+                      <p className="text-sm text-gray-500 dark:text-slate-400">No hay datos de clasificación disponibles</p>
                     )}
                   </div>
                 </div>
 
                 {/* Temas */}
-                <div className="bg-white p-6 rounded-lg border border-gray-200 shadow-sm">
-                  <h3 className="text-lg font-medium text-gray-900 mb-4">Distribución por Tema</h3>
+                <div className="bg-white dark:bg-slate-900 p-6 rounded-lg border border-gray-200 dark:border-slate-700 shadow-sm">
+                  <h3 className="text-lg font-medium text-gray-900 dark:text-slate-100 mb-4">Distribución por Tema</h3>
                   <div className="space-y-4">
                     {stats.topicStats && stats.topicStats.length > 0 ? (
                       stats.topicStats.slice(0, 5).map((stat, index) => (
                         <div key={index}>
                           <div className="flex justify-between items-center mb-1">
-                            <span className="text-sm font-medium text-gray-700">{stat.tema}</span>
-                            <span className="text-sm font-medium text-gray-900">{stat.total}</span>
+                            <span className="text-sm font-medium text-gray-700 dark:text-slate-200">{stat.tema}</span>
+                            <span className="text-sm font-medium text-gray-900 dark:text-slate-100">{stat.total}</span>
                           </div>
-                          <div className="w-full bg-gray-200 rounded-full h-2.5">
+                          <div className="w-full bg-gray-200 dark:bg-slate-700 rounded-full h-2.5">
                             <div 
                               className="bg-blue-600 h-2.5 rounded-full"
                               style={{ 
@@ -182,23 +182,23 @@ const AdminStatsPage = () => {
                         </div>
                       ))
                     ) : (
-                      <p className="text-sm text-gray-500">No hay datos de temas disponibles</p>
+                      <p className="text-sm text-gray-500 dark:text-slate-400">No hay datos de temas disponibles</p>
                     )}
                   </div>
                 </div>
 
                 {/* Fuentes */}
-                <div className="bg-white p-6 rounded-lg border border-gray-200 shadow-sm">
-                  <h3 className="text-lg font-medium text-gray-900 mb-4">Fuentes Principales</h3>
+                <div className="bg-white dark:bg-slate-900 p-6 rounded-lg border border-gray-200 dark:border-slate-700 shadow-sm">
+                  <h3 className="text-lg font-medium text-gray-900 dark:text-slate-100 mb-4">Fuentes Principales</h3>
                   <div className="space-y-4">
                     {stats.sourceStats && stats.sourceStats.length > 0 ? (
                       stats.sourceStats.slice(0, 5).map((stat, index) => (
                         <div key={index}>
                           <div className="flex justify-between items-center mb-1">
-                            <span className="text-sm font-medium text-gray-700">{stat.fuente}</span>
-                            <span className="text-sm font-medium text-gray-900">{stat.total}</span>
+                            <span className="text-sm font-medium text-gray-700 dark:text-slate-200">{stat.fuente}</span>
+                            <span className="text-sm font-medium text-gray-900 dark:text-slate-100">{stat.total}</span>
                           </div>
-                          <div className="w-full bg-gray-200 rounded-full h-2.5">
+                          <div className="w-full bg-gray-200 dark:bg-slate-700 rounded-full h-2.5">
                             <div 
                               className="bg-purple-600 h-2.5 rounded-full"
                               style={{ 
@@ -209,14 +209,14 @@ const AdminStatsPage = () => {
                         </div>
                       ))
                     ) : (
-                      <p className="text-sm text-gray-500">No hay datos de fuentes disponibles</p>
+                      <p className="text-sm text-gray-500 dark:text-slate-400">No hay datos de fuentes disponibles</p>
                     )}
                   </div>
                 </div>
 
                 {/* Tendencia Mensual */}
-                <div className="bg-white p-6 rounded-lg border border-gray-200 shadow-sm">
-                  <h3 className="text-lg font-medium text-gray-900 mb-4">Tendencia Mensual</h3>
+                <div className="bg-white dark:bg-slate-900 p-6 rounded-lg border border-gray-200 dark:border-slate-700 shadow-sm">
+                  <h3 className="text-lg font-medium text-gray-900 dark:text-slate-100 mb-4">Tendencia Mensual</h3>
                   {stats.monthlyTrend && stats.monthlyTrend.length > 0 ? (
                     <div className="h-64 flex items-end space-x-2">
                       {stats.monthlyTrend.slice(0, 6).map((stat, index) => {
@@ -228,7 +228,7 @@ const AdminStatsPage = () => {
                               className="w-full bg-indigo-500 rounded-t-md"
                               style={{ height: `${heightPercentage}%` }}
                             ></div>
-                            <div className="text-xs text-gray-500 mt-2 w-full text-center truncate" title={stat.mes}>
+                            <div className="text-xs text-gray-500 dark:text-slate-400 mt-2 w-full text-center truncate" title={stat.mes}>
                               {stat.mes.substring(5)} {/* Mostrar solo el mes */}
                             </div>
                             <div className="text-xs font-medium mt-1">{stat.total}</div>
@@ -237,12 +237,12 @@ const AdminStatsPage = () => {
                       })}
                     </div>
                   ) : (
-                    <p className="text-sm text-gray-500">No hay datos de tendencias mensuales disponibles</p>
+                    <p className="text-sm text-gray-500 dark:text-slate-400">No hay datos de tendencias mensuales disponibles</p>
                   )}
                 </div>
               </div>
             ) : (
-              <div className="text-center py-10 text-gray-500">
+              <div className="text-center py-10 text-gray-500 dark:text-slate-400">
                 No hay estadísticas disponibles.
               </div>
             )}

@@ -140,27 +140,27 @@ const TrainModelPage = () => {
 
   if (loading) {
     return (
-      <div className="min-h-screen pt-16 bg-gray-50 flex justify-center items-center">
+      <div className="min-h-screen pt-16 bg-gray-50 dark:bg-slate-950 flex justify-center items-center">
         <div className="animate-spin rounded-full h-12 w-12 border-t-2 border-b-2 border-blue-500"></div>
       </div>
     );
   }
 
   return (
-    <div className="min-h-screen pt-16 bg-gray-50">
+    <div className="min-h-screen pt-16 bg-gray-50 dark:bg-slate-950">
       <div className="max-w-3xl mx-auto px-4 sm:px-6 lg:px-8 py-10">
-        <div className="bg-white shadow rounded-lg">
-          <div className="px-4 py-5 sm:px-6 border-b border-gray-200">
+        <div className="bg-white dark:bg-slate-900 shadow rounded-lg">
+          <div className="px-4 py-5 sm:px-6 border-b border-gray-200 dark:border-slate-700">
             <div className="flex items-center justify-between">
               <div>
-                <h1 className="text-xl font-semibold text-gray-900">Entrenar Nuevo Modelo</h1>
-                <p className="mt-1 text-sm text-gray-500">
+                <h1 className="text-xl font-semibold text-gray-900 dark:text-slate-100">Entrenar Nuevo Modelo</h1>
+                <p className="mt-1 text-sm text-gray-500 dark:text-slate-400">
                   Sube un archivo CSV con datos de entrenamiento para mejorar el clasificador de noticias
                 </p>
               </div>
               <Link
                 href="/admin/dashboard"
-                className="inline-flex items-center px-3 py-1.5 border border-gray-300 text-sm font-medium rounded-md text-gray-700 bg-white hover:bg-gray-50"
+                className="inline-flex items-center px-3 py-1.5 border border-gray-300 dark:border-slate-600 text-sm font-medium rounded-md text-gray-700 dark:text-slate-200 bg-white dark:bg-slate-900 hover:bg-gray-50 dark:hover:bg-slate-950"
               >
                 Volver
               </Link>
@@ -169,7 +169,7 @@ const TrainModelPage = () => {
 
           <div className="px-4 py-5 sm:p-6">
             {error && (
-              <div className="mb-4 bg-red-50 text-red-700 p-4 rounded-md">
+              <div className="mb-4 bg-red-50 dark:bg-red-950/40 text-red-700 dark:text-red-300 p-4 rounded-md">
                 <div className="flex">
                   <div className="flex-shrink-0">
                     <svg className="h-5 w-5 text-red-400" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 20 20" fill="currentColor">
@@ -185,27 +185,27 @@ const TrainModelPage = () => {
 
             {result ? (
               <div className="text-center">
-                <div className="bg-green-50 text-green-800 p-4 rounded-md mb-6">
+                <div className="bg-green-50 dark:bg-green-950/40 text-green-800 dark:text-green-300 p-4 rounded-md mb-6">
                   <h3 className="text-sm font-medium">¡Entrenamiento completado con éxito!</h3>
                   <p className="mt-2 text-sm">
                     El nuevo modelo ha sido entrenado y guardado. Se redirigirá al dashboard en breve...
                   </p>
                 </div>
                 
-                <div className="bg-gray-50 p-4 rounded-md text-left mb-6">
-                  <h4 className="text-sm font-medium text-gray-700 mb-2">Resultados del entrenamiento:</h4>
+                <div className="bg-gray-50 dark:bg-slate-950 p-4 rounded-md text-left mb-6">
+                  <h4 className="text-sm font-medium text-gray-700 dark:text-slate-200 mb-2">Resultados del entrenamiento:</h4>
                   <dl className="grid grid-cols-2 gap-x-4 gap-y-2">
-                    <dt className="text-sm font-medium text-gray-500">Modelo ID:</dt>
-                    <dd className="text-sm text-gray-900">{result.model_id}</dd>
+                    <dt className="text-sm font-medium text-gray-500 dark:text-slate-400">Modelo ID:</dt>
+                    <dd className="text-sm text-gray-900 dark:text-slate-100">{result.model_id}</dd>
                     
-                    <dt className="text-sm font-medium text-gray-500">Precisión:</dt>
-                    <dd className="text-sm text-gray-900">{(result.evaluation.precision * 100).toFixed(2)}%</dd>
+                    <dt className="text-sm font-medium text-gray-500 dark:text-slate-400">Precisión:</dt>
+                    <dd className="text-sm text-gray-900 dark:text-slate-100">{(result.evaluation.precision * 100).toFixed(2)}%</dd>
                     
-                    <dt className="text-sm font-medium text-gray-500">Recall:</dt>
-                    <dd className="text-sm text-gray-900">{(result.evaluation.recall * 100).toFixed(2)}%</dd>
+                    <dt className="text-sm font-medium text-gray-500 dark:text-slate-400">Recall:</dt>
+                    <dd className="text-sm text-gray-900 dark:text-slate-100">{(result.evaluation.recall * 100).toFixed(2)}%</dd>
                     
-                    <dt className="text-sm font-medium text-gray-500">F1-Score:</dt>
-                    <dd className="text-sm text-gray-900">{(result.evaluation.f1_score * 100).toFixed(2)}%</dd>
+                    <dt className="text-sm font-medium text-gray-500 dark:text-slate-400">F1-Score:</dt>
+                    <dd className="text-sm text-gray-900 dark:text-slate-100">{(result.evaluation.f1_score * 100).toFixed(2)}%</dd>
                   </dl>
                 </div>
                 
@@ -220,16 +220,16 @@ const TrainModelPage = () => {
             ) : (
               <form onSubmit={handleSubmit} className="space-y-6">
                 <div>
-                  <label className="block text-sm font-medium text-gray-700 mb-2">Archivo CSV de entrenamiento</label>
-                  <div className="mt-1 flex justify-center px-6 pt-5 pb-6 border-2 border-gray-300 border-dashed rounded-md">
+                  <label className="block text-sm font-medium text-gray-700 dark:text-slate-200 mb-2">Archivo CSV de entrenamiento</label>
+                  <div className="mt-1 flex justify-center px-6 pt-5 pb-6 border-2 border-gray-300 dark:border-slate-600 border-dashed rounded-md">
                     <div className="space-y-1 text-center">
-                      <svg className="mx-auto h-12 w-12 text-gray-400" stroke="currentColor" fill="none" viewBox="0 0 48 48" aria-hidden="true">
+                      <svg className="mx-auto h-12 w-12 text-gray-400 dark:text-slate-400" stroke="currentColor" fill="none" viewBox="0 0 48 48" aria-hidden="true">
                         <path d="M28 8H12a4 4 0 00-4 4v20m32-12v8m0 0v8a4 4 0 01-4 4H12a4 4 0 01-4-4v-4m32-4l-3.172-3.172a4 4 0 00-5.656 0L28 28M8 32l9.172-9.172a4 4 0 015.656 0L28 28m0 0l4 4m4-24h8m-4-4v8m-12 4h.02" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" />
                       </svg>
-                      <div className="flex text-sm text-gray-600 justify-center">
+                      <div className="flex text-sm text-gray-600 dark:text-slate-300 justify-center">
                         <label 
                           htmlFor="file-upload" 
-                          className="relative cursor-pointer bg-white rounded-md font-medium text-blue-600 hover:text-blue-500 focus-within:outline-none focus-within:ring-2 focus-within:ring-offset-2 focus-within:ring-blue-500"
+                          className="relative cursor-pointer bg-white dark:bg-slate-900 rounded-md font-medium text-blue-600 dark:text-blue-400 hover:text-blue-500 dark:hover:text-blue-400 focus-within:outline-none focus-within:ring-2 focus-within:ring-offset-2 focus-within:ring-blue-500"
                         >
                           <span>Subir archivo</span>
                           <input
@@ -244,7 +244,7 @@ const TrainModelPage = () => {
                         </label>
                         <p className="pl-1">o arrastra y suelta</p>
                       </div>
-                      <p className="text-xs text-gray-500">CSV con columnas 'text' y 'label'</p>
+                      <p className="text-xs text-gray-500 dark:text-slate-400">CSV con columnas 'text' y 'label'</p>
                       {file && (
                         <p className="mt-2 text-xs text-green-500">
                           Archivo seleccionado: {fileName} ({(file.size / 1024).toFixed(1)} KB)
@@ -256,7 +256,7 @@ const TrainModelPage = () => {
 
                 <div className="grid grid-cols-1 sm:grid-cols-3 gap-6">
                   <div>
-                    <label htmlFor="epochs" className="block text-sm font-medium text-gray-700">
+                    <label htmlFor="epochs" className="block text-sm font-medium text-gray-700 dark:text-slate-200">
                       Épocas de entrenamiento
                     </label>
                     <div className="mt-1">
@@ -268,14 +268,14 @@ const TrainModelPage = () => {
                         max="10"
                         value={epochs}
                         onChange={(e) => setEpochs(Number(e.target.value))}
-                        className="shadow-sm focus:ring-blue-500 focus:border-blue-500 block w-full sm:text-sm border-gray-300 rounded-md"
+                        className="shadow-sm focus:ring-blue-500 focus:border-blue-500 block w-full sm:text-sm border-gray-300 dark:border-slate-600 rounded-md"
                       />
                     </div>
-                    <p className="mt-1 text-xs text-gray-500">Recomendado: 3-5 épocas</p>
+                    <p className="mt-1 text-xs text-gray-500 dark:text-slate-400">Recomendado: 3-5 épocas</p>
                   </div>
 
                   <div>
-                    <label htmlFor="batchSize" className="block text-sm font-medium text-gray-700">
+                    <label htmlFor="batchSize" className="block text-sm font-medium text-gray-700 dark:text-slate-200">
                       Tamaño de batch
                     </label>
                     <div className="mt-1">
@@ -287,14 +287,14 @@ const TrainModelPage = () => {
                         max="32"
                         value={batchSize}
                         onChange={(e) => setBatchSize(Number(e.target.value))}
-                        className="shadow-sm focus:ring-blue-500 focus:border-blue-500 block w-full sm:text-sm border-gray-300 rounded-md"
+                        className="shadow-sm focus:ring-blue-500 focus:border-blue-500 block w-full sm:text-sm border-gray-300 dark:border-slate-600 rounded-md"
                       />
                     </div>
-                    <p className="mt-1 text-xs text-gray-500">Recomendado: 8-16</p>
+                    <p className="mt-1 text-xs text-gray-500 dark:text-slate-400">Recomendado: 8-16</p>
                   </div>
 
                   <div>
-                    <label htmlFor="learningRate" className="block text-sm font-medium text-gray-700">
+                    <label htmlFor="learningRate" className="block text-sm font-medium text-gray-700 dark:text-slate-200">
                       Tasa de aprendizaje
                     </label>
                     <div className="mt-1">
@@ -307,27 +307,27 @@ const TrainModelPage = () => {
                         max="0.01"
                         value={learningRate}
                         onChange={(e) => setLearningRate(Number(e.target.value))}
-                        className="shadow-sm focus:ring-blue-500 focus:border-blue-500 block w-full sm:text-sm border-gray-300 rounded-md"
+                        className="shadow-sm focus:ring-blue-500 focus:border-blue-500 block w-full sm:text-sm border-gray-300 dark:border-slate-600 rounded-md"
                       />
                     </div>
-                    <p className="mt-1 text-xs text-gray-500">Recomendado: 2e-5</p>
+                    <p className="mt-1 text-xs text-gray-500 dark:text-slate-400">Recomendado: 2e-5</p>
                   </div>
                 </div>
 
                 {progress !== null && (
                   <div>
                     <div className="flex justify-between items-center mb-1">
-                      <span className="text-sm font-medium text-gray-700">Progreso del entrenamiento</span>
-                      <span className="text-sm font-medium text-gray-700">{progress}%</span>
+                      <span className="text-sm font-medium text-gray-700 dark:text-slate-200">Progreso del entrenamiento</span>
+                      <span className="text-sm font-medium text-gray-700 dark:text-slate-200">{progress}%</span>
                     </div>
-                    <div className="w-full bg-gray-200 rounded-full h-2.5">
+                    <div className="w-full bg-gray-200 dark:bg-slate-700 rounded-full h-2.5">
                       <div 
                         className="bg-blue-600 h-2.5 rounded-full transition-all duration-300" 
                         style={{ width: `${progress}%` }}
                       ></div>
                     </div>
                     {progress < 100 && (
-                      <p className="mt-2 text-xs text-gray-500">
+                      <p className="mt-2 text-xs text-gray-500 dark:text-slate-400">
                         El entrenamiento puede tardar varios minutos dependiendo del tamaño del dataset.
                       </p>
                     )}
@@ -337,7 +337,7 @@ const TrainModelPage = () => {
                 <div className="flex justify-end space-x-3">
                   <Link
                     href="/admin/dashboard"
-                    className="px-4 py-2 border border-gray-300 rounded-md shadow-sm text-sm font-medium text-gray-700 bg-white hover:bg-gray-50 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-blue-500"
+                    className="px-4 py-2 border border-gray-300 dark:border-slate-600 rounded-md shadow-sm text-sm font-medium text-gray-700 dark:text-slate-200 bg-white dark:bg-slate-900 hover:bg-gray-50 dark:hover:bg-slate-950 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-blue-500"
                   >
                     Cancelar
                   </Link>

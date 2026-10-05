@@ -154,7 +154,7 @@ export default function NewsDetailPage() {
     const getClassificationBadge = () => {
         if (!news || !news.clasificaciones || news.clasificaciones.length === 0) {
             return (
-                <span className="bg-gray-100 text-gray-800 text-xs font-medium px-3 py-1 rounded-full shadow-sm">
+                <span className="bg-gray-100 dark:bg-slate-800 text-gray-800 dark:text-slate-100 text-xs font-medium px-3 py-1 rounded-full shadow-sm">
                     Sin clasificar
                 </span>
             );
@@ -162,20 +162,20 @@ export default function NewsDetailPage() {
 
         const classification = news.clasificaciones[0];
 
-        let badgeColor = 'bg-gray-100 text-gray-800';
+        let badgeColor = 'bg-gray-100 dark:bg-slate-800 text-gray-800 dark:text-slate-100';
         let Icon = Info;
 
         switch (classification.resultado) {
             case 'verdadera':
-                badgeColor = 'bg-green-100 text-green-800 border border-green-200';
+                badgeColor = 'bg-green-100 dark:bg-green-900/40 text-green-800 dark:text-green-300 border border-green-200 dark:border-green-800';
                 Icon = CheckCircle;
                 break;
             case 'falsa':
-                badgeColor = 'bg-red-100 text-red-800 border border-red-200';
+                badgeColor = 'bg-red-100 dark:bg-red-900/40 text-red-800 dark:text-red-300 border border-red-200 dark:border-red-800';
                 Icon = AlertTriangle;
                 break;
             case 'dudosa':
-                badgeColor = 'bg-yellow-100 text-yellow-800 border border-yellow-200';
+                badgeColor = 'bg-yellow-100 dark:bg-yellow-900/40 text-yellow-800 dark:text-yellow-300 border border-yellow-200 dark:border-yellow-800';
                 Icon = Info;
                 break;
         }
@@ -327,11 +327,11 @@ export default function NewsDetailPage() {
                         {/* Mostrar el indicador de carga solo si no está cargado el tweet */}
                         {!isTweetLoaded && (
                             <div className="animate-pulse flex flex-col items-center absolute">
-                                <div className="rounded-md bg-gray-200 h-16 w-16 mb-3"></div>
-                                <div className="h-2 bg-gray-200 rounded w-48 mb-2"></div>
-                                <div className="h-2 bg-gray-200 rounded w-40 mb-2"></div>
-                                <div className="h-2 bg-gray-200 rounded w-32"></div>
-                                <div className="mt-4 text-sm text-gray-500">Cargando tweet...</div>
+                                <div className="rounded-md bg-gray-200 dark:bg-slate-700 h-16 w-16 mb-3"></div>
+                                <div className="h-2 bg-gray-200 dark:bg-slate-700 rounded w-48 mb-2"></div>
+                                <div className="h-2 bg-gray-200 dark:bg-slate-700 rounded w-40 mb-2"></div>
+                                <div className="h-2 bg-gray-200 dark:bg-slate-700 rounded w-32"></div>
+                                <div className="mt-4 text-sm text-gray-500 dark:text-slate-400">Cargando tweet...</div>
                             </div>
                         )}
                     </div>
@@ -344,13 +344,13 @@ export default function NewsDetailPage() {
             <div className="mt-4 relative min-h-[300px]">
                 {/* Indicador de carga para sitios web normales */}
                 {!isWebContentLoaded && (
-                    <div className="absolute inset-0 flex flex-col items-center justify-center bg-gray-50 rounded-lg z-10">
+                    <div className="absolute inset-0 flex flex-col items-center justify-center bg-gray-50 dark:bg-slate-950 rounded-lg z-10">
                         <div className="animate-pulse flex flex-col items-center">
-                            <div className="rounded-md bg-gray-200 h-20 w-32 mb-3"></div>
-                            <div className="h-2 bg-gray-200 rounded w-48 mb-2"></div>
-                            <div className="h-2 bg-gray-200 rounded w-64 mb-2"></div>
-                            <div className="h-2 bg-gray-200 rounded w-40"></div>
-                            <div className="mt-4 text-sm text-gray-500">Cargando contenido...</div>
+                            <div className="rounded-md bg-gray-200 dark:bg-slate-700 h-20 w-32 mb-3"></div>
+                            <div className="h-2 bg-gray-200 dark:bg-slate-700 rounded w-48 mb-2"></div>
+                            <div className="h-2 bg-gray-200 dark:bg-slate-700 rounded w-64 mb-2"></div>
+                            <div className="h-2 bg-gray-200 dark:bg-slate-700 rounded w-40"></div>
+                            <div className="mt-4 text-sm text-gray-500 dark:text-slate-400">Cargando contenido...</div>
                         </div>
                     </div>
                 )}
@@ -370,7 +370,7 @@ export default function NewsDetailPage() {
 
     if (loading) {
         return (
-            <div className="min-h-screen bg-gray-50 py-12 flex justify-center items-center">
+            <div className="min-h-screen bg-gray-50 dark:bg-slate-950 py-12 flex justify-center items-center">
                 <div className="animate-spin rounded-full h-12 w-12 border-t-2 border-b-2 border-blue-500"></div>
             </div>
         );
@@ -378,10 +378,10 @@ export default function NewsDetailPage() {
 
     if (error || !news) {
         return (
-            <div className="min-h-screen bg-gray-50 py-12 flex justify-center items-center">
-                <div className="bg-red-50 p-8 rounded-lg text-center">
-                    <h2 className="text-2xl font-bold text-red-800 mb-4">Error</h2>
-                    <p className="text-red-600 mb-6">{error || 'Noticia no encontrada'}</p>
+            <div className="min-h-screen bg-gray-50 dark:bg-slate-950 py-12 flex justify-center items-center">
+                <div className="bg-red-50 dark:bg-red-950/40 p-8 rounded-lg text-center">
+                    <h2 className="text-2xl font-bold text-red-800 dark:text-red-300 mb-4">Error</h2>
+                    <p className="text-red-600 dark:text-red-300 mb-6">{error || 'Noticia no encontrada'}</p>
                     <button
                         onClick={() => router.push('/news')}
                         className="px-4 py-2 bg-blue-500 text-white rounded-md hover:bg-blue-600"
@@ -394,21 +394,21 @@ export default function NewsDetailPage() {
     }
 
     return (
-        <div className="min-h-screen bg-gray-50 pt-6 pb-12">
+        <div className="min-h-screen bg-gray-50 dark:bg-slate-950 pt-6 pb-12">
             {/* Contenedor principal con ancho reducido */}
             <div className="max-w-3xl mx-auto px-4 sm:px-6">
                 {/* Botón de volver arriba */}
                 <div className="mb-4">
                     <button
                         onClick={() => router.push('/news')}
-                        className="inline-flex items-center text-blue-600 hover:text-blue-800 transition-colors text-sm font-medium"
+                        className="inline-flex items-center text-blue-600 dark:text-blue-400 hover:text-blue-800 dark:hover:text-blue-200 transition-colors text-sm font-medium"
                     >
                         <ChevronLeft className="h-4 w-4 mr-1" />
                         Volver a noticias
                     </button>
                 </div>
 
-                <div className="bg-white shadow-md rounded-xl overflow-hidden">
+                <div className="bg-white dark:bg-slate-900 shadow-md rounded-xl overflow-hidden">
                     {/* Encabezado de la noticia */}
                     <div className="px-6 pt-6 pb-4">
                         <div className="flex flex-col gap-3">
@@ -427,7 +427,7 @@ export default function NewsDetailPage() {
                                             )}
                                         </>
                                     )}
-                                    <span className="text-sm font-medium text-gray-700">
+                                    <span className="text-sm font-medium text-gray-700 dark:text-slate-200">
                                         {news.tema?.nombre || 'General'}
                                     </span>
                                 </div>
@@ -436,19 +436,19 @@ export default function NewsDetailPage() {
                                 </div>
                             </div>
 
-                            <h1 className="text-2xl font-bold text-gray-900 leading-tight">{news.titulo}</h1>
+                            <h1 className="text-2xl font-bold text-gray-900 dark:text-slate-100 leading-tight">{news.titulo}</h1>
 
                             {/* Fecha e información de la fuente */}
-                            <div className="flex flex-wrap items-center justify-between text-sm text-gray-500">
+                            <div className="flex flex-wrap items-center justify-between text-sm text-gray-500 dark:text-slate-400">
                                 <div className="flex items-center mr-4 mb-2 sm:mb-0">
-                                    <Calendar className="h-4 w-4 mr-1 text-gray-400" />
+                                    <Calendar className="h-4 w-4 mr-1 text-gray-400 dark:text-slate-400" />
                                     <span>{formatDate(news.fecha_publicacion)}</span>
                                 </div>
 
                                 {news.fuente && (
                                     <button
                                         onClick={handleReportClick}
-                                        className="text-red-500 hover:text-red-700 transition-colors"
+                                        className="text-red-500 hover:text-red-700 dark:hover:text-red-300 transition-colors"
                                         title="Reportar fuente"
                                     >
                                         <Flag className="h-4 w-4" />
@@ -469,7 +469,7 @@ export default function NewsDetailPage() {
                                     onClick={() => handleInteraction('marcar_confiable')}
                                     className={`p-2 rounded-full transition-colors flex items-center ${userInteractions.marcar_confiable
                                         ? 'text-white bg-green-500 hover:bg-green-600'
-                                        : 'text-gray-600 hover:bg-gray-100'
+                                        : 'text-gray-600 dark:text-slate-300 hover:bg-gray-100 dark:hover:bg-slate-800'
                                         }`}
                                     title="Marcar como confiable"
                                 >
@@ -481,7 +481,7 @@ export default function NewsDetailPage() {
                                     onClick={() => handleInteraction('marcar_dudosa')}
                                     className={`p-2 rounded-full transition-colors flex items-center ${userInteractions.marcar_dudosa
                                         ? 'text-white bg-red-500 hover:bg-red-600'
-                                        : 'text-gray-600 hover:bg-gray-100'
+                                        : 'text-gray-600 dark:text-slate-300 hover:bg-gray-100 dark:hover:bg-slate-800'
                                         }`}
                                     title="Marcar como dudosa"
                                 >
@@ -491,7 +491,7 @@ export default function NewsDetailPage() {
 
                                 <button
                                     onClick={handleShare}
-                                    className="p-2 rounded-full text-gray-600 hover:bg-gray-100 transition-colors flex items-center"
+                                    className="p-2 rounded-full text-gray-600 dark:text-slate-300 hover:bg-gray-100 dark:hover:bg-slate-800 transition-colors flex items-center"
                                     title="Compartir"
                                 >
                                     <Share2 className="h-5 w-5 mr-1" />
@@ -503,7 +503,7 @@ export default function NewsDetailPage() {
                                         href={news.url}
                                         target="_blank"
                                         rel="noopener noreferrer"
-                                        className="p-2 rounded-full text-gray-600 hover:bg-gray-100 transition-colors"
+                                        className="p-2 rounded-full text-gray-600 dark:text-slate-300 hover:bg-gray-100 dark:hover:bg-slate-800 transition-colors"
                                         title="Ver fuente original"
                                     >
                                         <ExternalLink className="h-5 w-5" />
@@ -515,11 +515,11 @@ export default function NewsDetailPage() {
 
                     {/* Botones para alternar entre contenido original y resumen */}
                     {news.url && (
-                        <div className="px-6 py-2 border-b border-t border-gray-100 flex">
+                        <div className="px-6 py-2 border-b border-t border-gray-100 dark:border-slate-800 flex">
                             <button
                                 className={`px-4 py-2 rounded-full mr-2 text-sm font-medium transition-colors ${showOriginal
                                     ? 'bg-blue-500 text-white shadow-sm'
-                                    : 'bg-gray-100 text-gray-700 hover:bg-gray-200'
+                                    : 'bg-gray-100 dark:bg-slate-800 text-gray-700 dark:text-slate-200 hover:bg-gray-200 dark:hover:bg-slate-700'
                                     }`}
                                 onClick={() => setShowOriginal(true)}
                             >
@@ -528,7 +528,7 @@ export default function NewsDetailPage() {
                             <button
                                 className={`px-4 py-2 rounded-full text-sm font-medium transition-colors ${!showOriginal
                                     ? 'bg-blue-500 text-white shadow-sm'
-                                    : 'bg-gray-100 text-gray-700 hover:bg-gray-200'
+                                    : 'bg-gray-100 dark:bg-slate-800 text-gray-700 dark:text-slate-200 hover:bg-gray-200 dark:hover:bg-slate-700'
                                     }`}
                                 onClick={() => setShowOriginal(false)}
                             >
@@ -542,19 +542,19 @@ export default function NewsDetailPage() {
                         {showOriginal && news.url ? (
                             renderContentFrame()
                         ) : (
-                            <div className="prose max-w-none text-gray-800">
+                            <div className="prose max-w-none text-gray-800 dark:text-slate-100">
                                 {news.contenido.split('\n').map((paragraph, idx) => (
                                     paragraph ? <p key={idx} className="mb-4">{paragraph}</p> : <br key={idx} />
                                 ))}
 
                                 {/* Información del análisis */}
                                 {news.clasificaciones && news.clasificaciones.length > 0 && news.clasificaciones[0].explicacion && (
-                                    <div className="mt-8 bg-gray-50 p-4 rounded-lg border border-gray-200 shadow-sm">
-                                        <h3 className="text-lg font-semibold text-gray-800 mb-3 flex items-center">
-                                            <BarChart2 className="mr-2 h-5 w-5 text-blue-500" />
+                                    <div className="mt-8 bg-gray-50 dark:bg-slate-950 p-4 rounded-lg border border-gray-200 dark:border-slate-700 shadow-sm">
+                                        <h3 className="text-lg font-semibold text-gray-800 dark:text-slate-100 mb-3 flex items-center">
+                                            <BarChart2 className="mr-2 h-5 w-5 text-blue-500 dark:text-blue-400" />
                                             Análisis de veracidad
                                         </h3>
-                                        <p className="italic text-gray-700">{news.clasificaciones[0].explicacion}</p>
+                                        <p className="italic text-gray-700 dark:text-slate-200">{news.clasificaciones[0].explicacion}</p>
                                     </div>
                                 )}
                             </div>
@@ -562,31 +562,31 @@ export default function NewsDetailPage() {
 
                         {/* Información adicional */}
                         {news.fuente && !showOriginal && (
-                            <div className="mt-6 bg-blue-50 p-4 rounded-lg shadow-sm">
-                                <h3 className="text-md font-semibold text-blue-800 mb-2 flex items-center">
+                            <div className="mt-6 bg-blue-50 dark:bg-blue-950/50 p-4 rounded-lg shadow-sm">
+                                <h3 className="text-md font-semibold text-blue-800 dark:text-blue-200 mb-2 flex items-center">
                                     <Info className="mr-2 h-4 w-4" />
                                     Información de la fuente
                                 </h3>
                                 <div className="flex flex-col gap-2">
-                                    <p className="text-blue-700 flex items-center text-sm">
+                                    <p className="text-blue-700 dark:text-blue-300 flex items-center text-sm">
                                         <span className="font-medium min-w-[100px]">Nombre:</span>
                                         {news.fuente.nombre}
                                     </p>
                                     {news.fuente.url && (
-                                        <p className="text-blue-700 flex items-center text-sm">
+                                        <p className="text-blue-700 dark:text-blue-300 flex items-center text-sm">
                                             <span className="font-medium min-w-[100px]">URL:</span>
                                             <a
                                                 href={news.fuente.url}
                                                 target="_blank"
                                                 rel="noopener noreferrer"
-                                                className="underline hover:text-blue-800 transition-colors overflow-hidden text-ellipsis"
+                                                className="underline hover:text-blue-800 dark:hover:text-blue-200 transition-colors overflow-hidden text-ellipsis"
                                             >
                                                 {news.fuente.url}
                                             </a>
                                         </p>
                                     )}
                                     {news.fuente.confiabilidad && (
-                                        <p className="text-blue-700 flex items-center text-sm">
+                                        <p className="text-blue-700 dark:text-blue-300 flex items-center text-sm">
                                             <span className="font-medium min-w-[100px]">Confiabilidad:</span>
                                             <span className="inline-flex items-center">
                                                 {Math.round(news.fuente.confiabilidad * 100)}%
@@ -600,27 +600,27 @@ export default function NewsDetailPage() {
 
                         {/* Información del modelo de ML */}
                         {news.clasificaciones && news.clasificaciones[0]?.modelo && !showOriginal && (
-                            <div className="mt-4 bg-purple-50 p-4 rounded-lg shadow-sm">
-                                <h3 className="text-md font-semibold text-purple-800 mb-2 flex items-center">
+                            <div className="mt-4 bg-purple-50 dark:bg-purple-950/40 p-4 rounded-lg shadow-sm">
+                                <h3 className="text-md font-semibold text-purple-800 dark:text-purple-300 mb-2 flex items-center">
                                     <BarChart2 className="mr-2 h-4 w-4" />
                                     Modelo de análisis
                                 </h3>
                                 <div className="grid grid-cols-1 sm:grid-cols-3 gap-3">
-                                    <div className="bg-white p-3 rounded-md shadow-sm">
-                                        <p className="text-purple-700 text-xs font-medium">Modelo</p>
-                                        <p className="text-gray-800 font-bold text-sm mt-1">
+                                    <div className="bg-white dark:bg-slate-900 p-3 rounded-md shadow-sm">
+                                        <p className="text-purple-700 dark:text-purple-300 text-xs font-medium">Modelo</p>
+                                        <p className="text-gray-800 dark:text-slate-100 font-bold text-sm mt-1">
                                             {news.clasificaciones[0].modelo.nombre} v{news.clasificaciones[0].modelo.version}
                                         </p>
                                     </div>
-                                    <div className="bg-white p-3 rounded-md shadow-sm">
-                                        <p className="text-purple-700 text-xs font-medium">Precisión</p>
-                                        <p className="text-gray-800 font-bold text-sm mt-1">
+                                    <div className="bg-white dark:bg-slate-900 p-3 rounded-md shadow-sm">
+                                        <p className="text-purple-700 dark:text-purple-300 text-xs font-medium">Precisión</p>
+                                        <p className="text-gray-800 dark:text-slate-100 font-bold text-sm mt-1">
                                             {(news.clasificaciones[0].modelo.precision * 100).toFixed(1)}%
                                         </p>
                                     </div>
-                                    <div className="bg-white p-3 rounded-md shadow-sm">
-                                        <p className="text-purple-700 text-xs font-medium">F1-Score</p>
-                                        <p className="text-gray-800 font-bold text-sm mt-1">
+                                    <div className="bg-white dark:bg-slate-900 p-3 rounded-md shadow-sm">
+                                        <p className="text-purple-700 dark:text-purple-300 text-xs font-medium">F1-Score</p>
+                                        <p className="text-gray-800 dark:text-slate-100 font-bold text-sm mt-1">
                                             {(news.clasificaciones[0].modelo.f1_score * 100).toFixed(1)}%
                                         </p>
                                     </div>
@@ -631,8 +631,8 @@ export default function NewsDetailPage() {
 
                     {/* Footer */}
                     {!user && (
-                        <div className="px-6 py-3 bg-blue-50 border-t border-blue-100 text-center text-sm">
-                            <p className="text-blue-700 font-medium">
+                        <div className="px-6 py-3 bg-blue-50 dark:bg-blue-950/50 border-t border-blue-100 dark:border-blue-900 text-center text-sm">
+                            <p className="text-blue-700 dark:text-blue-300 font-medium">
                                 Inicia sesión para interactuar con esta noticia y ayudar a verificar su veracidad
                             </p>
                         </div>

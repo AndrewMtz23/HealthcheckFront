@@ -137,8 +137,8 @@ const ChatWidget = ({ onClose }: ChatWidgetProps) => {
       >
         {!isUserMessage && (
           <div className="flex-shrink-0 mr-2">
-            <div className="w-8 h-8 rounded-full bg-blue-100 flex items-center justify-center">
-              <svg xmlns="http://www.w3.org/2000/svg" className="h-5 w-5 text-blue-600" viewBox="0 0 20 20" fill="currentColor">
+            <div className="w-8 h-8 rounded-full bg-blue-100 dark:bg-blue-900/40 flex items-center justify-center">
+              <svg xmlns="http://www.w3.org/2000/svg" className="h-5 w-5 text-blue-600 dark:text-blue-400" viewBox="0 0 20 20" fill="currentColor">
                 <path d="M2 10a8 8 0 018-8v8h8a8 8 0 11-16 0z" />
                 <path d="M12 2.252A8.014 8.014 0 0117.748 8H12V2.252z" />
               </svg>
@@ -150,13 +150,13 @@ const ChatWidget = ({ onClose }: ChatWidgetProps) => {
           className={`max-w-[75%] rounded-2xl px-4 py-3 mb-2 ${
             isUserMessage
               ? 'bg-blue-600 text-white rounded-tr-none'
-              : 'bg-gray-100 text-gray-800 rounded-tl-none'
+              : 'bg-gray-100 dark:bg-slate-800 text-gray-800 dark:text-slate-100 rounded-tl-none'
           }`}
         >
           <div className="text-sm">{message.content}</div>
           <div
             className={`text-xs mt-1 ${
-              isUserMessage ? 'text-blue-100' : 'text-gray-500'
+              isUserMessage ? 'text-blue-100' : 'text-gray-500 dark:text-slate-400'
             }`}
           >
             {formatTimestamp(message.timestamp)}
@@ -165,8 +165,8 @@ const ChatWidget = ({ onClose }: ChatWidgetProps) => {
         
         {isUserMessage && (
           <div className="flex-shrink-0 ml-2">
-            <div className="w-8 h-8 rounded-full bg-gray-200 flex items-center justify-center">
-              <span className="text-sm text-gray-600">{user?.nombre?.charAt(0).toUpperCase() || 'U'}</span>
+            <div className="w-8 h-8 rounded-full bg-gray-200 dark:bg-slate-700 flex items-center justify-center">
+              <span className="text-sm text-gray-600 dark:text-slate-300">{user?.nombre?.charAt(0).toUpperCase() || 'U'}</span>
             </div>
           </div>
         )}
@@ -176,13 +176,13 @@ const ChatWidget = ({ onClose }: ChatWidgetProps) => {
 
   return (
     <div 
-      className={`fixed bottom-4 right-4 flex flex-col bg-white rounded-2xl shadow-2xl border border-gray-200 transition-all duration-300 ease-in-out ${
+      className={`fixed bottom-4 right-4 flex flex-col bg-white dark:bg-slate-900 rounded-2xl shadow-2xl border border-gray-200 dark:border-slate-700 transition-all duration-300 ease-in-out ${
         isExpanded ? 'w-[calc(100vw-2rem)] sm:w-96 h-[500px] max-h-[calc(100dvh-2rem)]' : 'w-64 h-16'
       }`}
     >
       {/* Cabecera */}
       <div 
-        className="shrink-0 bg-gradient-to-r from-blue-600 to-blue-700 text-white p-4 rounded-t-2xl flex justify-between items-center cursor-pointer"
+        className="shrink-0 bg-gradient-to-r from-blue-600 dark:from-blue-900 to-blue-700 dark:to-blue-800 text-white p-4 rounded-t-2xl flex justify-between items-center cursor-pointer"
         onClick={() => setIsExpanded(!isExpanded)}
       >
         <div className="flex items-center space-x-2">
@@ -232,20 +232,20 @@ const ChatWidget = ({ onClose }: ChatWidgetProps) => {
       {isExpanded && (
         <>
           {/* Mensajes */}
-          <div className="min-h-0 flex-1 overflow-y-auto p-4 bg-white space-y-4 scrollbar-thin">
+          <div className="min-h-0 flex-1 overflow-y-auto p-4 bg-white dark:bg-slate-900 space-y-4 scrollbar-thin">
             {messages.map((message, index) => renderMessage(message, index))}
             
             {isTyping && (
               <div className="flex justify-start">
                 <div className="flex-shrink-0 mr-2">
-                  <div className="w-8 h-8 rounded-full bg-blue-100 flex items-center justify-center">
-                    <svg xmlns="http://www.w3.org/2000/svg" className="h-5 w-5 text-blue-600" viewBox="0 0 20 20" fill="currentColor">
+                  <div className="w-8 h-8 rounded-full bg-blue-100 dark:bg-blue-900/40 flex items-center justify-center">
+                    <svg xmlns="http://www.w3.org/2000/svg" className="h-5 w-5 text-blue-600 dark:text-blue-400" viewBox="0 0 20 20" fill="currentColor">
                       <path d="M2 10a8 8 0 018-8v8h8a8 8 0 11-16 0z" />
                       <path d="M12 2.252A8.014 8.014 0 0117.748 8H12V2.252z" />
                     </svg>
                   </div>
                 </div>
-                <div className="max-w-[75%] bg-gray-100 text-gray-800 rounded-2xl rounded-tl-none px-4 py-3 mb-2">
+                <div className="max-w-[75%] bg-gray-100 dark:bg-slate-800 text-gray-800 dark:text-slate-100 rounded-2xl rounded-tl-none px-4 py-3 mb-2">
                   <div className="flex space-x-1 items-center h-5">
                     <div className="w-2 h-2 bg-gray-400 rounded-full animate-bounce" style={{ animationDelay: '0ms' }}></div>
                     <div className="w-2 h-2 bg-gray-400 rounded-full animate-bounce" style={{ animationDelay: '300ms' }}></div>
@@ -259,14 +259,14 @@ const ChatWidget = ({ onClose }: ChatWidgetProps) => {
           </div>
 
           {/* Formulario de entrada */}
-          <form onSubmit={handleSubmit} className="p-3 border-t border-gray-100 bg-white rounded-b-2xl">
-            <div className="flex items-center bg-gray-50 rounded-full border border-gray-200 overflow-hidden pl-4 pr-1 py-1">
+          <form onSubmit={handleSubmit} className="p-3 border-t border-gray-100 dark:border-slate-800 bg-white dark:bg-slate-900 rounded-b-2xl">
+            <div className="flex items-center bg-gray-50 dark:bg-slate-950 rounded-full border border-gray-200 dark:border-slate-700 overflow-hidden pl-4 pr-1 py-1">
               <input
                 ref={inputRef}
                 type="text"
                 value={input}
                 onChange={(e) => setInput(e.target.value)}
-                className="min-w-0 flex-1 bg-transparent border-none focus:ring-0 text-sm text-gray-700 placeholder-gray-400 outline-none"
+                className="min-w-0 flex-1 bg-transparent border-none focus:ring-0 text-sm text-gray-700 dark:text-slate-200 placeholder-gray-400 dark:placeholder-slate-500 outline-none"
                 placeholder="Escribe tu mensaje..."
                 disabled={isTyping}
               />
@@ -276,7 +276,7 @@ const ChatWidget = ({ onClose }: ChatWidgetProps) => {
                 className={`w-8 h-8 flex items-center justify-center rounded-full ${
                   input.trim() && !isTyping 
                     ? 'bg-blue-600 text-white' 
-                    : 'bg-gray-200 text-gray-400 cursor-not-allowed'
+                    : 'bg-gray-200 dark:bg-slate-700 text-gray-400 dark:text-slate-400 cursor-not-allowed'
                 }`}
                 disabled={!input.trim() || isTyping}
               >
@@ -287,7 +287,7 @@ const ChatWidget = ({ onClose }: ChatWidgetProps) => {
             </div>
             
             {/* Disclaimer o notas al pie */}
-            <div className="text-xs text-center text-gray-400 mt-2">
+            <div className="text-xs text-center text-gray-400 dark:text-slate-400 mt-2">
               Este asistente está entrenado para proporcionar información sobre temas de salud
             </div>
           </form>

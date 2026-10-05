@@ -3,6 +3,7 @@ import Link from 'next/link';
 import { ArrowLeft } from 'lucide-react';
 import styles from './auth.module.css';
 import BrandWordmark from '@/components/layout/BrandWordmark';
+import ThemeSelector from '@/components/layout/ThemeSelector';
 
 function Brand({ light = false }: { light?: boolean }) {
   return (
@@ -31,6 +32,7 @@ export default function AuthShell({ children, variant }: { children: React.React
         <div className={styles.formPanel}>
           <header className={styles.panelTop}>
             <div className={styles.mobileBrand}><Brand /></div>
+            <ThemeSelector />
             <Link href="/" className={styles.back}><ArrowLeft size={15} aria-hidden="true" /><span>Volver al inicio</span></Link>
           </header>
           <div className={styles.formStage}>{children}</div>

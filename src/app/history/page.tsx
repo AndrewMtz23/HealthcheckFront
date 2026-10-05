@@ -145,7 +145,7 @@ export default function HistoryPage() {
   // Función para obtener ícono según clasificación
   const getClassificationIcon = (classifications: any[] | undefined) => {
     if (!classifications || classifications.length === 0) {
-      return <Info className="h-5 w-5 text-gray-400" />;
+      return <Info className="h-5 w-5 text-gray-400 dark:text-slate-400" />;
     }
 
     const classification = classifications[0];
@@ -158,35 +158,35 @@ export default function HistoryPage() {
       case 'dudosa':
         return <Info className="h-5 w-5 text-yellow-500" />;
       default:
-        return <Info className="h-5 w-5 text-gray-400" />;
+        return <Info className="h-5 w-5 text-gray-400 dark:text-slate-400" />;
     }
   };
 
   // Renderizar mensaje de carga o error
   if (loading) {
     return (
-      <div className="min-h-screen pt-16 bg-gray-50 flex justify-center items-center">
+      <div className="min-h-screen pt-16 bg-gray-50 dark:bg-slate-950 flex justify-center items-center">
         <div className="animate-spin rounded-full h-12 w-12 border-t-2 border-b-2 border-blue-500"></div>
       </div>
     );
   }
 
   return (
-    <div className="min-h-screen pt-16 pb-12 bg-gray-50">
+    <div className="min-h-screen pt-16 pb-12 bg-gray-50 dark:bg-slate-950">
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-8">
         <div className="mb-8">
-          <h1 className="text-3xl font-bold text-gray-900">Historial de consultas</h1>
-          <p className="mt-2 text-lg text-gray-600">
+          <h1 className="text-3xl font-bold text-gray-900 dark:text-slate-100">Historial de consultas</h1>
+          <p className="mt-2 text-lg text-gray-600 dark:text-slate-300">
             Revisa las noticias que has consultado recientemente.
           </p>
         </div>
 
         {/* Filtros y acciones */}
-        <div className="bg-white rounded-lg shadow mb-6 overflow-hidden">
-          <div className="px-4 sm:px-6 py-4 flex flex-wrap gap-4 justify-between items-center border-b border-gray-200">
+        <div className="bg-white dark:bg-slate-900 rounded-lg shadow mb-6 overflow-hidden">
+          <div className="px-4 sm:px-6 py-4 flex flex-wrap gap-4 justify-between items-center border-b border-gray-200 dark:border-slate-700">
             <button
               onClick={() => setShowFilters(!showFilters)}
-              className="text-blue-600 hover:text-blue-800 font-medium flex items-center"
+              className="text-blue-600 dark:text-blue-400 hover:text-blue-800 dark:hover:text-blue-200 font-medium flex items-center"
             >
               <Calendar className="mr-2 h-5 w-5" />
               {showFilters ? 'Ocultar filtros' : 'Filtrar por fecha'}
@@ -194,7 +194,7 @@ export default function HistoryPage() {
             
             <button
               onClick={() => setShowClearConfirm(true)}
-              className="text-red-600 hover:text-red-800 font-medium flex items-center"
+              className="text-red-600 dark:text-red-300 hover:text-red-800 dark:hover:text-red-300 font-medium flex items-center"
               disabled={totalItems === 0 || isDeleting}
             >
               <Trash2 className="mr-2 h-5 w-5" />
@@ -204,10 +204,10 @@ export default function HistoryPage() {
 
           {/* Panel de filtros */}
           {showFilters && (
-            <div className="px-6 py-4 bg-gray-50 border-b border-gray-200">
+            <div className="px-6 py-4 bg-gray-50 dark:bg-slate-950 border-b border-gray-200 dark:border-slate-700">
               <div className="flex flex-wrap gap-4">
                 <div className="w-full sm:w-auto">
-                  <label htmlFor="startDate" className="block text-sm font-medium text-gray-700 mb-1">
+                  <label htmlFor="startDate" className="block text-sm font-medium text-gray-700 dark:text-slate-200 mb-1">
                     Fecha inicial
                   </label>
                   <input
@@ -215,12 +215,12 @@ export default function HistoryPage() {
                     id="startDate"
                     value={startDate}
                     onChange={(e) => setStartDate(e.target.value)}
-                    className="block w-full py-2 px-3 border border-gray-300 rounded-md shadow-sm focus:ring-blue-500 focus:border-blue-500 sm:text-sm"
+                    className="block w-full py-2 px-3 border border-gray-300 dark:border-slate-600 rounded-md shadow-sm focus:ring-blue-500 focus:border-blue-500 sm:text-sm"
                   />
                 </div>
                 
                 <div className="w-full sm:w-auto">
-                  <label htmlFor="endDate" className="block text-sm font-medium text-gray-700 mb-1">
+                  <label htmlFor="endDate" className="block text-sm font-medium text-gray-700 dark:text-slate-200 mb-1">
                     Fecha final
                   </label>
                   <input
@@ -228,7 +228,7 @@ export default function HistoryPage() {
                     id="endDate"
                     value={endDate}
                     onChange={(e) => setEndDate(e.target.value)}
-                    className="block w-full py-2 px-3 border border-gray-300 rounded-md shadow-sm focus:ring-blue-500 focus:border-blue-500 sm:text-sm"
+                    className="block w-full py-2 px-3 border border-gray-300 dark:border-slate-600 rounded-md shadow-sm focus:ring-blue-500 focus:border-blue-500 sm:text-sm"
                   />
                 </div>
                 
@@ -243,7 +243,7 @@ export default function HistoryPage() {
                   <button
                     onClick={clearFilters}
                     disabled={historyLoading || (!startDate && !endDate)}
-                    className="inline-flex items-center px-4 py-2 border border-gray-300 text-sm font-medium rounded-md text-gray-700 bg-white hover:bg-gray-50 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-blue-500"
+                    className="inline-flex items-center px-4 py-2 border border-gray-300 dark:border-slate-600 text-sm font-medium rounded-md text-gray-700 dark:text-slate-200 bg-white dark:bg-slate-900 hover:bg-gray-50 dark:hover:bg-slate-950 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-blue-500"
                   >
                     Limpiar
                   </button>
@@ -255,20 +255,20 @@ export default function HistoryPage() {
 
         {/* Mensaje de error */}
         {error && (
-          <div className="bg-red-50 border-l-4 border-red-400 p-4 mb-6">
+          <div className="bg-red-50 dark:bg-red-950/40 border-l-4 border-red-400 p-4 mb-6">
             <div className="flex">
               <div className="flex-shrink-0">
                 <AlertTriangle className="h-5 w-5 text-red-400" />
               </div>
               <div className="ml-3">
-                <p className="text-sm text-red-700">{error}</p>
+                <p className="text-sm text-red-700 dark:text-red-300">{error}</p>
               </div>
             </div>
           </div>
         )}
 
         {/* Lista de historial */}
-        <div className="bg-white shadow rounded-lg overflow-hidden">
+        <div className="bg-white dark:bg-slate-900 shadow rounded-lg overflow-hidden">
           {historyLoading ? (
             <div className="py-12 flex justify-center">
               <div className="animate-spin rounded-full h-10 w-10 border-t-2 border-b-2 border-blue-500"></div>
@@ -276,7 +276,7 @@ export default function HistoryPage() {
           ) : history.length === 0 ? (
             <div className="py-12 px-6 text-center">
               <svg
-                className="mx-auto h-12 w-12 text-gray-400"
+                className="mx-auto h-12 w-12 text-gray-400 dark:text-slate-400"
                 fill="none"
                 viewBox="0 0 24 24"
                 stroke="currentColor"
@@ -289,8 +289,8 @@ export default function HistoryPage() {
                   d="M9 5H7a2 2 0 00-2 2v12a2 2 0 002 2h10a2 2 0 002-2V7a2 2 0 00-2-2h-2M9 5a2 2 0 002 2h2a2 2 0 002-2M9 5a2 2 0 012-2h2a2 2 0 012 2"
                 />
               </svg>
-              <h3 className="mt-2 text-sm font-medium text-gray-900">No hay consultas en tu historial</h3>
-              <p className="mt-1 text-sm text-gray-500">
+              <h3 className="mt-2 text-sm font-medium text-gray-900 dark:text-slate-100">No hay consultas en tu historial</h3>
+              <p className="mt-1 text-sm text-gray-500 dark:text-slate-400">
                 Las noticias que consultes aparecerán aquí.
               </p>
               <div className="mt-6">
@@ -304,20 +304,20 @@ export default function HistoryPage() {
             </div>
           ) : (
             <>
-              <ul className="divide-y divide-gray-200">
+              <ul className="divide-y divide-gray-200 dark:divide-slate-700">
                 {history.map((entry) => (
                   <li key={entry.id} className="px-4 py-4 sm:px-6">
                     <div className="flex items-center justify-between">
                       <div className="flex items-center">
                         {getClassificationIcon(entry.noticia.clasificaciones)}
-                        <p className="ml-2 text-sm font-medium text-gray-600">
+                        <p className="ml-2 text-sm font-medium text-gray-600 dark:text-slate-300">
                           {formatDate(entry.fecha_consulta)}
                         </p>
                       </div>
                       <button
                         onClick={() => handleDeleteEntry(entry.id)}
                         disabled={isDeleting}
-                        className="ml-2 text-gray-400 hover:text-red-500 focus:outline-none"
+                        className="ml-2 text-gray-400 dark:text-slate-400 hover:text-red-500 focus:outline-none"
                         title="Eliminar del historial"
                       >
                         <Trash2 className="h-5 w-5" />
@@ -326,15 +326,15 @@ export default function HistoryPage() {
                     <div className="mt-2">
                       <Link
                         href={`/news/${entry.noticia_id}`}
-                        className="text-lg font-semibold text-gray-900 hover:text-blue-600"
+                        className="text-lg font-semibold text-gray-900 dark:text-slate-100 hover:text-blue-600 dark:hover:text-blue-400"
                       >
                         {entry.noticia.titulo}
                       </Link>
-                      <p className="mt-1 text-sm text-gray-600 line-clamp-2">
+                      <p className="mt-1 text-sm text-gray-600 dark:text-slate-300 line-clamp-2">
                         {entry.noticia.contenido}
                       </p>
                     </div>
-                    <div className="mt-2 flex items-center text-sm text-gray-500">
+                    <div className="mt-2 flex items-center text-sm text-gray-500 dark:text-slate-400">
                       <span className="mr-3">
                         Tema: {entry.noticia.tema?.nombre || 'General'}
                       </span>
@@ -350,10 +350,10 @@ export default function HistoryPage() {
 
               {/* Paginación */}
               {totalPages > 1 && (
-                <div className="bg-white px-4 py-3 flex items-center justify-between border-t border-gray-200 sm:px-6">
+                <div className="bg-white dark:bg-slate-900 px-4 py-3 flex items-center justify-between border-t border-gray-200 dark:border-slate-700 sm:px-6">
                   <div className="hidden sm:flex-1 sm:flex sm:items-center sm:justify-between">
                     <div>
-                      <p className="text-sm text-gray-700">
+                      <p className="text-sm text-gray-700 dark:text-slate-200">
                         Mostrando <span className="font-medium">{(currentPage - 1) * 10 + 1}</span> a{' '}
                         <span className="font-medium">
                           {Math.min(currentPage * 10, totalItems)}
@@ -366,7 +366,7 @@ export default function HistoryPage() {
                         <button
                           onClick={() => setCurrentPage(prev => Math.max(prev - 1, 1))}
                           disabled={currentPage === 1 || historyLoading}
-                          className={`relative inline-flex items-center px-2 py-2 rounded-l-md border border-gray-300 bg-white text-sm font-medium text-gray-500 hover:bg-gray-50 ${
+                          className={`relative inline-flex items-center px-2 py-2 rounded-l-md border border-gray-300 dark:border-slate-600 bg-white dark:bg-slate-900 text-sm font-medium text-gray-500 dark:text-slate-400 hover:bg-gray-50 dark:hover:bg-slate-950 ${
                             currentPage === 1 || historyLoading ? 'opacity-50 cursor-not-allowed' : ''
                           }`}
                         >
@@ -384,8 +384,8 @@ export default function HistoryPage() {
                             disabled={historyLoading}
                             className={`relative inline-flex items-center px-4 py-2 border text-sm font-medium ${
                               currentPage === page
-                                ? 'z-10 bg-blue-50 border-blue-500 text-blue-600'
-                                : 'bg-white border-gray-300 text-gray-500 hover:bg-gray-50'
+                                ? 'z-10 bg-blue-50 dark:bg-blue-950/50 border-blue-500 text-blue-600 dark:text-blue-400'
+                                : 'bg-white dark:bg-slate-900 border-gray-300 dark:border-slate-600 text-gray-500 dark:text-slate-400 hover:bg-gray-50 dark:hover:bg-slate-950'
                             } ${historyLoading ? 'opacity-50 cursor-not-allowed' : ''}`}
                           >
                             {page}
@@ -395,7 +395,7 @@ export default function HistoryPage() {
                         <button
                           onClick={() => setCurrentPage(prev => Math.min(prev + 1, totalPages))}
                           disabled={currentPage === totalPages || historyLoading}
-                          className={`relative inline-flex items-center px-2 py-2 rounded-r-md border border-gray-300 bg-white text-sm font-medium text-gray-500 hover:bg-gray-50 ${
+                          className={`relative inline-flex items-center px-2 py-2 rounded-r-md border border-gray-300 dark:border-slate-600 bg-white dark:bg-slate-900 text-sm font-medium text-gray-500 dark:text-slate-400 hover:bg-gray-50 dark:hover:bg-slate-950 ${
                             currentPage === totalPages || historyLoading ? 'opacity-50 cursor-not-allowed' : ''
                           }`}
                         >
@@ -417,17 +417,17 @@ export default function HistoryPage() {
       {/* Modal de confirmación para limpiar historial */}
       {showClearConfirm && (
         <div className="fixed inset-0 bg-black bg-opacity-50 flex items-center justify-center z-50 p-4">
-          <div className="bg-white rounded-lg shadow-xl w-full max-w-md p-6">
+          <div className="bg-white dark:bg-slate-900 rounded-lg shadow-xl w-full max-w-md p-6">
             <div className="text-center">
               <AlertTriangle className="h-12 w-12 text-red-500 mx-auto mb-4" />
-              <h3 className="text-xl font-medium text-gray-900 mb-2">Confirmar acción</h3>
-              <p className="text-gray-600 mb-6">
+              <h3 className="text-xl font-medium text-gray-900 dark:text-slate-100 mb-2">Confirmar acción</h3>
+              <p className="text-gray-600 dark:text-slate-300 mb-6">
                 ¿Estás seguro de que deseas eliminar todo tu historial de consultas? Esta acción no se puede deshacer.
               </p>
               <div className="flex justify-center space-x-4">
                 <button
                   onClick={() => setShowClearConfirm(false)}
-                  className="px-4 py-2 border border-gray-300 rounded-md text-gray-700 bg-white hover:bg-gray-50"
+                  className="px-4 py-2 border border-gray-300 dark:border-slate-600 rounded-md text-gray-700 dark:text-slate-200 bg-white dark:bg-slate-900 hover:bg-gray-50 dark:hover:bg-slate-950"
                 >
                   Cancelar
                 </button>

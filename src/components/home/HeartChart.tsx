@@ -2,20 +2,20 @@ import { FiActivity, FiHeart } from 'react-icons/fi';
 
 export default function HeartChart() {
   return (
-    <div className="w-full max-w-md rounded-3xl border border-blue-200 bg-white p-5 shadow-sm sm:p-6">
+    <div className="w-full max-w-md rounded-3xl border border-blue-200 dark:border-blue-800 bg-white dark:bg-slate-900 p-5 shadow-sm sm:p-6">
       <div className="mb-5 flex items-center justify-between gap-3">
         <div className="flex items-center gap-3">
-          <span className="flex h-10 w-10 shrink-0 items-center justify-center rounded-xl bg-blue-50 text-blue-600">
+          <span className="flex h-10 w-10 shrink-0 items-center justify-center rounded-xl bg-blue-50 dark:bg-blue-950/50 text-blue-600 dark:text-blue-400">
             <FiHeart aria-hidden="true" className="h-5 w-5" />
           </span>
-          <p className="text-sm font-semibold text-gray-900">El pulso de la información</p>
+          <p className="text-sm font-semibold text-gray-900 dark:text-slate-100">El pulso de la información</p>
         </div>
         <FiActivity aria-hidden="true" className="h-5 w-5 shrink-0 text-blue-300" />
       </div>
       <div
-        className="overflow-hidden rounded-xl border border-blue-100 bg-blue-50/40"
+        className="overflow-hidden rounded-xl border border-blue-100 dark:border-blue-900 bg-blue-50/40 dark:bg-blue-950/40"
         style={{
-          backgroundImage: 'linear-gradient(to right, #dbeafe 1px, transparent 1px), linear-gradient(to bottom, #dbeafe 1px, transparent 1px)',
+          backgroundImage: 'linear-gradient(to right, var(--grid-line) 1px, transparent 1px), linear-gradient(to bottom, var(--grid-line) 1px, transparent 1px)',
           backgroundSize: '20px 20px',
         }}
       >
@@ -28,7 +28,7 @@ export default function HeartChart() {
             strokeLinecap="round"
             strokeLinejoin="round"
             vectorEffect="non-scaling-stroke"
-            className="text-blue-600"
+            className="text-blue-600 dark:text-blue-400"
           />
         </svg>
       </div>

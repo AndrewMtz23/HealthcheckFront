@@ -122,11 +122,11 @@ const NewsFeed = ({
   // Si está cargando, mostrar spinner
   if (loading) {
     return (
-      <div className="py-12 bg-white">
+      <div className="py-12 bg-white dark:bg-slate-900">
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
           <div className="text-center">
-            <h2 className="text-3xl font-bold text-gray-900 sm:text-4xl">{title}</h2>
-            <p className="mt-3 max-w-2xl mx-auto text-xl text-gray-500">{subtitle}</p>
+            <h2 className="text-3xl font-bold text-gray-900 dark:text-slate-100 sm:text-4xl">{title}</h2>
+            <p className="mt-3 max-w-2xl mx-auto text-xl text-gray-500 dark:text-slate-400">{subtitle}</p>
           </div>
           <div className="mt-10 flex justify-center" role="status">
             <div aria-hidden="true" className="motion-safe:animate-spin rounded-full h-12 w-12 border-t-2 border-b-2 border-blue-500"></div>
@@ -140,22 +140,22 @@ const NewsFeed = ({
   // Si hay error, mostrar mensaje
   if (error) {
     return (
-      <div className="py-12 bg-white">
+      <div className="py-12 bg-white dark:bg-slate-900">
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
           <div className="text-center">
-            <h2 className="text-3xl font-bold text-gray-900 sm:text-4xl">{title}</h2>
-            <p className="mt-3 max-w-2xl mx-auto text-xl text-gray-500">{subtitle}</p>
+            <h2 className="text-3xl font-bold text-gray-900 dark:text-slate-100 sm:text-4xl">{title}</h2>
+            <p className="mt-3 max-w-2xl mx-auto text-xl text-gray-500 dark:text-slate-400">{subtitle}</p>
           </div>
-          <div className="relative mt-10 overflow-hidden rounded-3xl border border-slate-200 bg-slate-50 px-6 py-12 text-center" role="status">
-            <div aria-hidden="true" className="absolute -left-12 -top-12 h-40 w-40 rounded-full border border-blue-100" />
-            <div aria-hidden="true" className="absolute -bottom-16 -right-8 h-48 w-48 rounded-full border border-blue-100" />
-            <div aria-hidden="true" className="relative mx-auto mb-5 flex h-16 w-16 items-center justify-center rounded-2xl border border-blue-100 bg-white text-blue-600 shadow-sm"><Newspaper className="h-7 w-7" /></div>
-            <h3 className="relative text-lg font-semibold text-gray-900">En este momento no hemos podido cargar las noticias</h3>
-            <p className="relative mx-auto mt-3 max-w-md text-sm leading-6 text-slate-600">Puedes volver a intentarlo en unos momentos. Mientras tanto, sigue explorando HealthCheck.</p>
+          <div className="relative mt-10 overflow-hidden rounded-3xl border border-slate-200 dark:border-slate-700 bg-slate-50 dark:bg-slate-950 px-6 py-12 text-center" role="status">
+            <div aria-hidden="true" className="absolute -left-12 -top-12 h-40 w-40 rounded-full border border-blue-100 dark:border-blue-900" />
+            <div aria-hidden="true" className="absolute -bottom-16 -right-8 h-48 w-48 rounded-full border border-blue-100 dark:border-blue-900" />
+            <div aria-hidden="true" className="relative mx-auto mb-5 flex h-16 w-16 items-center justify-center rounded-2xl border border-blue-100 dark:border-blue-900 bg-white dark:bg-slate-900 text-blue-600 dark:text-blue-400 shadow-sm"><Newspaper className="h-7 w-7" /></div>
+            <h3 className="relative text-lg font-semibold text-gray-900 dark:text-slate-100">En este momento no hemos podido cargar las noticias</h3>
+            <p className="relative mx-auto mt-3 max-w-md text-sm leading-6 text-slate-600 dark:text-slate-300">Puedes volver a intentarlo en unos momentos. Mientras tanto, sigue explorando HealthCheck.</p>
             <button
               type="button"
               onClick={loadNews}
-              className="relative mt-6 inline-flex min-h-11 items-center gap-2 rounded-full border border-blue-200 bg-white px-5 py-2.5 text-sm font-medium text-blue-700 transition-colors hover:border-blue-400 hover:bg-blue-50"
+              className="relative mt-6 inline-flex min-h-11 items-center gap-2 rounded-full border border-blue-200 dark:border-blue-800 bg-white dark:bg-slate-900 px-5 py-2.5 text-sm font-medium text-blue-700 dark:text-blue-300 transition-colors hover:border-blue-400 hover:bg-blue-50 dark:hover:bg-blue-950/50"
             >
               <RefreshCw className="h-4 w-4" aria-hidden="true" /> Volver a intentar
             </button>
@@ -169,8 +169,8 @@ const NewsFeed = ({
     <div className="py-12 bg-gray">
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
         <div className="text-center">
-          <h2 className="text-3xl font-bold text-gray-900 sm:text-4xl">{title}</h2>
-          <p className="mt-3 max-w-2xl mx-auto text-xl text-gray-500">{subtitle}</p>
+          <h2 className="text-3xl font-bold text-gray-900 dark:text-slate-100 sm:text-4xl">{title}</h2>
+          <p className="mt-3 max-w-2xl mx-auto text-xl text-gray-500 dark:text-slate-400">{subtitle}</p>
         </div>
 
         {/* Barra de búsqueda */}
@@ -182,7 +182,7 @@ const NewsFeed = ({
 
         {/* Grid de noticias */}
         {news.length === 0 ? (
-          <div className="mt-10 text-center text-gray-500">
+          <div className="mt-10 text-center text-gray-500 dark:text-slate-400">
             No hay noticias disponibles en este momento.
           </div>
         ) : (

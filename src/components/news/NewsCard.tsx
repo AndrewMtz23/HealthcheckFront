@@ -77,7 +77,7 @@ const NewsCard = ({ news, onInteraction }: NewsCardProps) => {
   // Obtener icono basado en la clasificación
   const getClassificationIcon = () => {
     if (!news.clasificaciones || news.clasificaciones.length === 0) {
-      return <Info className="h-5 w-5 text-gray-400" />;
+      return <Info className="h-5 w-5 text-gray-400 dark:text-slate-400" />;
     }
 
     const classification = news.clasificaciones[0];
@@ -90,7 +90,7 @@ const NewsCard = ({ news, onInteraction }: NewsCardProps) => {
       case 'dudosa':
         return <Info className="h-5 w-5 text-yellow-500" />;
       default:
-        return <Info className="h-5 w-5 text-gray-400" />;
+        return <Info className="h-5 w-5 text-gray-400 dark:text-slate-400" />;
     }
   };
 
@@ -98,7 +98,7 @@ const NewsCard = ({ news, onInteraction }: NewsCardProps) => {
   const getClassificationBadge = () => {
     if (!news.clasificaciones || news.clasificaciones.length === 0) {
       return (
-        <span className="inline-flex items-center px-2.5 py-0.5 rounded-full text-xs font-medium bg-gray-100 text-gray-800">
+        <span className="inline-flex items-center px-2.5 py-0.5 rounded-full text-xs font-medium bg-gray-100 dark:bg-slate-800 text-gray-800 dark:text-slate-100">
           <Info className="h-3 w-3 mr-1" />
           Sin clasificar
         </span>
@@ -107,20 +107,20 @@ const NewsCard = ({ news, onInteraction }: NewsCardProps) => {
 
     const classification = news.clasificaciones[0];
 
-    let badgeColor = 'bg-gray-100 text-gray-800';
+    let badgeColor = 'bg-gray-100 dark:bg-slate-800 text-gray-800 dark:text-slate-100';
     let icon = <Info className="h-3 w-3 mr-1" />;
 
     switch (classification.resultado) {
       case 'verdadera':
-        badgeColor = 'bg-green-100 text-green-800';
+        badgeColor = 'bg-green-100 dark:bg-green-900/40 text-green-800 dark:text-green-300';
         icon = <CheckCircle className="h-3 w-3 mr-1" />;
         break;
       case 'falsa':
-        badgeColor = 'bg-red-100 text-red-800';
+        badgeColor = 'bg-red-100 dark:bg-red-900/40 text-red-800 dark:text-red-300';
         icon = <AlertTriangle className="h-3 w-3 mr-1" />;
         break;
       case 'dudosa':
-        badgeColor = 'bg-yellow-100 text-yellow-800';
+        badgeColor = 'bg-yellow-100 dark:bg-yellow-900/40 text-yellow-800 dark:text-yellow-300';
         icon = <Info className="h-3 w-3 mr-1" />;
         break;
     }
@@ -197,14 +197,14 @@ const NewsCard = ({ news, onInteraction }: NewsCardProps) => {
       <div className="flex flex-col rounded-xl shadow-lg overflow-hidden transition-all duration-300 hover:shadow-xl h-full">
         {/* Imagen de previsualización si existe */}
         {news.preview?.image?.url && (
-          <div className="relative w-full h-48 bg-gray-100">
+          <div className="relative w-full h-48 bg-gray-100 dark:bg-slate-800">
             <img
               src={news.preview.image.url}
               alt={news.titulo}
               className="object-cover w-full h-full"
             />
             {news.preview.logo?.url && (
-              <div className="absolute bottom-2 right-2 bg-white rounded-full p-1 shadow">
+              <div className="absolute bottom-2 right-2 bg-white dark:bg-slate-900 rounded-full p-1 shadow">
                 <img
                   src={news.preview.logo.url}
                   alt={news.fuente?.nombre || 'Logo'}
@@ -216,10 +216,10 @@ const NewsCard = ({ news, onInteraction }: NewsCardProps) => {
         )}
 
         {/* Header con clasificación */}
-        <div className="px-6 py-4 bg-gray-50 border-b border-gray-100 flex justify-between items-center">
+        <div className="px-6 py-4 bg-gray-50 dark:bg-slate-950 border-b border-gray-100 dark:border-slate-800 flex justify-between items-center">
           <div className="flex items-center">
             {getClassificationIcon()}
-            <span className="ml-2 font-medium text-gray-700">
+            <span className="ml-2 font-medium text-gray-700 dark:text-slate-200">
               {news.tema?.nombre || 'General'}
             </span>
           </div>
@@ -229,11 +229,11 @@ const NewsCard = ({ news, onInteraction }: NewsCardProps) => {
         </div>
 
         {/* Contenido principal */}
-        <div className="flex-1 bg-white p-6 flex flex-col justify-between">
+        <div className="flex-1 bg-white dark:bg-slate-900 p-6 flex flex-col justify-between">
           <div className="flex-1">
 
             {/* Fecha y acciones secundarias */}
-            <div className="flex items-center justify-between text-sm text-gray-500 mb-2">
+            <div className="flex items-center justify-between text-sm text-gray-500 dark:text-slate-400 mb-2">
               <div className="flex items-center">
                 <Calendar className="h-4 w-4 mr-1" />
                 <span>{formatDate(news.fecha_publicacion)}</span>
@@ -244,7 +244,7 @@ const NewsCard = ({ news, onInteraction }: NewsCardProps) => {
                 {/* Compartir */}
                 <button
                   onClick={handleShare}
-                  className="flex items-center justify-center p-2 rounded-full text-gray-500 hover:bg-gray-100 transition-colors"
+                  className="flex items-center justify-center p-2 rounded-full text-gray-500 dark:text-slate-400 hover:bg-gray-100 dark:hover:bg-slate-800 transition-colors"
                   title="Compartir"
                 >
                   <Share2 className="h-4 w-4" />
@@ -257,7 +257,7 @@ const NewsCard = ({ news, onInteraction }: NewsCardProps) => {
                     href={news.url}
                     target="_blank"
                     rel="noopener noreferrer"
-                    className="flex items-center justify-center p-2 rounded-full text-gray-500 hover:bg-gray-100 transition-colors"
+                    className="flex items-center justify-center p-2 rounded-full text-gray-500 dark:text-slate-400 hover:bg-gray-100 dark:hover:bg-slate-800 transition-colors"
                     title="Ver fuente original"
                   >
                     <ExternalLink className="h-4 w-4" />
@@ -267,7 +267,7 @@ const NewsCard = ({ news, onInteraction }: NewsCardProps) => {
             </div>
 
             <Link href={`/news/${news.id}`}>
-              <h3 className="text-xl font-bold text-gray-900 hover:text-blue-600 transition-colors">
+              <h3 className="text-xl font-bold text-gray-900 dark:text-slate-100 hover:text-blue-600 dark:hover:text-blue-400 transition-colors">
                 {news.titulo}
               </h3>
             </Link>
@@ -277,13 +277,13 @@ const NewsCard = ({ news, onInteraction }: NewsCardProps) => {
               <ConfidenceBar classification={news.clasificaciones[0]} />
             )}
 
-            <p className="mt-3 text-base text-gray-500">
+            <p className="mt-3 text-base text-gray-500 dark:text-slate-400">
               {news.preview?.description ? news.preview.description : truncateText(news.contenido)}
             </p>
 
             {/* Información del modelo de IA */}
             {news.clasificaciones?.[0]?.modelo && (
-              <div className="mt-3 bg-blue-50 rounded-md p-2 text-xs text-blue-600">
+              <div className="mt-3 bg-blue-50 dark:bg-blue-950/50 rounded-md p-2 text-xs text-blue-600 dark:text-blue-400">
                 <p className="font-medium">Analizado por: {news.clasificaciones[0].modelo.nombre} v{news.clasificaciones[0].modelo.version}</p>
                 <p className="mt-1">Precisión: {(news.clasificaciones[0].modelo.precision * 100).toFixed(0)}%</p>
               </div>
@@ -293,12 +293,12 @@ const NewsCard = ({ news, onInteraction }: NewsCardProps) => {
           {/* Footer con acciones */}
           <div className="mt-6">
             <div className="flex items-center justify-between">
-              <div className="flex items-center text-sm text-gray-500">
+              <div className="flex items-center text-sm text-gray-500 dark:text-slate-400">
                 <span>{news.fuente?.nombre || news.preview?.publisher || 'Fuente desconocida'}</span>
                 {news.fuente && (
                   <button
                     onClick={handleReportClick}
-                    className="ml-2 text-red-500 hover:text-red-700 transition-colors"
+                    className="ml-2 text-red-500 hover:text-red-700 dark:hover:text-red-300 transition-colors"
                     title="Reportar fuente"
                   >
                     <Flag className="h-4 w-4" />
@@ -311,7 +311,7 @@ const NewsCard = ({ news, onInteraction }: NewsCardProps) => {
                   onClick={() => handleInteraction('marcar_confiable')}
                   className={`p-2 rounded-full transition-colors flex items-center ${news.userInteractions?.marcar_confiable
                     ? 'text-white bg-green-500 hover:bg-green-600'
-                    : 'text-gray-500 hover:bg-gray-100'
+                    : 'text-gray-500 dark:text-slate-400 hover:bg-gray-100 dark:hover:bg-slate-800'
                     }`}
                   title="Marcar como confiable"
                 >
@@ -323,7 +323,7 @@ const NewsCard = ({ news, onInteraction }: NewsCardProps) => {
                   onClick={() => handleInteraction('marcar_dudosa')}
                   className={`p-2 rounded-full transition-colors flex items-center ${news.userInteractions?.marcar_dudosa
                     ? 'text-white bg-red-500 hover:bg-red-600'
-                    : 'text-gray-500 hover:bg-gray-100'
+                    : 'text-gray-500 dark:text-slate-400 hover:bg-gray-100 dark:hover:bg-slate-800'
                     }`}
                   title="Marcar como dudosa"
                 >

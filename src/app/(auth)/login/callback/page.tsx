@@ -48,11 +48,11 @@ export default function GoogleCallback() {
 
   if (error) {
     return (
-      <div className="min-h-screen flex flex-col items-center justify-center bg-gray-50 py-12 px-4 sm:px-6 lg:px-8">
+      <div className="min-h-screen flex flex-col items-center justify-center bg-gray-50 dark:bg-slate-950 py-12 px-4 sm:px-6 lg:px-8">
         <div className="max-w-md w-full space-y-8">
           <div>
-            <h2 className="mt-6 text-center text-3xl font-extrabold text-gray-900">Error de autenticación</h2>
-            <p className="mt-2 text-center text-sm text-gray-600">{error}</p>
+            <h2 className="mt-6 text-center text-3xl font-extrabold text-gray-900 dark:text-slate-100">Error de autenticación</h2>
+            <p className="mt-2 text-center text-sm text-gray-600 dark:text-slate-300">{error}</p>
           </div>
           <div className="mt-5">
             <button
@@ -68,11 +68,11 @@ export default function GoogleCallback() {
   }
 
   return (
-    <div className="min-h-screen flex flex-col items-center justify-center bg-gray-50 py-12 px-4 sm:px-6 lg:px-8">
+    <div className="min-h-screen flex flex-col items-center justify-center bg-gray-50 dark:bg-slate-950 py-12 px-4 sm:px-6 lg:px-8">
       <div className="max-w-md w-full space-y-8">
         <div>
-          <h2 className="mt-6 text-center text-3xl font-extrabold text-gray-900">Autenticando...</h2>
-          <p className="mt-2 text-center text-sm text-gray-600">
+          <h2 className="mt-6 text-center text-3xl font-extrabold text-gray-900 dark:text-slate-100">Autenticando...</h2>
+          <p className="mt-2 text-center text-sm text-gray-600 dark:text-slate-300">
             Por favor, espere mientras completamos su inicio de sesión.
           </p>
         </div>

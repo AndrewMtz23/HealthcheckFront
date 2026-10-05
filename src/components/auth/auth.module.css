@@ -44,7 +44,7 @@
 .storyCopy > p:not(.storyEyebrow) { margin: 17px 0 0; font-size: 13px; line-height: 1.7; color: #f0f0ed; }
 .storySignature { display: block; margin-top: 28px; font-size: 11px; color: #eceee8; }
 .formPanel { display: grid; grid-template-rows: auto 1fr auto; min-width: 0; padding: 30px 40px 24px; }
-.panelTop { display: flex; align-items: center; justify-content: flex-end; min-height: 30px; }
+.panelTop { display: flex; align-items: center; justify-content: flex-end; gap: 12px; min-height: 44px; }
 .mobileBrand { display: none; }
 .back { display: inline-flex; align-items: center; gap: 7px; min-height: 32px; color: var(--auth-muted); font-size: 12px; transition: color .15s; }
 .back:hover { color: var(--auth-blue); }
@@ -135,3 +135,33 @@
 @media (prefers-reduced-motion: reduce) {
   .page *, .page *::before, .page *::after { animation: none !important; transition: none !important; }
 }
+
+/* Keep the photograph and its white copy unchanged; theme the form surfaces. */
+:global(.dark) .page {
+  --auth-ink: #e2e8f0;
+  --auth-muted: #a6b2c4;
+  --auth-border: #334155;
+  background: #0f172a;
+}
+:global(.dark) .shell { background: #0f172a; }
+:global(.dark) .inputWrap { background: #111e33; }
+:global(.dark) .inputBody label,
+:global(.dark) .optional { color: #a6b2c4; }
+:global(.dark) .inputBody input::placeholder { color: #94a3b8; }
+:global(.dark) .inputBody input:autofill { box-shadow: 0 0 0 100px #111e33 inset; -webkit-text-fill-color: #e2e8f0; }
+:global(.dark) .inputBody input:-webkit-autofill { box-shadow: 0 0 0 100px #111e33 inset; -webkit-text-fill-color: #e2e8f0; }
+:global(.dark) .inputWrap:focus-within { border-color: #60a5fa; box-shadow: 0 0 0 3px #60a5fa24; }
+:global(.dark) .reveal { color: #a6b2c4; }
+:global(.dark) .reveal:hover { color: #93c5fd; background: #1e293b; }
+:global(.dark) .divider::before,
+:global(.dark) .divider::after { background: #334155; }
+:global(.dark) .google { background: #1e293b; color: #e2e8f0; border-color: #334155; }
+:global(.dark) .google:hover:not(:disabled) { background: #28364c; border-color: #475569; }
+:global(.dark) .error { background: #381b28; border-color: #7f3447; color: #fda4af; }
+:global(.dark) .fieldError { color: #fda4af; }
+:global(.dark) .invalid,
+:global(.dark) .invalid:focus-within { border-color: #fb7185; }
+:global(.dark) .switch a,
+:global(.dark) .terms a,
+:global(.dark) .back:hover,
+:global(.dark) .legal a:hover { color: #93c5fd; }
