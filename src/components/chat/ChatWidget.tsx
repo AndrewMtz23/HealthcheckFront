@@ -177,12 +177,12 @@ const ChatWidget = ({ onClose }: ChatWidgetProps) => {
   return (
     <div 
       className={`fixed bottom-4 right-4 flex flex-col bg-white rounded-2xl shadow-2xl border border-gray-200 transition-all duration-300 ease-in-out ${
-        isExpanded ? 'w-80 sm:w-96 h-[500px] max-h-[80vh]' : 'w-64 h-16'
+        isExpanded ? 'w-[calc(100vw-2rem)] sm:w-96 h-[500px] max-h-[calc(100dvh-2rem)]' : 'w-64 h-16'
       }`}
     >
       {/* Cabecera */}
       <div 
-        className="bg-gradient-to-r from-blue-600 to-blue-700 text-white p-4 rounded-t-2xl flex justify-between items-center cursor-pointer"
+        className="shrink-0 bg-gradient-to-r from-blue-600 to-blue-700 text-white p-4 rounded-t-2xl flex justify-between items-center cursor-pointer"
         onClick={() => setIsExpanded(!isExpanded)}
       >
         <div className="flex items-center space-x-2">
@@ -232,7 +232,7 @@ const ChatWidget = ({ onClose }: ChatWidgetProps) => {
       {isExpanded && (
         <>
           {/* Mensajes */}
-          <div className="flex-1 overflow-y-auto p-4 bg-white space-y-4 scrollbar-thin">
+          <div className="min-h-0 flex-1 overflow-y-auto p-4 bg-white space-y-4 scrollbar-thin">
             {messages.map((message, index) => renderMessage(message, index))}
             
             {isTyping && (
@@ -266,11 +266,12 @@ const ChatWidget = ({ onClose }: ChatWidgetProps) => {
                 type="text"
                 value={input}
                 onChange={(e) => setInput(e.target.value)}
-                className="flex-1 bg-transparent border-none focus:ring-0 text-sm text-gray-700 placeholder-gray-400 outline-none"
+                className="min-w-0 flex-1 bg-transparent border-none focus:ring-0 text-sm text-gray-700 placeholder-gray-400 outline-none"
                 placeholder="Escribe tu mensaje..."
                 disabled={isTyping}
               />
               <button
+                aria-label="Enviar mensaje"
                 type="submit"
                 className={`w-8 h-8 flex items-center justify-center rounded-full ${
                   input.trim() && !isTyping 

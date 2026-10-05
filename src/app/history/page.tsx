@@ -183,7 +183,7 @@ export default function HistoryPage() {
 
         {/* Filtros y acciones */}
         <div className="bg-white rounded-lg shadow mb-6 overflow-hidden">
-          <div className="px-6 py-4 flex justify-between items-center border-b border-gray-200">
+          <div className="px-4 sm:px-6 py-4 flex flex-wrap gap-4 justify-between items-center border-b border-gray-200">
             <button
               onClick={() => setShowFilters(!showFilters)}
               className="text-blue-600 hover:text-blue-800 font-medium flex items-center"

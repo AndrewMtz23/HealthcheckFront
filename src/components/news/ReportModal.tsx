@@ -70,8 +70,8 @@ const ReportModal = ({ fuente, onClose }: ReportModalProps) => {
   };
 
   return (
-    <div style={{ backgroundColor: 'rgba(0, 0, 0, 0.5)' }} className="fixed inset-0 flex items-center justify-center z-500">
-      <div className="bg-white rounded-lg shadow-xl w-full max-w-md">
+    <div style={{ backgroundColor: 'rgba(0, 0, 0, 0.5)' }} className="fixed inset-0 flex items-center justify-center z-500 p-4">
+      <div className="bg-white rounded-lg shadow-xl w-full max-w-md max-h-[calc(100dvh-2rem)] overflow-y-auto">
         <div className="flex justify-between items-center px-6 py-4 border-b border-gray-200">
           <h3 className="text-lg font-medium text-gray-900">Reportar fuente</h3>
           <button
