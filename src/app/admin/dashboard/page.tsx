@@ -171,7 +171,7 @@ const AdminDashboard = () => {
 
           {/* Tabs navigation */}
           <div className="border-b border-gray-200">
-            <nav className="flex -mb-px">
+            <nav className="flex -mb-px overflow-x-auto">
               <button
                 onClick={() => setActiveTab('models')}
                 className={`py-4 px-6 text-sm font-medium whitespace-nowrap ${

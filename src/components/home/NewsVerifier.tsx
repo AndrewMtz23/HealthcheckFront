@@ -158,14 +158,14 @@ const NewsVerifier = () => {
   };
 
   return (
-    <div className="bg-white rounded-lg shadow-sm max-w-4xl mx-auto my-8">
+    <div className="bg-white rounded-lg shadow-sm w-[calc(100%-2rem)] max-w-4xl mx-auto my-8">
       <div className="p-6 sm:p-8">
         <h2 className="text-2xl font-bold text-gray-800 mb-6">Verificador de información</h2>
         
         {/* Tabs de selección */}
-        <div className="mb-6 flex">
+        <div className="mb-6 flex flex-wrap gap-2">
           <button 
-            className={`rounded-full px-6 py-2 mr-2 ${activeTab === 'texto' ? 'bg-blue-600 text-white' : 'bg-gray-100 text-gray-700 hover:bg-gray-200'}`}
+            className={`rounded-full px-4 py-2 ${activeTab === 'texto' ? 'bg-blue-600 text-white' : 'bg-gray-100 text-gray-700 hover:bg-gray-200'}`}
             onClick={() => setActiveTab('texto')}
           >
             <span className="flex items-center">
@@ -176,7 +176,7 @@ const NewsVerifier = () => {
             </span>
           </button>
           <button 
-            className={`rounded-full px-6 py-2 mr-2 ${activeTab === 'url' ? 'bg-blue-600 text-white' : 'bg-gray-100 text-gray-700 hover:bg-gray-200'}`}
+            className={`rounded-full px-4 py-2 ${activeTab === 'url' ? 'bg-blue-600 text-white' : 'bg-gray-100 text-gray-700 hover:bg-gray-200'}`}
             onClick={() => setActiveTab('url')}
           >
             <span className="flex items-center">
@@ -187,7 +187,7 @@ const NewsVerifier = () => {
             </span>
           </button>
           <button 
-            className={`rounded-full px-6 py-2 ${activeTab === 'twitter' ? 'bg-blue-600 text-white' : 'bg-gray-100 text-gray-700 hover:bg-gray-200'}`}
+            className={`rounded-full px-4 py-2 ${activeTab === 'twitter' ? 'bg-blue-600 text-white' : 'bg-gray-100 text-gray-700 hover:bg-gray-200'}`}
             onClick={() => setActiveTab('twitter')}
           >
             <span className="flex items-center">
@@ -217,7 +217,7 @@ const NewsVerifier = () => {
                   placeholder={activeTab === 'twitter' ? "https://twitter.com/usuario/status/123456789" : "https://ejemplo.com/noticia"}
                   value={input}
                   onChange={(e) => setInput(e.target.value)}
-                  className="flex-grow px-4 py-3 rounded-l-md border-gray-300 shadow-sm focus:border-blue-500 focus:ring-blue-500"
+                  className="min-w-0 flex-grow px-4 py-3 rounded-l-md border-gray-300 shadow-sm focus:border-blue-500 focus:ring-blue-500"
                 />
                 <button
                   type="submit"
@@ -286,14 +286,14 @@ const NewsVerifier = () => {
                   <path fillRule="evenodd" d="M18 10a8 8 0 11-16 0 8 8 0 0116 0zm-7-4a1 1 0 11-2 0 1 1 0 012 0zM9 9a1 1 0 000 2v3a1 1 0 001 1h1a1 1 0 100-2v-3a1 1 0 00-1-1H9z" clipRule="evenodd" />
                 </svg>
               </div>
-              <div className="ml-3 flex-1 md:flex md:justify-between">
+              <div className="ml-3 min-w-0 flex-1 lg:flex lg:justify-between">
                 <p className="text-sm text-blue-900">
                   <span className="font-bold">¿Cómo funciona?</span> Nuestro sistema compara la información con fuentes oficiales y bases de datos médicas verificadas
                 </p>
-                <p className="mt-3 text-sm md:mt-0 md:ml-6">
+                <p className="mt-3 text-sm lg:mt-0 lg:ml-6">
                   <button 
                     onClick={() => setShowExample(true)}
-                    className="whitespace-nowrap text-blue-600 hover:text-blue-800 font-medium"
+                    className="text-left text-blue-600 hover:text-blue-800 font-medium"
                   >
                     Ver ejemplo de resultado →
                   </button>
@@ -306,7 +306,7 @@ const NewsVerifier = () => {
         {/* Resultados */}
         {(result || showExample) && (
           <div className="mt-8 border border-gray-200 rounded-lg overflow-hidden">
-            <div className="bg-gray-50 px-6 py-4 border-b border-gray-200 flex justify-between items-center">
+            <div className="bg-gray-50 px-4 sm:px-6 py-4 border-b border-gray-200 flex flex-wrap gap-3 justify-between items-center">
               <h3 className="text-lg font-medium text-gray-900">Resultado del análisis</h3>
               {showExample && (
                 <span className="px-2 py-1 text-xs bg-blue-100 text-blue-800 rounded-full">Ejemplo</span>

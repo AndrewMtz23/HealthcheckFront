@@ -75,6 +75,21 @@ npm start
 
 `npm run build` creates the Next.js production build; `npm start` serves it. These commands are provided by the project and have not been validated as part of the repository separation.
 
+## Informational pages
+
+`/about`, `/terms`, `/privacy`, and `/contact` compose their sections from
+`src/components/<route>/<route>Hero.tsx`, `<route>Content.tsx`, and `<route>CTA.tsx`.
+Shared presentation lives in `src/components/info`.
+
+Set `HEALTHCHECK_CONTACT_EMAIL` to the public support address before building
+to enable the email link on `/contact`. Without it, the page explains that
+direct contact is unavailable and points to the existing source reporting flow.
+There is no contact submission API or simulated delivery confirmation.
+
+Terms and privacy content are explicitly preliminary. Complete the service
+operator details, retention periods, processors, and privacy request channel,
+and review the copy before using it as a definitive legal notice.
+
 ## Repository maintenance
 
 Commit source files and `package-lock.json`. The `.gitignore` excludes local environment files, dependencies, Next.js output, logs, and editor settings. Safe `.env.example` files may be tracked.
