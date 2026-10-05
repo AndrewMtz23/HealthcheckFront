@@ -1,18 +1,9 @@
+﻿import type { Metadata } from 'next';
 import RegisterForm from '@/components/auth/RegisterForm';
+import AuthShell from '@/components/auth/AuthShell';
+
+export const metadata: Metadata = { title: 'Crear cuenta | HealthCheck' };
 
 export default function RegisterPage() {
-  return (
-    <div className="min-h-screen bg-gray-50 flex flex-col justify-center py-12 sm:px-6 lg:px-8">
-      <div className="sm:mx-auto sm:w-full sm:max-w-md">
-        <h2 className="text-center text-3xl font-extrabold text-gray-900">HealthCheck</h2>
-        <p className="mt-2 text-center text-sm text-gray-600">
-          Plataforma para detectar desinformación sobre temas de salud
-        </p>
-      </div>
-
-      <div className="mt-8 sm:mx-auto sm:w-full sm:max-w-md">
-        <RegisterForm />
-      </div>
-    </div>
-  );
+  return <AuthShell variant="register"><RegisterForm /></AuthShell>;
 }

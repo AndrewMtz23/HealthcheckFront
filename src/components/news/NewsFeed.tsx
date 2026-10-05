@@ -5,6 +5,7 @@ import { useRouter } from 'next/navigation';
 import { useAuth } from '@/context/AuthContext';
 import SearchBar from './SearchBar';
 import NewsCard from './NewsCard';
+import { Newspaper, RefreshCw } from 'lucide-react';
 import { 
   fetchRecentNews, 
   enrichNewsWithPreviews, 
@@ -58,7 +59,7 @@ const NewsFeed = ({
       
       setNews(newsItems);
     } catch (err) {
-      console.error('Error loading news:', err);
+      console.warn('No fue posible cargar las noticias:', err);
       setError(err instanceof Error ? err.message : 'Error desconocido');
     } finally {
       setLoading(false);
@@ -127,8 +128,9 @@ const NewsFeed = ({
             <h2 className="text-3xl font-bold text-gray-900 sm:text-4xl">{title}</h2>
             <p className="mt-3 max-w-2xl mx-auto text-xl text-gray-500">{subtitle}</p>
           </div>
-          <div className="mt-10 flex justify-center">
-            <div className="animate-spin rounded-full h-12 w-12 border-t-2 border-b-2 border-blue-500"></div>
+          <div className="mt-10 flex justify-center" role="status">
+            <div aria-hidden="true" className="motion-safe:animate-spin rounded-full h-12 w-12 border-t-2 border-b-2 border-blue-500"></div>
+            <span className="sr-only">Cargando noticias…</span>
           </div>
         </div>
       </div>
@@ -144,13 +146,18 @@ const NewsFeed = ({
             <h2 className="text-3xl font-bold text-gray-900 sm:text-4xl">{title}</h2>
             <p className="mt-3 max-w-2xl mx-auto text-xl text-gray-500">{subtitle}</p>
           </div>
-          <div className="mt-10 bg-red-50 p-4 rounded-md text-red-700 text-center">
-            <p>Error al cargar noticias: {error}</p>
+          <div className="relative mt-10 overflow-hidden rounded-3xl border border-slate-200 bg-slate-50 px-6 py-12 text-center" role="status">
+            <div aria-hidden="true" className="absolute -left-12 -top-12 h-40 w-40 rounded-full border border-blue-100" />
+            <div aria-hidden="true" className="absolute -bottom-16 -right-8 h-48 w-48 rounded-full border border-blue-100" />
+            <div aria-hidden="true" className="relative mx-auto mb-5 flex h-16 w-16 items-center justify-center rounded-2xl border border-blue-100 bg-white text-blue-600 shadow-sm"><Newspaper className="h-7 w-7" /></div>
+            <h3 className="relative text-lg font-semibold text-gray-900">En este momento no hemos podido cargar las noticias</h3>
+            <p className="relative mx-auto mt-3 max-w-md text-sm leading-6 text-slate-600">Puedes volver a intentarlo en unos momentos. Mientras tanto, sigue explorando HealthCheck.</p>
             <button
+              type="button"
               onClick={loadNews}
-              className="mt-4 px-4 py-2 bg-red-600 text-white rounded-md hover:bg-red-700"
+              className="relative mt-6 inline-flex min-h-11 items-center gap-2 rounded-full border border-blue-200 bg-white px-5 py-2.5 text-sm font-medium text-blue-700 transition-colors hover:border-blue-400 hover:bg-blue-50"
             >
-              Reintentar
+              <RefreshCw className="h-4 w-4" aria-hidden="true" /> Volver a intentar
             </button>
           </div>
         </div>

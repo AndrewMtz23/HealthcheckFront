@@ -1,5 +1,6 @@
 import Link from 'next/link';
 import Image from 'next/image';
+import BrandWordmark from './BrandWordmark';
 
 const Footer = () => {
   return (
@@ -9,7 +10,7 @@ const Footer = () => {
           <div className="flex justify-center md:justify-start">
             <Link href="/" className="flex items-center gap-2 text-gray-500 hover:text-blue-600">
               <Image src="/Images/logoHC.png" alt="" width={640} height={449} className="h-auto w-10 shrink-0" />
-              <span className="font-bold text-lg">HealthCheck</span>
+              <span className="font-bold text-lg"><BrandWordmark /></span>
             </Link>
           </div>
           <div className="mt-4 md:mt-0">

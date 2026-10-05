@@ -22,7 +22,6 @@ export const fetchRecentNews = async (limit: number = 6): Promise<NewsItem[]> =>
     
     throw new Error('Formato de respuesta inesperado');
   } catch (error) {
-    console.error('Error fetching news:', error);
     throw error;
   }
 };
