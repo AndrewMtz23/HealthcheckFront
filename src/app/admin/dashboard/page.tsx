@@ -152,32 +152,32 @@ const AdminDashboard = () => {
 
   if (loading) {
     return (
-      <div className="min-h-screen pt-16 bg-gray-50 flex justify-center items-center">
+      <div className="min-h-screen pt-16 bg-gray-50 dark:bg-slate-950 flex justify-center items-center">
         <div className="animate-spin rounded-full h-12 w-12 border-t-2 border-b-2 border-blue-500"></div>
       </div>
     );
   }
 
   return (
-    <div className="min-h-screen pt-16 bg-gray-50">
+    <div className="min-h-screen pt-16 bg-gray-50 dark:bg-slate-950">
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-6">
-        <div className="bg-white shadow rounded-lg">
-          <div className="px-4 py-5 sm:px-6 border-b border-gray-200">
-            <h1 className="text-xl font-semibold text-gray-900">Panel de Administración</h1>
-            <p className="mt-1 text-sm text-gray-500">
+        <div className="bg-white dark:bg-slate-900 shadow rounded-lg">
+          <div className="px-4 py-5 sm:px-6 border-b border-gray-200 dark:border-slate-700">
+            <h1 className="text-xl font-semibold text-gray-900 dark:text-slate-100">Panel de Administración</h1>
+            <p className="mt-1 text-sm text-gray-500 dark:text-slate-400">
               Gestiona modelos de IA, configuración y datos del sistema
             </p>
           </div>
 
           {/* Tabs navigation */}
-          <div className="border-b border-gray-200">
+          <div className="border-b border-gray-200 dark:border-slate-700">
             <nav className="flex -mb-px overflow-x-auto">
               <button
                 onClick={() => setActiveTab('models')}
                 className={`py-4 px-6 text-sm font-medium whitespace-nowrap ${
                   activeTab === 'models'
-                    ? 'border-b-2 border-blue-500 text-blue-600'
-                    : 'text-gray-500 hover:text-gray-700 hover:border-gray-300'
+                    ? 'border-b-2 border-blue-500 text-blue-600 dark:text-blue-400'
+                    : 'text-gray-500 dark:text-slate-400 hover:text-gray-700 dark:hover:text-slate-200 hover:border-gray-300 dark:hover:border-slate-600'
                 }`}
               >
                 Modelos de IA
@@ -186,8 +186,8 @@ const AdminDashboard = () => {
                 onClick={() => setActiveTab('scraping')}
                 className={`py-4 px-6 text-sm font-medium whitespace-nowrap ${
                   activeTab === 'scraping'
-                    ? 'border-b-2 border-blue-500 text-blue-600'
-                    : 'text-gray-500 hover:text-gray-700 hover:border-gray-300'
+                    ? 'border-b-2 border-blue-500 text-blue-600 dark:text-blue-400'
+                    : 'text-gray-500 dark:text-slate-400 hover:text-gray-700 dark:hover:text-slate-200 hover:border-gray-300 dark:hover:border-slate-600'
                 }`}
               >
                 Obtención de Datos
@@ -196,8 +196,8 @@ const AdminDashboard = () => {
                 onClick={() => setActiveTab('stats')}
                 className={`py-4 px-6 text-sm font-medium whitespace-nowrap ${
                   activeTab === 'stats'
-                    ? 'border-b-2 border-blue-500 text-blue-600'
-                    : 'text-gray-500 hover:text-gray-700 hover:border-gray-300'
+                    ? 'border-b-2 border-blue-500 text-blue-600 dark:text-blue-400'
+                    : 'text-gray-500 dark:text-slate-400 hover:text-gray-700 dark:hover:text-slate-200 hover:border-gray-300 dark:hover:border-slate-600'
                 }`}
               >
                 Estadísticas
@@ -208,7 +208,7 @@ const AdminDashboard = () => {
           {/* Content */}
           <div className="px-4 py-5 sm:p-6">
             {error && (
-              <div className="mb-4 bg-red-50 text-red-700 p-4 rounded-md">
+              <div className="mb-4 bg-red-50 dark:bg-red-950/40 text-red-700 dark:text-red-300 p-4 rounded-md">
                 <div className="flex">
                   <div className="flex-shrink-0">
                     <svg className="h-5 w-5 text-red-400" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 20 20" fill="currentColor">
@@ -223,7 +223,7 @@ const AdminDashboard = () => {
             )}
 
             {success && (
-              <div className="mb-4 bg-green-50 text-green-700 p-4 rounded-md">
+              <div className="mb-4 bg-green-50 dark:bg-green-950/40 text-green-700 dark:text-green-300 p-4 rounded-md">
                 <div className="flex">
                   <div className="flex-shrink-0">
                     <svg className="h-5 w-5 text-green-400" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 20 20" fill="currentColor">
@@ -241,7 +241,7 @@ const AdminDashboard = () => {
             {activeTab === 'models' && (
               <div>
                 <div className="flex justify-between items-center mb-6">
-                  <h2 className="text-lg font-medium text-gray-900">Modelos de IA</h2>
+                  <h2 className="text-lg font-medium text-gray-900 dark:text-slate-100">Modelos de IA</h2>
                   <Link
                     href="/admin/train-model"
                     className="inline-flex items-center px-4 py-2 border border-transparent text-sm font-medium rounded-md shadow-sm text-white bg-blue-600 hover:bg-blue-700"
@@ -255,60 +255,60 @@ const AdminDashboard = () => {
                     <div className="animate-spin rounded-full h-10 w-10 border-t-2 border-b-2 border-blue-500"></div>
                   </div>
                 ) : models.length === 0 ? (
-                  <div className="text-center py-8 text-gray-500">
+                  <div className="text-center py-8 text-gray-500 dark:text-slate-400">
                     No hay modelos disponibles.
                   </div>
                 ) : (
                   <div className="overflow-x-auto">
-                    <table className="min-w-full divide-y divide-gray-200">
-                      <thead className="bg-gray-50">
+                    <table className="min-w-full divide-y divide-gray-200 dark:divide-slate-700">
+                      <thead className="bg-gray-50 dark:bg-slate-950">
                         <tr>
-                          <th scope="col" className="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">
+                          <th scope="col" className="px-6 py-3 text-left text-xs font-medium text-gray-500 dark:text-slate-400 uppercase tracking-wider">
                             ID
                           </th>
-                          <th scope="col" className="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">
+                          <th scope="col" className="px-6 py-3 text-left text-xs font-medium text-gray-500 dark:text-slate-400 uppercase tracking-wider">
                             Nombre
                           </th>
-                          <th scope="col" className="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">
+                          <th scope="col" className="px-6 py-3 text-left text-xs font-medium text-gray-500 dark:text-slate-400 uppercase tracking-wider">
                             Versión
                           </th>
-                          <th scope="col" className="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">
+                          <th scope="col" className="px-6 py-3 text-left text-xs font-medium text-gray-500 dark:text-slate-400 uppercase tracking-wider">
                             Precisión
                           </th>
-                          <th scope="col" className="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">
+                          <th scope="col" className="px-6 py-3 text-left text-xs font-medium text-gray-500 dark:text-slate-400 uppercase tracking-wider">
                             Recall
                           </th>
-                          <th scope="col" className="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">
+                          <th scope="col" className="px-6 py-3 text-left text-xs font-medium text-gray-500 dark:text-slate-400 uppercase tracking-wider">
                             F1-Score
                           </th>
-                          <th scope="col" className="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">
+                          <th scope="col" className="px-6 py-3 text-left text-xs font-medium text-gray-500 dark:text-slate-400 uppercase tracking-wider">
                             Fecha de Entrenamiento
                           </th>
-                          <th scope="col" className="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">
+                          <th scope="col" className="px-6 py-3 text-left text-xs font-medium text-gray-500 dark:text-slate-400 uppercase tracking-wider">
                             Estado
                           </th>
-                          <th scope="col" className="px-6 py-3 text-right text-xs font-medium text-gray-500 uppercase tracking-wider">
+                          <th scope="col" className="px-6 py-3 text-right text-xs font-medium text-gray-500 dark:text-slate-400 uppercase tracking-wider">
                             Acciones
                           </th>
                         </tr>
                       </thead>
-                      <tbody className="bg-white divide-y divide-gray-200">
+                      <tbody className="bg-white dark:bg-slate-900 divide-y divide-gray-200 dark:divide-slate-700">
                         {models.map((model) => (
                           <tr key={model.id}>
-                            <td className="px-6 py-4 whitespace-nowrap text-sm text-gray-900">{model.id}</td>
-                            <td className="px-6 py-4 whitespace-nowrap text-sm text-gray-900">{model.nombre}</td>
-                            <td className="px-6 py-4 whitespace-nowrap text-sm text-gray-500">{model.version}</td>
-                            <td className="px-6 py-4 whitespace-nowrap text-sm text-gray-500">{formatMetric(model.precision)}</td>
-                            <td className="px-6 py-4 whitespace-nowrap text-sm text-gray-500">{formatMetric(model.recall)}</td>
-                            <td className="px-6 py-4 whitespace-nowrap text-sm text-gray-500">{formatMetric(model.f1_score)}</td>
-                            <td className="px-6 py-4 whitespace-nowrap text-sm text-gray-500">{formatDate(model.fecha_entrenamiento)}</td>
+                            <td className="px-6 py-4 whitespace-nowrap text-sm text-gray-900 dark:text-slate-100">{model.id}</td>
+                            <td className="px-6 py-4 whitespace-nowrap text-sm text-gray-900 dark:text-slate-100">{model.nombre}</td>
+                            <td className="px-6 py-4 whitespace-nowrap text-sm text-gray-500 dark:text-slate-400">{model.version}</td>
+                            <td className="px-6 py-4 whitespace-nowrap text-sm text-gray-500 dark:text-slate-400">{formatMetric(model.precision)}</td>
+                            <td className="px-6 py-4 whitespace-nowrap text-sm text-gray-500 dark:text-slate-400">{formatMetric(model.recall)}</td>
+                            <td className="px-6 py-4 whitespace-nowrap text-sm text-gray-500 dark:text-slate-400">{formatMetric(model.f1_score)}</td>
+                            <td className="px-6 py-4 whitespace-nowrap text-sm text-gray-500 dark:text-slate-400">{formatDate(model.fecha_entrenamiento)}</td>
                             <td className="px-6 py-4 whitespace-nowrap">
                               {model.activo ? (
-                                <span className="px-2 inline-flex text-xs leading-5 font-semibold rounded-full bg-green-100 text-green-800">
+                                <span className="px-2 inline-flex text-xs leading-5 font-semibold rounded-full bg-green-100 dark:bg-green-900/40 text-green-800 dark:text-green-300">
                                   Activo
                                 </span>
                               ) : (
-                                <span className="px-2 inline-flex text-xs leading-5 font-semibold rounded-full bg-gray-100 text-gray-800">
+                                <span className="px-2 inline-flex text-xs leading-5 font-semibold rounded-full bg-gray-100 dark:bg-slate-800 text-gray-800 dark:text-slate-100">
                                   Inactivo
                                 </span>
                               )}
@@ -317,7 +317,7 @@ const AdminDashboard = () => {
                               {!model.activo && (
                                 <button
                                   onClick={() => activateModel(model.id)}
-                                  className="text-blue-600 hover:text-blue-900 mr-4"
+                                  className="text-blue-600 dark:text-blue-400 hover:text-blue-900 dark:hover:text-blue-200 mr-4"
                                 >
                                   Activar
                                 </button>
@@ -325,7 +325,7 @@ const AdminDashboard = () => {
                               {!model.activo && model.modelo_base !== null && (
                                 <button
                                   onClick={() => deleteModel(model.id)}
-                                  className="text-red-600 hover:text-red-900"
+                                  className="text-red-600 dark:text-red-300 hover:text-red-900 dark:hover:text-red-300"
                                 >
                                   Eliminar
                                 </button>
@@ -344,13 +344,13 @@ const AdminDashboard = () => {
             {activeTab === 'scraping' && (
               <div>
                 <div className="flex justify-between items-center mb-6">
-                  <h2 className="text-lg font-medium text-gray-900">Obtención de Datos</h2>
+                  <h2 className="text-lg font-medium text-gray-900 dark:text-slate-100">Obtención de Datos</h2>
                 </div>
                 
                 <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
-                  <div className="bg-white p-6 rounded-lg border border-gray-200 shadow-sm">
-                    <h3 className="text-lg font-medium text-gray-900 mb-4">Google News</h3>
-                    <p className="text-sm text-gray-500 mb-4">
+                  <div className="bg-white dark:bg-slate-900 p-6 rounded-lg border border-gray-200 dark:border-slate-700 shadow-sm">
+                    <h3 className="text-lg font-medium text-gray-900 dark:text-slate-100 mb-4">Google News</h3>
+                    <p className="text-sm text-gray-500 dark:text-slate-400 mb-4">
                       Obtener noticias de Google News sobre temas de salud para analizar y entrenar el modelo.
                     </p>
                     <Link
@@ -361,9 +361,9 @@ const AdminDashboard = () => {
                     </Link>
                   </div>
                   
-                  <div className="bg-white p-6 rounded-lg border border-gray-200 shadow-sm">
-                    <h3 className="text-lg font-medium text-gray-900 mb-4">Twitter</h3>
-                    <p className="text-sm text-gray-500 mb-4">
+                  <div className="bg-white dark:bg-slate-900 p-6 rounded-lg border border-gray-200 dark:border-slate-700 shadow-sm">
+                    <h3 className="text-lg font-medium text-gray-900 dark:text-slate-100 mb-4">Twitter</h3>
+                    <p className="text-sm text-gray-500 dark:text-slate-400 mb-4">
                       Obtener tweets relacionados con temas de salud para analizar y entrenar el modelo.
                     </p>
                     <Link
@@ -381,8 +381,8 @@ const AdminDashboard = () => {
             {activeTab === 'stats' && (
               <div>
                 <div className="mb-6">
-                  <h2 className="text-lg font-medium text-gray-900">Estadísticas del Sistema</h2>
-                  <p className="mt-1 text-sm text-gray-500">
+                  <h2 className="text-lg font-medium text-gray-900 dark:text-slate-100">Estadísticas del Sistema</h2>
+                  <p className="mt-1 text-sm text-gray-500 dark:text-slate-400">
                     Visualiza los datos sobre el uso y rendimiento del sistema.
                   </p>
                 </div>

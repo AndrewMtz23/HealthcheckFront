@@ -101,7 +101,7 @@ const NewsVerifier = () => {
     const isTrue = classification.toLowerCase() === 'verdadera';
     
     return (
-      <div className="w-full bg-gray-200 rounded-full h-4 mt-2">
+      <div className="w-full bg-gray-200 dark:bg-slate-700 rounded-full h-4 mt-2">
         <div 
           className={`h-4 rounded-full ${isTrue ? 'bg-green-600' : 'bg-red-600'}`}
           style={{ width: `${percentage}%` }}
@@ -121,13 +121,13 @@ const NewsVerifier = () => {
     const isTwitter = source.match(/twitter\.com|x\.com/i);
     
     return (
-      <div className="mt-4 border border-gray-200 rounded-lg overflow-hidden">
-        <div className="bg-gray-50 px-4 py-2 border-b text-sm font-medium text-gray-700">
+      <div className="mt-4 border border-gray-200 dark:border-slate-700 rounded-lg overflow-hidden">
+        <div className="bg-gray-50 dark:bg-slate-950 px-4 py-2 border-b text-sm font-medium text-gray-700 dark:text-slate-200">
           Vista previa
         </div>
-        <div className="bg-white p-4 h-64 overflow-hidden">
+        <div className="bg-white dark:bg-slate-900 p-4 h-64 overflow-hidden">
           {isTwitter ? (
-            <div className="flex items-center justify-center h-full text-gray-400">
+            <div className="flex items-center justify-center h-full text-gray-400 dark:text-slate-400">
               Vista previa de Twitter no disponible
             </div>
           ) : (
@@ -158,14 +158,14 @@ const NewsVerifier = () => {
   };
 
   return (
-    <div className="bg-white rounded-lg shadow-sm w-[calc(100%-2rem)] max-w-4xl mx-auto my-8">
+    <div className="bg-white dark:bg-slate-900 rounded-lg shadow-sm w-[calc(100%-2rem)] max-w-4xl mx-auto my-8">
       <div className="p-6 sm:p-8">
-        <h2 className="text-2xl font-bold text-gray-800 mb-6">Verificador de información</h2>
+        <h2 className="text-2xl font-bold text-gray-800 dark:text-slate-100 mb-6">Verificador de información</h2>
         
         {/* Tabs de selección */}
         <div className="mb-6 flex flex-wrap gap-2">
           <button 
-            className={`rounded-full px-4 py-2 ${activeTab === 'texto' ? 'bg-blue-600 text-white' : 'bg-gray-100 text-gray-700 hover:bg-gray-200'}`}
+            className={`rounded-full px-4 py-2 ${activeTab === 'texto' ? 'bg-blue-600 text-white' : 'bg-gray-100 dark:bg-slate-800 text-gray-700 dark:text-slate-200 hover:bg-gray-200 dark:hover:bg-slate-700'}`}
             onClick={() => setActiveTab('texto')}
           >
             <span className="flex items-center">
@@ -176,7 +176,7 @@ const NewsVerifier = () => {
             </span>
           </button>
           <button 
-            className={`rounded-full px-4 py-2 ${activeTab === 'url' ? 'bg-blue-600 text-white' : 'bg-gray-100 text-gray-700 hover:bg-gray-200'}`}
+            className={`rounded-full px-4 py-2 ${activeTab === 'url' ? 'bg-blue-600 text-white' : 'bg-gray-100 dark:bg-slate-800 text-gray-700 dark:text-slate-200 hover:bg-gray-200 dark:hover:bg-slate-700'}`}
             onClick={() => setActiveTab('url')}
           >
             <span className="flex items-center">
@@ -187,7 +187,7 @@ const NewsVerifier = () => {
             </span>
           </button>
           <button 
-            className={`rounded-full px-4 py-2 ${activeTab === 'twitter' ? 'bg-blue-600 text-white' : 'bg-gray-100 text-gray-700 hover:bg-gray-200'}`}
+            className={`rounded-full px-4 py-2 ${activeTab === 'twitter' ? 'bg-blue-600 text-white' : 'bg-gray-100 dark:bg-slate-800 text-gray-700 dark:text-slate-200 hover:bg-gray-200 dark:hover:bg-slate-700'}`}
             onClick={() => setActiveTab('twitter')}
           >
             <span className="flex items-center">
@@ -208,7 +208,7 @@ const NewsVerifier = () => {
                 value={input}
                 onChange={(e) => setInput(e.target.value)}
                 rows={5}
-                className="w-full px-4 py-3 rounded-md border-gray-300 shadow-sm focus:border-blue-500 focus:ring-blue-500"
+                className="w-full px-4 py-3 rounded-md border-gray-300 dark:border-slate-600 shadow-sm focus:border-blue-500 focus:ring-blue-500"
               />
             ) : (
               <div className="flex">
@@ -217,7 +217,7 @@ const NewsVerifier = () => {
                   placeholder={activeTab === 'twitter' ? "https://twitter.com/usuario/status/123456789" : "https://ejemplo.com/noticia"}
                   value={input}
                   onChange={(e) => setInput(e.target.value)}
-                  className="min-w-0 flex-grow px-4 py-3 rounded-l-md border-gray-300 shadow-sm focus:border-blue-500 focus:ring-blue-500"
+                  className="min-w-0 flex-grow px-4 py-3 rounded-l-md border-gray-300 dark:border-slate-600 shadow-sm focus:border-blue-500 focus:ring-blue-500"
                 />
                 <button
                   type="submit"
@@ -271,7 +271,7 @@ const NewsVerifier = () => {
           )}
 
           {error && (
-            <div className="p-3 bg-red-50 text-red-700 rounded-md text-sm">
+            <div className="p-3 bg-red-50 dark:bg-red-950/40 text-red-700 dark:text-red-300 rounded-md text-sm">
               {error}
             </div>
           )}
@@ -279,21 +279,21 @@ const NewsVerifier = () => {
         
         {/* Información de cómo funciona */}
         {!result && !showExample && (
-          <div className="mt-6 bg-blue-50 rounded-lg p-4">
+          <div className="mt-6 bg-blue-50 dark:bg-blue-950/50 rounded-lg p-4">
             <div className="flex items-start">
               <div className="flex-shrink-0">
-                <svg className="h-5 w-5 text-blue-600" fill="currentColor" viewBox="0 0 20 20" xmlns="http://www.w3.org/2000/svg">
+                <svg className="h-5 w-5 text-blue-600 dark:text-blue-400" fill="currentColor" viewBox="0 0 20 20" xmlns="http://www.w3.org/2000/svg">
                   <path fillRule="evenodd" d="M18 10a8 8 0 11-16 0 8 8 0 0116 0zm-7-4a1 1 0 11-2 0 1 1 0 012 0zM9 9a1 1 0 000 2v3a1 1 0 001 1h1a1 1 0 100-2v-3a1 1 0 00-1-1H9z" clipRule="evenodd" />
                 </svg>
               </div>
               <div className="ml-3 min-w-0 flex-1 lg:flex lg:justify-between">
-                <p className="text-sm text-blue-900">
+                <p className="text-sm text-blue-900 dark:text-blue-200">
                   <span className="font-bold">¿Cómo funciona?</span> Nuestro sistema compara la información con fuentes oficiales y bases de datos médicas verificadas
                 </p>
                 <p className="mt-3 text-sm lg:mt-0 lg:ml-6">
                   <button 
                     onClick={() => setShowExample(true)}
-                    className="text-left text-blue-600 hover:text-blue-800 font-medium"
+                    className="text-left text-blue-600 dark:text-blue-400 hover:text-blue-800 dark:hover:text-blue-200 font-medium"
                   >
                     Ver ejemplo de resultado →
                   </button>
@@ -305,26 +305,26 @@ const NewsVerifier = () => {
         
         {/* Resultados */}
         {(result || showExample) && (
-          <div className="mt-8 border border-gray-200 rounded-lg overflow-hidden">
-            <div className="bg-gray-50 px-4 sm:px-6 py-4 border-b border-gray-200 flex flex-wrap gap-3 justify-between items-center">
-              <h3 className="text-lg font-medium text-gray-900">Resultado del análisis</h3>
+          <div className="mt-8 border border-gray-200 dark:border-slate-700 rounded-lg overflow-hidden">
+            <div className="bg-gray-50 dark:bg-slate-950 px-4 sm:px-6 py-4 border-b border-gray-200 dark:border-slate-700 flex flex-wrap gap-3 justify-between items-center">
+              <h3 className="text-lg font-medium text-gray-900 dark:text-slate-100">Resultado del análisis</h3>
               {showExample && (
-                <span className="px-2 py-1 text-xs bg-blue-100 text-blue-800 rounded-full">Ejemplo</span>
+                <span className="px-2 py-1 text-xs bg-blue-100 dark:bg-blue-900/40 text-blue-800 dark:text-blue-200 rounded-full">Ejemplo</span>
               )}
             </div>
             
-            <div className="bg-white p-6">
+            <div className="bg-white dark:bg-slate-900 p-6">
               {/* Visualización de resultado */}
               <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
                 <div>
                   {/* Info principal */}
                   <div className="mb-6">
-                    <h4 className="text-lg font-semibold text-gray-800 mb-2">
+                    <h4 className="text-lg font-semibold text-gray-800 dark:text-slate-100 mb-2">
                       {showExample ? exampleResult["Título"] : result?.["Título"] !== "No disponible" ? result?.["Título"] : "Análisis de información"}
                     </h4>
                     
                     {/* Autor y fecha */}
-                    <div className="flex flex-wrap text-sm text-gray-600 mb-4">
+                    <div className="flex flex-wrap text-sm text-gray-600 dark:text-slate-300 mb-4">
                       {(showExample ? exampleResult["Autor"] : result?.["Autor"]) && 
                        (showExample ? exampleResult["Autor"] : result?.["Autor"]) !== "Desconocido" && (
                         <span className="mr-4">
@@ -342,12 +342,12 @@ const NewsVerifier = () => {
                     {/* Clasificación con barra de confianza */}
                     <div className="mb-4">
                       <div className="flex justify-between items-center">
-                        <span className="font-medium text-gray-700">Clasificación:</span>
+                        <span className="font-medium text-gray-700 dark:text-slate-200">Clasificación:</span>
                         <span 
                           className={`font-bold ${
                           (showExample ? exampleResult["Clasificación"] : result?.["Clasificación"] || '').toLowerCase() === 'verdadera' 
-                            ? 'text-green-600' 
-                            : 'text-red-600'
+                            ? 'text-green-600 dark:text-green-300'
+                            : 'text-red-600 dark:text-red-300'
                           }`}
                         >
                           {(showExample ? exampleResult["Clasificación"] : result?.["Clasificación"] || 'No disponible').toUpperCase()}
@@ -357,7 +357,7 @@ const NewsVerifier = () => {
                         showExample ? exampleResult["Clasificación"] : result?.["Clasificación"] || '',
                         showExample ? exampleResult["Confianza"] : result?.["Confianza"] || 0
                       )}
-                      <div className="flex justify-between text-xs text-gray-500 mt-1">
+                      <div className="flex justify-between text-xs text-gray-500 dark:text-slate-400 mt-1">
                         <span>0%</span>
                         <span>Confianza: {formatConfidence(showExample ? exampleResult["Confianza"] : result?.["Confianza"] || 0)}%</span>
                         <span>100%</span>
@@ -366,16 +366,16 @@ const NewsVerifier = () => {
                     
                     {/* Explicación */}
                     <div className="mb-4">
-                      <h5 className="font-medium text-gray-700 mb-1">Explicación:</h5>
-                      <p className="text-gray-800">
+                      <h5 className="font-medium text-gray-700 dark:text-slate-200 mb-1">Explicación:</h5>
+                      <p className="text-gray-800 dark:text-slate-100">
                         {showExample ? exampleResult["Explicación"] : result?.["Explicación"]}
                       </p>
                     </div>
                     
                     {/* Tema */}
                     <div className="mb-4">
-                      <span className="font-medium text-gray-700">Tema: </span>
-                      <span className="ml-1 px-2.5 py-0.5 bg-gray-100 text-gray-800 rounded-full text-sm">
+                      <span className="font-medium text-gray-700 dark:text-slate-200">Tema: </span>
+                      <span className="ml-1 px-2.5 py-0.5 bg-gray-100 dark:bg-slate-800 text-gray-800 dark:text-slate-100 rounded-full text-sm">
                         {showExample ? exampleResult["Tema"] : result?.["Tema"]}
                       </span>
                     </div>
@@ -383,10 +383,10 @@ const NewsVerifier = () => {
                     {/* Palabras clave */}
                     {((showExample ? exampleResult["Palabras Clave"] : result?.["Palabras Clave"]) ?? []).length > 0 && (
                       <div>
-                        <h5 className="font-medium text-gray-700 mb-2">Palabras clave:</h5>
+                        <h5 className="font-medium text-gray-700 dark:text-slate-200 mb-2">Palabras clave:</h5>
                         <div className="flex flex-wrap gap-2">
                           {(showExample ? exampleResult["Palabras Clave"] : result?.["Palabras Clave"])?.map((keyword, index) => (
-                            <span key={index} className="px-2.5 py-0.5 bg-blue-100 text-blue-800 rounded-full text-sm">
+                            <span key={index} className="px-2.5 py-0.5 bg-blue-100 dark:bg-blue-900/40 text-blue-800 dark:text-blue-200 rounded-full text-sm">
                               {keyword}
                             </span>
                           ))}
@@ -403,11 +403,11 @@ const NewsVerifier = () => {
                     renderSourcePreview(result["Fuente"])
                   ) : (
                     // Mostrar texto completo
-                    <div className="border border-gray-200 rounded-lg overflow-hidden">
-                      <div className="bg-gray-50 px-4 py-2 border-b text-sm font-medium text-gray-700">
+                    <div className="border border-gray-200 dark:border-slate-700 rounded-lg overflow-hidden">
+                      <div className="bg-gray-50 dark:bg-slate-950 px-4 py-2 border-b text-sm font-medium text-gray-700 dark:text-slate-200">
                         Texto analizado
                       </div>
-                      <div className="bg-white p-4 max-h-64 overflow-y-auto">
+                      <div className="bg-white dark:bg-slate-900 p-4 max-h-64 overflow-y-auto">
                         {(showExample ? exampleResult["Texto Completo"] : result?.["Texto Completo"] || '')
                           .split('\n')
                           .map((paragraph, idx) => (
@@ -421,12 +421,12 @@ const NewsVerifier = () => {
                   {/* Fuente */}
                   {!showExample && result?.["Fuente"] && result?.["Fuente"] !== "Texto ingresado directamente" && (
                     <div className="mt-4">
-                      <h5 className="font-medium text-gray-700 mb-1">Fuente original:</h5>
+                      <h5 className="font-medium text-gray-700 dark:text-slate-200 mb-1">Fuente original:</h5>
                       <a 
                         href={result["Fuente"]} 
                         target="_blank" 
                         rel="noopener noreferrer" 
-                        className="text-blue-600 hover:underline break-all"
+                        className="text-blue-600 dark:text-blue-400 hover:underline break-all"
                       >
                         {result["Fuente"]}
                       </a>
@@ -440,7 +440,7 @@ const NewsVerifier = () => {
                 <div className="mt-6 flex justify-center">
                   <button
                     onClick={() => setShowExample(false)}
-                    className="px-4 py-2 bg-gray-100 text-gray-700 rounded-md hover:bg-gray-200"
+                    className="px-4 py-2 bg-gray-100 dark:bg-slate-800 text-gray-700 dark:text-slate-200 rounded-md hover:bg-gray-200 dark:hover:bg-slate-700"
                   >
                     Cerrar ejemplo
                   </button>

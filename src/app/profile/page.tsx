@@ -331,14 +331,14 @@ const formatDate = (dateString: string): string => {
 
   if (loading) {
     return (
-      <div className="min-h-screen pt-16 bg-gray-50 flex justify-center items-center">
+      <div className="min-h-screen pt-16 bg-gray-50 dark:bg-slate-950 flex justify-center items-center">
         <div className="animate-spin rounded-full h-12 w-12 border-t-2 border-b-2 border-blue-500"></div>
       </div>
     );
   }
 
   return (
-    <div className="min-h-screen pt-16 bg-gray-50">
+    <div className="min-h-screen pt-16 bg-gray-50 dark:bg-slate-950">
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-8">
         <div className="lg:grid lg:grid-cols-12 lg:gap-x-5">
           {/* Barra lateral */}
@@ -349,8 +349,8 @@ const formatDate = (dateString: string): string => {
                 <span className="text-lg font-medium">{getUserInitial()}</span>
               </div>
               <div>
-                <h2 className="text-lg font-medium text-gray-900">{user?.nombre || 'Usuario'}</h2>
-                <p className="text-sm text-gray-500">{user?.email}</p>
+                <h2 className="text-lg font-medium text-gray-900 dark:text-slate-100">{user?.nombre || 'Usuario'}</h2>
+                <p className="text-sm text-gray-500 dark:text-slate-400">{user?.email}</p>
               </div>
             </div>
             
@@ -359,14 +359,14 @@ const formatDate = (dateString: string): string => {
                 onClick={() => setActiveTab('general')}
                 className={`group rounded-md px-3 py-2 flex items-center text-sm font-medium w-full ${
                   activeTab === 'general'
-                    ? 'bg-blue-50 text-blue-700'
-                    : 'text-gray-700 hover:text-gray-900 hover:bg-gray-50'
+                    ? 'bg-blue-50 dark:bg-blue-950/50 text-blue-700 dark:text-blue-300'
+                    : 'text-gray-700 dark:text-slate-200 hover:text-gray-900 dark:hover:text-slate-100 hover:bg-gray-50 dark:hover:bg-slate-950'
                 }`}
                 aria-current={activeTab === 'general' ? 'page' : undefined}
               >
                 <svg
                   className={`flex-shrink-0 -ml-1 mr-3 h-6 w-6 ${
-                    activeTab === 'general' ? 'text-blue-500' : 'text-gray-400 group-hover:text-gray-500'
+                    activeTab === 'general' ? 'text-blue-500 dark:text-blue-400' : 'text-gray-400 dark:text-slate-400 group-hover:text-gray-500 dark:group-hover:text-slate-400'
                   }`}
                   fill="none"
                   viewBox="0 0 24 24"
@@ -387,14 +387,14 @@ const formatDate = (dateString: string): string => {
                 onClick={() => setActiveTab('preferences')}
                 className={`group rounded-md px-3 py-2 flex items-center text-sm font-medium w-full ${
                   activeTab === 'preferences'
-                    ? 'bg-blue-50 text-blue-700'
-                    : 'text-gray-700 hover:text-gray-900 hover:bg-gray-50'
+                    ? 'bg-blue-50 dark:bg-blue-950/50 text-blue-700 dark:text-blue-300'
+                    : 'text-gray-700 dark:text-slate-200 hover:text-gray-900 dark:hover:text-slate-100 hover:bg-gray-50 dark:hover:bg-slate-950'
                 }`}
                 aria-current={activeTab === 'preferences' ? 'page' : undefined}
               >
                 <svg
                   className={`flex-shrink-0 -ml-1 mr-3 h-6 w-6 ${
-                    activeTab === 'preferences' ? 'text-blue-500' : 'text-gray-400 group-hover:text-gray-500'
+                    activeTab === 'preferences' ? 'text-blue-500 dark:text-blue-400' : 'text-gray-400 dark:text-slate-400 group-hover:text-gray-500 dark:group-hover:text-slate-400'
                   }`}
                   fill="none"
                   viewBox="0 0 24 24"
@@ -421,14 +421,14 @@ const formatDate = (dateString: string): string => {
                 onClick={() => setActiveTab('topics')}
                 className={`group rounded-md px-3 py-2 flex items-center text-sm font-medium w-full ${
                   activeTab === 'topics'
-                    ? 'bg-blue-50 text-blue-700'
-                    : 'text-gray-700 hover:text-gray-900 hover:bg-gray-50'
+                    ? 'bg-blue-50 dark:bg-blue-950/50 text-blue-700 dark:text-blue-300'
+                    : 'text-gray-700 dark:text-slate-200 hover:text-gray-900 dark:hover:text-slate-100 hover:bg-gray-50 dark:hover:bg-slate-950'
                 }`}
                 aria-current={activeTab === 'topics' ? 'page' : undefined}
               >
                 <svg
                   className={`flex-shrink-0 -ml-1 mr-3 h-6 w-6 ${
-                    activeTab === 'topics' ? 'text-blue-500' : 'text-gray-400 group-hover:text-gray-500'
+                    activeTab === 'topics' ? 'text-blue-500 dark:text-blue-400' : 'text-gray-400 dark:text-slate-400 group-hover:text-gray-500 dark:group-hover:text-slate-400'
                   }`}
                   fill="none"
                   viewBox="0 0 24 24"
@@ -449,14 +449,14 @@ const formatDate = (dateString: string): string => {
                 onClick={() => setActiveTab('notifications')}
                 className={`group rounded-md px-3 py-2 flex items-center text-sm font-medium w-full ${
                   activeTab === 'notifications'
-                    ? 'bg-blue-50 text-blue-700'
-                    : 'text-gray-700 hover:text-gray-900 hover:bg-gray-50'
+                    ? 'bg-blue-50 dark:bg-blue-950/50 text-blue-700 dark:text-blue-300'
+                    : 'text-gray-700 dark:text-slate-200 hover:text-gray-900 dark:hover:text-slate-100 hover:bg-gray-50 dark:hover:bg-slate-950'
                 }`}
                 aria-current={activeTab === 'notifications' ? 'page' : undefined}
               >
                 <svg
                   className={`flex-shrink-0 -ml-1 mr-3 h-6 w-6 ${
-                    activeTab === 'notifications' ? 'text-blue-500' : 'text-gray-400 group-hover:text-gray-500'
+                    activeTab === 'notifications' ? 'text-blue-500 dark:text-blue-400' : 'text-gray-400 dark:text-slate-400 group-hover:text-gray-500 dark:group-hover:text-slate-400'
                   }`}
                   fill="none"
                   viewBox="0 0 24 24"
@@ -476,10 +476,10 @@ const formatDate = (dateString: string): string => {
               <div className="pt-6">
                 <Link
                   href="/dashboard"
-                  className="group rounded-md px-3 py-2 flex items-center text-sm font-medium text-gray-700 hover:text-gray-900 hover:bg-gray-50 w-full"
+                  className="group rounded-md px-3 py-2 flex items-center text-sm font-medium text-gray-700 dark:text-slate-200 hover:text-gray-900 dark:hover:text-slate-100 hover:bg-gray-50 dark:hover:bg-slate-950 w-full"
                 >
                   <svg
-                    className="flex-shrink-0 -ml-1 mr-3 h-6 w-6 text-gray-400 group-hover:text-gray-500"
+                    className="flex-shrink-0 -ml-1 mr-3 h-6 w-6 text-gray-400 dark:text-slate-400 group-hover:text-gray-500 dark:group-hover:text-slate-400"
                     fill="none"
                     viewBox="0 0 24 24"
                     stroke="currentColor"
@@ -503,7 +503,7 @@ const formatDate = (dateString: string): string => {
             {message && (
               <div
                 className={`mb-4 p-4 rounded-md ${
-                  message.type === 'success' ? 'bg-green-50 text-green-700' : 'bg-red-50 text-red-700'
+                  message.type === 'success' ? 'bg-green-50 dark:bg-green-950/40 text-green-700 dark:text-green-300' : 'bg-red-50 dark:bg-red-950/40 text-red-700 dark:text-red-300'
                 } relative`}
               >
                 <div className="flex">
@@ -528,7 +528,7 @@ const formatDate = (dateString: string): string => {
                   onClick={() => setMessage(null)}
                   aria-label="Cerrar"
                 >
-                  <svg className="h-4 w-4 text-gray-400 hover:text-gray-500" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 20 20" fill="currentColor">
+                  <svg className="h-4 w-4 text-gray-400 dark:text-slate-400 hover:text-gray-500 dark:hover:text-slate-400" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 20 20" fill="currentColor">
                     <path fillRule="evenodd" d="M4.293 4.293a1 1 0 011.414 0L10 8.586l4.293-4.293a1 1 0 111.414 1.414L11.414 10l4.293 4.293a1 1 0 01-1.414 1.414L10 11.414l-4.293 4.293a1 1 0 01-1.414-1.414L8.586 10 4.293 5.707a1 1 0 010-1.414z" clipRule="evenodd" />
                   </svg>
                 </button>
@@ -537,16 +537,16 @@ const formatDate = (dateString: string): string => {
 
             {/* Panel de información general */}
             {activeTab === 'general' && (
-              <div className="bg-white shadow rounded-lg">
+              <div className="bg-white dark:bg-slate-900 shadow rounded-lg">
                 <div className="px-4 py-5 sm:p-6">
-                  <h3 className="text-lg leading-6 font-medium text-gray-900">Información personal</h3>
-                  <div className="mt-2 max-w-xl text-sm text-gray-500">
+                  <h3 className="text-lg leading-6 font-medium text-gray-900 dark:text-slate-100">Información personal</h3>
+                  <div className="mt-2 max-w-xl text-sm text-gray-500 dark:text-slate-400">
                     <p>Actualiza tu información personal y de contacto.</p>
                   </div>
                   <form onSubmit={handleUpdateProfile} className="mt-5 space-y-6">
                     <div className="grid grid-cols-6 gap-6">
                       <div className="col-span-6 sm:col-span-3">
-                        <label htmlFor="email" className="block text-sm font-medium text-gray-700">
+                        <label htmlFor="email" className="block text-sm font-medium text-gray-700 dark:text-slate-200">
                           Correo electrónico
                         </label>
                         <input
@@ -555,15 +555,15 @@ const formatDate = (dateString: string): string => {
                           id="email"
                           value={user?.email || ''}
                           disabled
-                          className="mt-1 block w-full border border-gray-300 rounded-md shadow-sm py-2 px-3 focus:outline-none focus:ring-blue-500 focus:border-blue-500 sm:text-sm bg-gray-50"
+                          className="mt-1 block w-full border border-gray-300 dark:border-slate-600 rounded-md shadow-sm py-2 px-3 focus:outline-none focus:ring-blue-500 focus:border-blue-500 sm:text-sm bg-gray-50 dark:bg-slate-950"
                         />
-                        <p className="mt-1 text-sm text-gray-500">
+                        <p className="mt-1 text-sm text-gray-500 dark:text-slate-400">
                           El correo electrónico no se puede cambiar.
                         </p>
                       </div>
 
                       <div className="col-span-6 sm:col-span-3">
-                        <label htmlFor="name" className="block text-sm font-medium text-gray-700">
+                        <label htmlFor="name" className="block text-sm font-medium text-gray-700 dark:text-slate-200">
                           Nombre completo
                         </label>
                         <input
@@ -572,12 +572,12 @@ const formatDate = (dateString: string): string => {
                           id="name"
                           value={name}
                           onChange={(e) => setName(e.target.value)}
-                          className="mt-1 block w-full border border-gray-300 rounded-md shadow-sm py-2 px-3 focus:outline-none focus:ring-blue-500 focus:border-blue-500 sm:text-sm"
+                          className="mt-1 block w-full border border-gray-300 dark:border-slate-600 rounded-md shadow-sm py-2 px-3 focus:outline-none focus:ring-blue-500 focus:border-blue-500 sm:text-sm"
                         />
                       </div>
 
                       <div className="col-span-6 sm:col-span-3">
-                        <label htmlFor="phone" className="block text-sm font-medium text-gray-700">
+                        <label htmlFor="phone" className="block text-sm font-medium text-gray-700 dark:text-slate-200">
                           Teléfono
                         </label>
                         <input
@@ -586,20 +586,20 @@ const formatDate = (dateString: string): string => {
                           id="phone"
                           value={phone}
                           onChange={(e) => setPhone(e.target.value)}
-                          className="mt-1 block w-full border border-gray-300 rounded-md shadow-sm py-2 px-3 focus:outline-none focus:ring-blue-500 focus:border-blue-500 sm:text-sm"
+                          className="mt-1 block w-full border border-gray-300 dark:border-slate-600 rounded-md shadow-sm py-2 px-3 focus:outline-none focus:ring-blue-500 focus:border-blue-500 sm:text-sm"
                           placeholder="+52 123 456 7890"
                         />
                       </div>
 
                       <div className="col-span-6 sm:col-span-3">
-                        <label className="block text-sm font-medium text-gray-700">
+                        <label className="block text-sm font-medium text-gray-700 dark:text-slate-200">
                           Fecha de registro
                         </label>
                         <input
                           type="text"
                           value={user?.fecha_registro ? new Date(user.fecha_registro).toLocaleDateString('es-ES') : ''}
                           disabled
-                          className="mt-1 block w-full border border-gray-300 rounded-md shadow-sm py-2 px-3 bg-gray-50 sm:text-sm"
+                          className="mt-1 block w-full border border-gray-300 dark:border-slate-600 rounded-md shadow-sm py-2 px-3 bg-gray-50 dark:bg-slate-950 sm:text-sm"
                         />
                       </div>
                     </div>
@@ -608,7 +608,7 @@ const formatDate = (dateString: string): string => {
                       <button
                         type="button"
                         onClick={() => router.push('/dashboard')}
-                        className="bg-white py-2 px-4 border border-gray-300 rounded-md shadow-sm text-sm font-medium text-gray-700 hover:bg-gray-50 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-blue-500"
+                        className="bg-white dark:bg-slate-900 py-2 px-4 border border-gray-300 dark:border-slate-600 rounded-md shadow-sm text-sm font-medium text-gray-700 dark:text-slate-200 hover:bg-gray-50 dark:hover:bg-slate-950 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-blue-500"
                       >
                         Cancelar
                       </button>
@@ -629,10 +629,10 @@ const formatDate = (dateString: string): string => {
 
             {/* Panel de preferencias */}
             {activeTab === 'preferences' && (
-              <div className="bg-white shadow rounded-lg">
+              <div className="bg-white dark:bg-slate-900 shadow rounded-lg">
                 <div className="px-4 py-5 sm:p-6">
-                  <h3 className="text-lg leading-6 font-medium text-gray-900">Preferencias de notificaciones</h3>
-                  <div className="mt-2 max-w-xl text-sm text-gray-500">
+                  <h3 className="text-lg leading-6 font-medium text-gray-900 dark:text-slate-100">Preferencias de notificaciones</h3>
+                  <div className="mt-2 max-w-xl text-sm text-gray-500 dark:text-slate-400">
                     <p>Configura cómo y con qué frecuencia deseas recibir notificaciones sobre noticias falsas y verificación de información.</p>
                   </div>
                   
@@ -654,19 +654,19 @@ const formatDate = (dateString: string): string => {
                                 ...preferences,
                                 recibir_notificaciones: e.target.checked
                               })}
-                              className="focus:ring-blue-500 h-4 w-4 text-blue-600 border-gray-300 rounded"
+                              className="focus:ring-blue-500 h-4 w-4 text-blue-600 dark:text-blue-400 border-gray-300 dark:border-slate-600 rounded"
                             />
                           </div>
                           <div className="ml-3 text-sm">
-                            <label htmlFor="receive_notifications" className="font-medium text-gray-700">
+                            <label htmlFor="receive_notifications" className="font-medium text-gray-700 dark:text-slate-200">
                               Recibir notificaciones
                             </label>
-                            <p className="text-gray-500">Activa esta opción para recibir notificaciones sobre noticias verificadas.</p>
+                            <p className="text-gray-500 dark:text-slate-400">Activa esta opción para recibir notificaciones sobre noticias verificadas.</p>
                           </div>
                         </div>
 
                         <div className="mt-4">
-                          <label htmlFor="frequency" className="block text-sm font-medium text-gray-700">
+                          <label htmlFor="frequency" className="block text-sm font-medium text-gray-700 dark:text-slate-200">
                             Frecuencia de notificaciones
                           </label>
                           <select
@@ -678,15 +678,15 @@ const formatDate = (dateString: string): string => {
                               frecuencia_notificaciones: e.target.value as 'diaria' | 'semanal' | 'inmediata'
                             })}
                             disabled={!preferences.recibir_notificaciones}
-                            className={`mt-1 block w-full pl-3 pr-10 py-2 text-base border-gray-300 focus:outline-none focus:ring-blue-500 focus:border-blue-500 sm:text-sm rounded-md ${
-                              !preferences.recibir_notificaciones ? 'bg-gray-100 cursor-not-allowed' : ''
+                            className={`mt-1 block w-full pl-3 pr-10 py-2 text-base border-gray-300 dark:border-slate-600 focus:outline-none focus:ring-blue-500 focus:border-blue-500 sm:text-sm rounded-md ${
+                              !preferences.recibir_notificaciones ? 'bg-gray-100 dark:bg-slate-800 cursor-not-allowed' : ''
                             }`}
                           >
                             <option value="inmediata">Inmediata</option>
                             <option value="diaria">Diaria</option>
                             <option value="semanal">Semanal</option>
                           </select>
-                          <p className="mt-1 text-xs text-gray-500">
+                          <p className="mt-1 text-xs text-gray-500 dark:text-slate-400">
                             {preferences.frecuencia_notificaciones === 'inmediata' 
                               ? 'Recibirás notificaciones tan pronto como se detecte una noticia relevante.' 
                               : preferences.frecuencia_notificaciones === 'diaria' 
@@ -696,7 +696,7 @@ const formatDate = (dateString: string): string => {
                         </div>
 
                         <div className="mt-4">
-                          <label htmlFor="notification_type" className="block text-sm font-medium text-gray-700">
+                          <label htmlFor="notification_type" className="block text-sm font-medium text-gray-700 dark:text-slate-200">
                             Tipo de notificación
                           </label>
                           <select
@@ -708,15 +708,15 @@ const formatDate = (dateString: string): string => {
                               tipo_notificacion: e.target.value as 'email' | 'sms'
                             })}
                             disabled={!preferences.recibir_notificaciones}
-                            className={`mt-1 block w-full pl-3 pr-10 py-2 text-base border-gray-300 focus:outline-none focus:ring-blue-500 focus:border-blue-500 sm:text-sm rounded-md ${
-                              !preferences.recibir_notificaciones ? 'bg-gray-100 cursor-not-allowed' : ''
+                            className={`mt-1 block w-full pl-3 pr-10 py-2 text-base border-gray-300 dark:border-slate-600 focus:outline-none focus:ring-blue-500 focus:border-blue-500 sm:text-sm rounded-md ${
+                              !preferences.recibir_notificaciones ? 'bg-gray-100 dark:bg-slate-800 cursor-not-allowed' : ''
                             }`}
                           >
                             <option value="email">Correo electrónico</option>
                             <option value="sms">SMS</option>
                           </select>
                           {preferences.tipo_notificacion === 'sms' && !phone && (
-                            <p className="mt-2 text-sm text-yellow-600">
+                            <p className="mt-2 text-sm text-yellow-600 dark:text-yellow-300">
                               Para recibir notificaciones por SMS, debes agregar un número de teléfono en tu perfil.
                             </p>
                           )}
@@ -736,11 +736,11 @@ const formatDate = (dateString: string): string => {
                       </div>
                     </form>
                   ) : (
-                    <div className="mt-5 p-4 bg-red-50 text-red-700 rounded-md">
+                    <div className="mt-5 p-4 bg-red-50 dark:bg-red-950/40 text-red-700 dark:text-red-300 rounded-md">
                       <p>No se pudieron cargar las preferencias. Intenta recargar la página.</p>
                       <button 
                         onClick={loadUserPreferences}
-                        className="mt-2 text-sm font-medium text-red-700 hover:text-red-600"
+                        className="mt-2 text-sm font-medium text-red-700 dark:text-red-300 hover:text-red-600 dark:hover:text-red-300"
                       >
                         Reintentar
                       </button>
@@ -752,35 +752,35 @@ const formatDate = (dateString: string): string => {
 
             {/* Panel de temas de interés */}
             {activeTab === 'topics' && (
-              <div className="bg-white shadow rounded-lg">
+              <div className="bg-white dark:bg-slate-900 shadow rounded-lg">
                 <div className="px-4 py-5 sm:p-6">
-                  <h3 className="text-lg leading-6 font-medium text-gray-900">Temas de interés</h3>
-                  <div className="mt-2 max-w-xl text-sm text-gray-500">
+                  <h3 className="text-lg leading-6 font-medium text-gray-900 dark:text-slate-100">Temas de interés</h3>
+                  <div className="mt-2 max-w-xl text-sm text-gray-500 dark:text-slate-400">
                     <p>Selecciona los temas sobre los que deseas recibir información y notificaciones.</p>
                   </div>
                   
                   <div className="mt-5 space-y-6">
                     {/* Temas actuales del usuario */}
                     <div>
-                      <h4 className="text-sm font-medium text-gray-700">Mis temas</h4>
+                      <h4 className="text-sm font-medium text-gray-700 dark:text-slate-200">Mis temas</h4>
                       <div className="mt-2">
                         {topicsLoading ? (
-                          <div className="flex items-center space-x-2 text-sm text-gray-500">
+                          <div className="flex items-center space-x-2 text-sm text-gray-500 dark:text-slate-400">
                             <div className="animate-spin rounded-full h-4 w-4 border-t-2 border-b-2 border-blue-500"></div>
                             <span>Cargando temas...</span>
                           </div>
                         ) : userTopics.length === 0 ? (
-                          <p className="text-sm text-gray-500">No has seleccionado ningún tema de interés.</p>
+                          <p className="text-sm text-gray-500 dark:text-slate-400">No has seleccionado ningún tema de interés.</p>
                         ) : (
                           <div className="flex flex-wrap gap-2">
                             {userTopics.map((topic) => (
-                              <div key={topic.id} className="flex items-center bg-blue-50 text-blue-700 px-3 py-1 rounded-full text-sm">
+                              <div key={topic.id} className="flex items-center bg-blue-50 dark:bg-blue-950/50 text-blue-700 dark:text-blue-300 px-3 py-1 rounded-full text-sm">
                                 <span>{topic.tema_nombre}</span>
                                 <button
                                   type="button"
                                   onClick={() => handleRemoveTopic(topic.tema_id)}
                                   disabled={isSubmitting}
-                                  className={`ml-2 flex-shrink-0 inline-flex text-blue-400 hover:text-blue-600 focus:outline-none ${
+                                  className={`ml-2 flex-shrink-0 inline-flex text-blue-400 hover:text-blue-600 dark:hover:text-blue-400 focus:outline-none ${
                                     isSubmitting ? 'opacity-50 cursor-not-allowed' : ''
                                   }`}
                                 >
@@ -797,14 +797,14 @@ const formatDate = (dateString: string): string => {
 
                     {/* Agregar nuevo tema */}
                     <div>
-                      <h4 className="text-sm font-medium text-gray-700">Agregar tema</h4>
+                      <h4 className="text-sm font-medium text-gray-700 dark:text-slate-200">Agregar tema</h4>
                       <div className="mt-2 flex space-x-2">
                         <select
                           value={selectedTopic}
                           onChange={(e) => setSelectedTopic(e.target.value ? parseInt(e.target.value) : '')}
                           disabled={topicsLoading || isSubmitting}
-                          className={`block w-full pl-3 pr-10 py-2 text-base border-gray-300 focus:outline-none focus:ring-blue-500 focus:border-blue-500 sm:text-sm rounded-md ${
-                            topicsLoading || isSubmitting ? 'bg-gray-100 cursor-not-allowed' : ''
+                          className={`block w-full pl-3 pr-10 py-2 text-base border-gray-300 dark:border-slate-600 focus:outline-none focus:ring-blue-500 focus:border-blue-500 sm:text-sm rounded-md ${
+                            topicsLoading || isSubmitting ? 'bg-gray-100 dark:bg-slate-800 cursor-not-allowed' : ''
                           }`}
                         >
                           <option value="">Selecciona un tema</option>
@@ -835,20 +835,20 @@ const formatDate = (dateString: string): string => {
                       {allTopics
                         .filter(topic => selectedTopic === topic.id)
                         .map(topic => (
-                          <p key={topic.id} className="mt-2 text-sm text-gray-500">
+                          <p key={topic.id} className="mt-2 text-sm text-gray-500 dark:text-slate-400">
                             {topic.descripcion || 'Sin descripción disponible.'}
                           </p>
                         ))}
                         
                       {/* Explicación para el usuario */}
-                      <div className="mt-4 bg-blue-50 p-3 rounded-md">
+                      <div className="mt-4 bg-blue-50 dark:bg-blue-950/50 p-3 rounded-md">
                         <div className="flex">
                           <div className="flex-shrink-0">
                             <svg className="h-5 w-5 text-blue-400" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 20 20" fill="currentColor">
                               <path fillRule="evenodd" d="M18 10a8 8 0 11-16 0 8 8 0 0116 0zm-7-4a1 1 0 11-2 0 1 1 0 012 0zM9 9a1 1 0 000 2v3a1 1 0 001 1h1a1 1 0 100-2v-3a1 1 0 00-1-1H9z" clipRule="evenodd" />
                             </svg>
                           </div>
-                          <div className="ml-3 text-sm text-blue-700">
+                          <div className="ml-3 text-sm text-blue-700 dark:text-blue-300">
                             <p>
                               Los temas que selecciones se utilizarán para personalizar las noticias que se muestran y las notificaciones que recibes. Puedes añadir o eliminar temas en cualquier momento.
                             </p>
@@ -863,10 +863,10 @@ const formatDate = (dateString: string): string => {
 
             {/* Panel de notificaciones */}
             {activeTab === 'notifications' && (
-              <div className="bg-white shadow rounded-lg">
+              <div className="bg-white dark:bg-slate-900 shadow rounded-lg">
                 <div className="px-4 py-5 sm:p-6">
-                  <h3 className="text-lg leading-6 font-medium text-gray-900">Historial de notificaciones</h3>
-                  <div className="mt-2 max-w-xl text-sm text-gray-500">
+                  <h3 className="text-lg leading-6 font-medium text-gray-900 dark:text-slate-100">Historial de notificaciones</h3>
+                  <div className="mt-2 max-w-xl text-sm text-gray-500 dark:text-slate-400">
                     <p>Revisa las notificaciones que has recibido sobre verificación de noticias.</p>
                   </div>
                   
@@ -876,26 +876,26 @@ const formatDate = (dateString: string): string => {
                         <div className="animate-spin rounded-full h-10 w-10 border-t-2 border-b-2 border-blue-500"></div>
                       </div>
                     ) : notifications.length === 0 ? (
-                      <div className="text-center py-10 px-4 bg-gray-50 rounded-lg">
-                        <svg className="mx-auto h-12 w-12 text-gray-400" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                      <div className="text-center py-10 px-4 bg-gray-50 dark:bg-slate-950 rounded-lg">
+                        <svg className="mx-auto h-12 w-12 text-gray-400 dark:text-slate-400" fill="none" viewBox="0 0 24 24" stroke="currentColor">
                           <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M15 17h5l-1.405-1.405A2.032 2.032 0 0118 14.158V11a6.002 6.002 0 00-4-5.659V5a2 2 0 10-4 0v.341C7.67 6.165 6 8.388 6 11v3.159c0 .538-.214 1.055-.595 1.436L4 17h5m6 0v1a3 3 0 11-6 0v-1m6 0H9" />
                         </svg>
-                        <h3 className="mt-2 text-gray-900 text-sm font-medium">No tienes notificaciones</h3>
-                        <p className="mt-1 text-gray-500 text-sm">Las notificaciones sobre noticias verificadas aparecerán aquí.</p>
+                        <h3 className="mt-2 text-gray-900 dark:text-slate-100 text-sm font-medium">No tienes notificaciones</h3>
+                        <p className="mt-1 text-gray-500 dark:text-slate-400 text-sm">Las notificaciones sobre noticias verificadas aparecerán aquí.</p>
                       </div>
                     ) : (
                       <div className="flow-root">
-                        <ul className="-my-5 divide-y divide-gray-200">
+                        <ul className="-my-5 divide-y divide-gray-200 dark:divide-slate-700">
                           {notifications.map((notification) => (
                             <li key={notification.id} className="py-5">
                               <div className="relative focus-within:ring-2 focus-within:ring-blue-500">
                                 <div className="flex justify-between items-start">
-                                  <h4 className="text-sm font-semibold text-gray-900">
+                                  <h4 className="text-sm font-semibold text-gray-900 dark:text-slate-100">
                                     {notification.titulo}
                                   </h4>
                                   <button
                                     onClick={() => handleDeleteNotification(notification.id)}
-                                    className="ml-2 flex-shrink-0 text-gray-400 hover:text-gray-500 focus:outline-none"
+                                    className="ml-2 flex-shrink-0 text-gray-400 dark:text-slate-400 hover:text-gray-500 dark:hover:text-slate-400 focus:outline-none"
                                     title="Eliminar notificación"
                                   >
                                     <svg className="h-5 w-5" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 20 20" fill="currentColor">
@@ -903,13 +903,13 @@ const formatDate = (dateString: string): string => {
                                     </svg>
                                   </button>
                                 </div>
-                                <p className="mt-1 text-sm text-gray-600 line-clamp-2">
+                                <p className="mt-1 text-sm text-gray-600 dark:text-slate-300 line-clamp-2">
                                   {notification.mensaje}
                                 </p>
                                 {notification.noticia_id && (
                                   <Link
                                     href={`/news/${notification.noticia_id}`}
-                                    className="mt-2 inline-flex items-center text-sm font-medium text-blue-600 hover:text-blue-500"
+                                    className="mt-2 inline-flex items-center text-sm font-medium text-blue-600 dark:text-blue-400 hover:text-blue-500 dark:hover:text-blue-400"
                                   >
                                     Ver noticia
                                     <svg className="ml-1 h-5 w-5" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 20 20" fill="currentColor" aria-hidden="true">
@@ -917,15 +917,15 @@ const formatDate = (dateString: string): string => {
                                     </svg>
                                   </Link>
                                 )}
-                                <div className="mt-2 flex justify-between text-sm text-gray-500">
+                                <div className="mt-2 flex justify-between text-sm text-gray-500 dark:text-slate-400">
                                   <div className="flex items-center">
-                                    <svg className="flex-shrink-0 mr-1.5 h-5 w-5 text-gray-400" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 20 20" fill="currentColor">
+                                    <svg className="flex-shrink-0 mr-1.5 h-5 w-5 text-gray-400 dark:text-slate-400" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 20 20" fill="currentColor">
                                       <path fillRule="evenodd" d="M10 18a8 8 0 100-16 8 8 0 000 16zm1-12a1 1 0 10-2 0v4a1 1 0 00.293.707l2.828 2.829a1 1 0 101.415-1.415L11 9.586V6z" clipRule="evenodd" />
                                     </svg>
                                     <span>{formatDate(notification.fecha_creacion)}</span>
                                   </div>
                                   <div className="flex items-center">
-                                    <svg className="flex-shrink-0 mr-1.5 h-5 w-5 text-gray-400" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 20 20" fill="currentColor">
+                                    <svg className="flex-shrink-0 mr-1.5 h-5 w-5 text-gray-400 dark:text-slate-400" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 20 20" fill="currentColor">
                                       <path d="M2.003 5.884L10 9.882l7.997-3.998A2 2 0 0016 4H4a2 2 0 00-1.997 1.884z" />
                                       <path d="M18 8.118l-8 4-8-4V14a2 2 0 002 2h12a2 2 0 002-2V8.118z" />
                                     </svg>
@@ -942,9 +942,9 @@ const formatDate = (dateString: string): string => {
                             <button
                               type="button"
                               onClick={() => loadUserNotifications()}
-                              className="inline-flex items-center px-4 py-2 border border-gray-300 rounded-md shadow-sm text-sm font-medium text-gray-700 bg-white hover:bg-gray-50 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-blue-500"
+                              className="inline-flex items-center px-4 py-2 border border-gray-300 dark:border-slate-600 rounded-md shadow-sm text-sm font-medium text-gray-700 dark:text-slate-200 bg-white dark:bg-slate-900 hover:bg-gray-50 dark:hover:bg-slate-950 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-blue-500"
                             >
-                              <svg className="-ml-1 mr-2 h-5 w-5 text-gray-400" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 20 20" fill="currentColor">
+                              <svg className="-ml-1 mr-2 h-5 w-5 text-gray-400 dark:text-slate-400" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 20 20" fill="currentColor">
                                 <path fillRule="evenodd" d="M4 2a1 1 0 011 1v2.101a7.002 7.002 0 0111.601 2.566 1 1 0 11-1.885.666A5.002 5.002 0 005.999 7H9a1 1 0 010 2H4a1 1 0 01-1-1V3a1 1 0 011-1zm.008 9.057a1 1 0 011.276.61A5.002 5.002 0 0014.001 13H11a1 1 0 110-2h5a1 1 0 011 1v5a1 1 0 11-2 0v-2.101a7.002 7.002 0 01-11.601-2.566 1 1 0 01.61-1.276z" clipRule="evenodd" />
                               </svg>
                               Actualizar

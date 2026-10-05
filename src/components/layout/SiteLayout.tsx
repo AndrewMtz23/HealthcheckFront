@@ -14,7 +14,7 @@ export default function SiteLayout({ children }: { children: React.ReactNode }) 
   return (
     <>
       <Navbar />
-      <main className="min-w-0 flex-grow pt-16 bg-gray-50">{children}</main>
+      <main className="min-w-0 flex-grow pt-16 bg-gray-50 dark:bg-slate-950">{children}</main>
       <Footer />
       <ChatButton />
     </>

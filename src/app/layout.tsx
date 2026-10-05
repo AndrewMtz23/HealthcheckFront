@@ -3,6 +3,8 @@ import { Inter } from 'next/font/google';
 import './globals.css';
 import SiteLayout from '@/components/layout/SiteLayout';
 import { AuthProvider } from '@/context/AuthContext';
+import { ThemeProvider } from '@/context/ThemeContext';
+import { themeInitScript } from '@/lib/theme';
 
 const inter = Inter({ subsets: ['latin'] });
 
@@ -17,11 +19,12 @@ export default function RootLayout({
   children: React.ReactNode;
 }) {
   return (
-    <html lang="es">
+    <html lang="es" suppressHydrationWarning>
+      <head><script dangerouslySetInnerHTML={{ __html: themeInitScript }} /></head>
       <body className={`${inter.className} min-h-screen flex flex-col`}>
-        <AuthProvider>
+        <ThemeProvider><AuthProvider>
           <SiteLayout>{children}</SiteLayout>
-        </AuthProvider>
+        </AuthProvider></ThemeProvider>
       </body>
     </html>
   );

@@ -83,27 +83,27 @@ const ScrapeTwitterPage = () => {
 
   if (loading) {
     return (
-      <div className="min-h-screen pt-16 bg-gray-50 flex justify-center items-center">
+      <div className="min-h-screen pt-16 bg-gray-50 dark:bg-slate-950 flex justify-center items-center">
         <div className="animate-spin rounded-full h-12 w-12 border-t-2 border-b-2 border-blue-500"></div>
       </div>
     );
   }
 
   return (
-    <div className="min-h-screen pt-16 bg-gray-50">
+    <div className="min-h-screen pt-16 bg-gray-50 dark:bg-slate-950">
       <div className="max-w-3xl mx-auto px-4 sm:px-6 lg:px-8 py-10">
-        <div className="bg-white shadow rounded-lg">
-          <div className="px-4 py-5 sm:px-6 border-b border-gray-200">
+        <div className="bg-white dark:bg-slate-900 shadow rounded-lg">
+          <div className="px-4 py-5 sm:px-6 border-b border-gray-200 dark:border-slate-700">
             <div className="flex items-center justify-between">
               <div>
-                <h1 className="text-xl font-semibold text-gray-900">Obtener Datos de Twitter</h1>
-                <p className="mt-1 text-sm text-gray-500">
+                <h1 className="text-xl font-semibold text-gray-900 dark:text-slate-100">Obtener Datos de Twitter</h1>
+                <p className="mt-1 text-sm text-gray-500 dark:text-slate-400">
                   Configura el scraping de Twitter para obtener publicaciones sobre temas de salud
                 </p>
               </div>
               <Link
                 href="/admin/dashboard"
-                className="inline-flex items-center px-3 py-1.5 border border-gray-300 text-sm font-medium rounded-md text-gray-700 bg-white hover:bg-gray-50"
+                className="inline-flex items-center px-3 py-1.5 border border-gray-300 dark:border-slate-600 text-sm font-medium rounded-md text-gray-700 dark:text-slate-200 bg-white dark:bg-slate-900 hover:bg-gray-50 dark:hover:bg-slate-950"
               >
                 Volver
               </Link>
@@ -112,7 +112,7 @@ const ScrapeTwitterPage = () => {
 
           <div className="px-4 py-5 sm:p-6">
             {error && (
-              <div className="mb-4 bg-red-50 text-red-700 p-4 rounded-md">
+              <div className="mb-4 bg-red-50 dark:bg-red-950/40 text-red-700 dark:text-red-300 p-4 rounded-md">
                 <div className="flex">
                   <div className="flex-shrink-0">
                     <svg className="h-5 w-5 text-red-400" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 20 20" fill="currentColor">
@@ -127,7 +127,7 @@ const ScrapeTwitterPage = () => {
             )}
 
             {result && (
-              <div className="mb-6 bg-green-50 p-4 rounded-md">
+              <div className="mb-6 bg-green-50 dark:bg-green-950/40 p-4 rounded-md">
                 <div className="flex">
                   <div className="flex-shrink-0">
                     <svg className="h-5 w-5 text-green-400" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 20 20" fill="currentColor">
@@ -135,7 +135,7 @@ const ScrapeTwitterPage = () => {
                     </svg>
                   </div>
                   <div className="ml-3">
-                    <p className="text-sm font-medium text-green-800">{result.message}</p>
+                    <p className="text-sm font-medium text-green-800 dark:text-green-300">{result.message}</p>
                     {csvUrl && (
                       <div className="mt-2">
                         <a
@@ -148,7 +148,7 @@ const ScrapeTwitterPage = () => {
                       </div>
                     )}
                     {result.processed_ids && (
-                      <p className="mt-2 text-sm text-green-700">
+                      <p className="mt-2 text-sm text-green-700 dark:text-green-300">
                         Se procesaron {result.processed_ids.length} tweets y se guardaron en la base de datos.
                       </p>
                     )}
@@ -159,7 +159,7 @@ const ScrapeTwitterPage = () => {
 
             <form onSubmit={handleSubmit} className="space-y-6">
               <div>
-                <label htmlFor="query" className="block text-sm font-medium text-gray-700">
+                <label htmlFor="query" className="block text-sm font-medium text-gray-700 dark:text-slate-200">
                   Términos de búsqueda
                 </label>
                 <div className="mt-1">
@@ -169,17 +169,17 @@ const ScrapeTwitterPage = () => {
                     id="query"
                     value={query}
                     onChange={(e) => setQuery(e.target.value)}
-                    className="shadow-sm focus:ring-blue-500 focus:border-blue-500 block w-full sm:text-sm border-gray-300 rounded-md"
+                    className="shadow-sm focus:ring-blue-500 focus:border-blue-500 block w-full sm:text-sm border-gray-300 dark:border-slate-600 rounded-md"
                   />
                 </div>
-                <p className="mt-1 text-xs text-gray-500">
+                <p className="mt-1 text-xs text-gray-500 dark:text-slate-400">
                   Ejemplo: "noticias salud covid vacunas". Usa OR para operador "O", - para excluir palabras.
                 </p>
               </div>
 
               <div className="grid grid-cols-1 sm:grid-cols-2 gap-6">
                 <div>
-                  <label htmlFor="start-date" className="block text-sm font-medium text-gray-700">
+                  <label htmlFor="start-date" className="block text-sm font-medium text-gray-700 dark:text-slate-200">
                     Fecha de inicio
                   </label>
                   <div className="mt-1">
@@ -189,16 +189,16 @@ const ScrapeTwitterPage = () => {
                       id="start-date"
                       value={startDate}
                       onChange={(e) => setStartDate(e.target.value)}
-                      className="shadow-sm focus:ring-blue-500 focus:border-blue-500 block w-full sm:text-sm border-gray-300 rounded-md"
+                      className="shadow-sm focus:ring-blue-500 focus:border-blue-500 block w-full sm:text-sm border-gray-300 dark:border-slate-600 rounded-md"
                     />
                   </div>
-                  <p className="mt-1 text-xs text-gray-500">
+                  <p className="mt-1 text-xs text-gray-500 dark:text-slate-400">
                     Ejemplo: 2025-01-01
                   </p>
                 </div>
 
                 <div>
-                  <label htmlFor="end-date" className="block text-sm font-medium text-gray-700">
+                  <label htmlFor="end-date" className="block text-sm font-medium text-gray-700 dark:text-slate-200">
                     Fecha de fin
                   </label>
                   <div className="mt-1">
@@ -208,10 +208,10 @@ const ScrapeTwitterPage = () => {
                       id="end-date"
                       value={endDate}
                       onChange={(e) => setEndDate(e.target.value)}
-                      className="shadow-sm focus:ring-blue-500 focus:border-blue-500 block w-full sm:text-sm border-gray-300 rounded-md"
+                      className="shadow-sm focus:ring-blue-500 focus:border-blue-500 block w-full sm:text-sm border-gray-300 dark:border-slate-600 rounded-md"
                     />
                   </div>
-                  <p className="mt-1 text-xs text-gray-500">
+                  <p className="mt-1 text-xs text-gray-500 dark:text-slate-400">
                     Ejemplo: 2025-03-31
                   </p>
                 </div>
@@ -219,7 +219,7 @@ const ScrapeTwitterPage = () => {
 
               <div className="grid grid-cols-1 sm:grid-cols-2 gap-6">
                 <div>
-                  <label htmlFor="limit" className="block text-sm font-medium text-gray-700">
+                  <label htmlFor="limit" className="block text-sm font-medium text-gray-700 dark:text-slate-200">
                     Límite de tweets
                   </label>
                   <div className="mt-1">
@@ -231,16 +231,16 @@ const ScrapeTwitterPage = () => {
                       max="100"
                       value={limit}
                       onChange={(e) => setLimit(Number(e.target.value))}
-                      className="shadow-sm focus:ring-blue-500 focus:border-blue-500 block w-full sm:text-sm border-gray-300 rounded-md"
+                      className="shadow-sm focus:ring-blue-500 focus:border-blue-500 block w-full sm:text-sm border-gray-300 dark:border-slate-600 rounded-md"
                     />
                   </div>
-                  <p className="mt-1 text-xs text-gray-500">
+                  <p className="mt-1 text-xs text-gray-500 dark:text-slate-400">
                     Número máximo de tweets a procesar (1-100)
                   </p>
                 </div>
 
                 <div>
-                  <label htmlFor="min-length" className="block text-sm font-medium text-gray-700">
+                  <label htmlFor="min-length" className="block text-sm font-medium text-gray-700 dark:text-slate-200">
                     Longitud mínima
                   </label>
                   <div className="mt-1">
@@ -252,10 +252,10 @@ const ScrapeTwitterPage = () => {
                       max="280"
                       value={minLength}
                       onChange={(e) => setMinLength(Number(e.target.value))}
-                      className="shadow-sm focus:ring-blue-500 focus:border-blue-500 block w-full sm:text-sm border-gray-300 rounded-md"
+                      className="shadow-sm focus:ring-blue-500 focus:border-blue-500 block w-full sm:text-sm border-gray-300 dark:border-slate-600 rounded-md"
                     />
                   </div>
-                  <p className="mt-1 text-xs text-gray-500">
+                  <p className="mt-1 text-xs text-gray-500 dark:text-slate-400">
                     Longitud mínima en caracteres para filtrar tweets cortos (recomendado: 100)
                   </p>
                 </div>
@@ -269,25 +269,25 @@ const ScrapeTwitterPage = () => {
                     type="checkbox"
                     checked={saveToDB}
                     onChange={(e) => setSaveToDB(e.target.checked)}
-                    className="focus:ring-blue-500 h-4 w-4 text-blue-600 border-gray-300 rounded"
+                    className="focus:ring-blue-500 h-4 w-4 text-blue-600 dark:text-blue-400 border-gray-300 dark:border-slate-600 rounded"
                   />
                 </div>
                 <div className="ml-3 text-sm">
-                  <label htmlFor="save-to-db" className="font-medium text-gray-700">
+                  <label htmlFor="save-to-db" className="font-medium text-gray-700 dark:text-slate-200">
                     Guardar en la base de datos
                   </label>
-                  <p className="text-gray-500">
+                  <p className="text-gray-500 dark:text-slate-400">
                     Si se marca, los tweets serán clasificados y guardados en la base de datos. Si no, se generará un CSV con los resultados.
                   </p>
                 </div>
               </div>
 
-              <div className="border-t border-gray-200 pt-5">
+              <div className="border-t border-gray-200 dark:border-slate-700 pt-5">
                 <div className="flex justify-end space-x-3">
                   <button
                     type="button"
                     onClick={() => router.push('/admin/dashboard')}
-                    className="px-4 py-2 border border-gray-300 rounded-md shadow-sm text-sm font-medium text-gray-700 bg-white hover:bg-gray-50 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-blue-500"
+                    className="px-4 py-2 border border-gray-300 dark:border-slate-600 rounded-md shadow-sm text-sm font-medium text-gray-700 dark:text-slate-200 bg-white dark:bg-slate-900 hover:bg-gray-50 dark:hover:bg-slate-950 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-blue-500"
                   >
                     Cancelar
                   </button>

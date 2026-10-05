@@ -132,7 +132,7 @@ const RecentNews = () => {
 
   const getClassificationIcon = (classificacion?: Clasificacion) => {
     if (!classificacion) {
-      return <Info className="h-5 w-5 text-gray-400" />;
+      return <Info className="h-5 w-5 text-gray-400 dark:text-slate-400" />;
     }
     
     switch (classificacion.resultado) {
@@ -143,14 +143,14 @@ const RecentNews = () => {
       case 'dudosa':
         return <Info className="h-5 w-5 text-yellow-500" />;
       default:
-        return <Info className="h-5 w-5 text-gray-400" />;
+        return <Info className="h-5 w-5 text-gray-400 dark:text-slate-400" />;
     }
   };
 
   const getClassificationBadge = (newsItem: NewsItem) => {
     if (!newsItem.clasificaciones || newsItem.clasificaciones.length === 0) {
       return (
-        <span className="inline-flex items-center px-2.5 py-0.5 rounded-full text-xs font-medium bg-gray-100 text-gray-800">
+        <span className="inline-flex items-center px-2.5 py-0.5 rounded-full text-xs font-medium bg-gray-100 dark:bg-slate-800 text-gray-800 dark:text-slate-100">
           <Info className="h-3 w-3 mr-1" />
           Sin clasificar
         </span>
@@ -159,17 +159,17 @@ const RecentNews = () => {
     
     const classification = newsItem.clasificaciones[0];
     
-    let badgeColor = 'bg-gray-100 text-gray-800';
+    let badgeColor = 'bg-gray-100 dark:bg-slate-800 text-gray-800 dark:text-slate-100';
     let icon = <Info className="h-3 w-3 mr-1" />;
     
     if (classification.resultado === 'verdadera') {
-      badgeColor = 'bg-green-100 text-green-800';
+      badgeColor = 'bg-green-100 dark:bg-green-900/40 text-green-800 dark:text-green-300';
       icon = <CheckCircle className="h-3 w-3 mr-1" />;
     } else if (classification.resultado === 'falsa') {
-      badgeColor = 'bg-red-100 text-red-800';
+      badgeColor = 'bg-red-100 dark:bg-red-900/40 text-red-800 dark:text-red-300';
       icon = <AlertTriangle className="h-3 w-3 mr-1" />;
     } else if (classification.resultado === 'dudosa') {
-      badgeColor = 'bg-yellow-100 text-yellow-800';
+      badgeColor = 'bg-yellow-100 dark:bg-yellow-900/40 text-yellow-800 dark:text-yellow-300';
       icon = <Info className="h-3 w-3 mr-1" />;
     }
     
@@ -221,14 +221,14 @@ const RecentNews = () => {
     
     return (
       <div className="mt-2">
-        <div className="flex items-center justify-between text-xs text-gray-500 mb-1">
+        <div className="flex items-center justify-between text-xs text-gray-500 dark:text-slate-400 mb-1">
           <span className="flex items-center">
             <BarChart className="h-3 w-3 mr-1" />
             Confianza
           </span>
           <span>{formattedPercentage}%</span>
         </div>
-        <div className="w-full bg-gray-200 rounded-full h-1.5 overflow-hidden">
+        <div className="w-full bg-gray-200 dark:bg-slate-700 rounded-full h-1.5 overflow-hidden">
           <div 
             className={`h-full ${barColor} rounded-full`}
             style={{ width: `${barPercentage}%` }}
@@ -260,11 +260,11 @@ const RecentNews = () => {
 
   if (loading) {
     return (
-      <div className="py-12 bg-white">
+      <div className="py-12 bg-white dark:bg-slate-900">
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
           <div className="text-center">
-            <h2 className="text-base text-blue-600 font-semibold tracking-wide uppercase">Noticias</h2>
-            <p className="mt-2 text-3xl leading-8 font-extrabold tracking-tight text-gray-900 sm:text-4xl">
+            <h2 className="text-base text-blue-600 dark:text-blue-400 font-semibold tracking-wide uppercase">Noticias</h2>
+            <p className="mt-2 text-3xl leading-8 font-extrabold tracking-tight text-gray-900 dark:text-slate-100 sm:text-4xl">
               Noticias recientes
             </p>
           </div>
@@ -278,15 +278,15 @@ const RecentNews = () => {
 
   if (error) {
     return (
-      <div className="py-12 bg-gray-50">
+      <div className="py-12 bg-gray-50 dark:bg-slate-950">
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
           <div className="text-center">
-            <h2 className="text-base text-blue-600 font-semibold tracking-wide uppercase">Noticias</h2>
-            <p className="mt-2 text-3xl leading-8 font-extrabold tracking-tight text-gray-900 sm:text-4xl">
+            <h2 className="text-base text-blue-600 dark:text-blue-400 font-semibold tracking-wide uppercase">Noticias</h2>
+            <p className="mt-2 text-3xl leading-8 font-extrabold tracking-tight text-gray-900 dark:text-slate-100 sm:text-4xl">
               Noticias recientes
             </p>
           </div>
-          <div className="mt-10 bg-red-50 p-4 rounded-md text-red-700 text-center">
+          <div className="mt-10 bg-red-50 dark:bg-red-950/40 p-4 rounded-md text-red-700 dark:text-red-300 text-center">
             <p>Error al cargar noticias: {error}</p>
           </div>
         </div>
@@ -295,20 +295,20 @@ const RecentNews = () => {
   }
 
   return (
-    <div className="py-12 bg-gray-50">
+    <div className="py-12 bg-gray-50 dark:bg-slate-950">
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
         <div className="text-center">
-          <h2 className="text-base text-blue-600 font-semibold tracking-wide uppercase">Noticias</h2>
-          <p className="mt-2 text-3xl leading-8 font-extrabold tracking-tight text-gray-900 sm:text-4xl">
+          <h2 className="text-base text-blue-600 dark:text-blue-400 font-semibold tracking-wide uppercase">Noticias</h2>
+          <p className="mt-2 text-3xl leading-8 font-extrabold tracking-tight text-gray-900 dark:text-slate-100 sm:text-4xl">
             Noticias recientes
           </p>
-          <p className="mt-4 max-w-2xl text-xl text-gray-500 lg:mx-auto">
+          <p className="mt-4 max-w-2xl text-xl text-gray-500 dark:text-slate-400 lg:mx-auto">
             Mantente informado con las últimas noticias analizadas por nuestra plataforma.
           </p>
         </div>
 
         {news.length === 0 ? (
-          <div className="mt-10 text-center text-gray-500">
+          <div className="mt-10 text-center text-gray-500 dark:text-slate-400">
             No hay noticias disponibles en este momento.
           </div>
         ) : (
@@ -317,14 +317,14 @@ const RecentNews = () => {
               <div key={item.id} className="flex flex-col rounded-xl shadow-lg overflow-hidden transition-all duration-300 hover:shadow-xl">
                 {/* Imagen de previsualización si existe */}
                 {item.preview?.image?.url && (
-                  <div className="relative w-full h-48 bg-gray-100">
+                  <div className="relative w-full h-48 bg-gray-100 dark:bg-slate-800">
                     <img 
                       src={item.preview.image.url} 
                       alt={item.titulo} 
                       className="object-cover w-full h-full"
                     />
                     {item.preview.logo?.url && (
-                      <div className="absolute bottom-2 right-2 bg-white rounded-full p-1 shadow">
+                      <div className="absolute bottom-2 right-2 bg-white dark:bg-slate-900 rounded-full p-1 shadow">
                         <img 
                           src={item.preview.logo.url} 
                           alt={item.fuente?.nombre || 'Logo'} 
@@ -336,10 +336,10 @@ const RecentNews = () => {
                 )}
                 
                 {/* Header con clasificación */}
-                <div className="px-6 py-4 bg-gray-50 border-b border-gray-100 flex justify-between items-center">
+                <div className="px-6 py-4 bg-gray-50 dark:bg-slate-950 border-b border-gray-100 dark:border-slate-800 flex justify-between items-center">
                   <div className="flex items-center">
                     {getClassificationIcon(item.clasificaciones?.[0])}
-                    <span className="ml-2 font-medium text-gray-700">
+                    <span className="ml-2 font-medium text-gray-700 dark:text-slate-200">
                       {item.tema?.nombre || 'General'}
                     </span>
                   </div>
@@ -349,15 +349,15 @@ const RecentNews = () => {
                 </div>
                 
                 {/* Contenido principal */}
-                <div className="flex-1 bg-white p-6 flex flex-col justify-between">
+                <div className="flex-1 bg-white dark:bg-slate-900 p-6 flex flex-col justify-between">
                   <div className="flex-1">
-                    <div className="flex items-center text-sm text-gray-500 mb-2">
+                    <div className="flex items-center text-sm text-gray-500 dark:text-slate-400 mb-2">
                       <Calendar className="h-4 w-4 mr-1" />
                       <span>{formatDate(item.fecha_publicacion)}</span>
                     </div>
                     
                     <Link href={`/news/${item.id}`}>
-                      <h3 className="text-xl font-bold text-gray-900 hover:text-blue-600 transition-colors">
+                      <h3 className="text-xl font-bold text-gray-900 dark:text-slate-100 hover:text-blue-600 dark:hover:text-blue-400 transition-colors">
                         {item.titulo}
                       </h3>
                     </Link>
@@ -365,13 +365,13 @@ const RecentNews = () => {
                     {/* Barra de confianza */}
                     {renderConfidenceBar(item.clasificaciones?.[0])}
                     
-                    <p className="mt-3 text-base text-gray-500">
+                    <p className="mt-3 text-base text-gray-500 dark:text-slate-400">
                       {item.preview?.description ? item.preview.description : truncateText(item.contenido)}
                     </p>
                     
                     {/* Información del modelo de IA */}
                     {item.clasificaciones?.[0]?.modelo && (
-                      <div className="mt-3 bg-blue-50 rounded-md p-2 text-xs text-blue-600">
+                      <div className="mt-3 bg-blue-50 dark:bg-blue-950/50 rounded-md p-2 text-xs text-blue-600 dark:text-blue-400">
                         <p className="font-medium">Analizado por: {item.clasificaciones[0].modelo.nombre} v{item.clasificaciones[0].modelo.version}</p>
                         <p className="mt-1">Precisión: {(item.clasificaciones[0].modelo.precision * 100).toFixed(0)}%</p>
                       </div>
@@ -380,7 +380,7 @@ const RecentNews = () => {
                   
                   {/* Footer con acciones */}
                   <div className="mt-6 flex items-center justify-between">
-                    <div className="flex items-center text-sm text-gray-500">
+                    <div className="flex items-center text-sm text-gray-500 dark:text-slate-400">
                       <Newspaper className="h-4 w-4 mr-1" />
                       <span>{item.fuente?.nombre || item.preview?.publisher || 'Fuente desconocida'}</span>
                     </div>
@@ -388,7 +388,7 @@ const RecentNews = () => {
                     <div className="flex space-x-2">
                       <Link 
                         href={`/news/${item.id}`}
-                        className="inline-flex items-center text-sm font-medium text-blue-600 hover:text-blue-500"
+                        className="inline-flex items-center text-sm font-medium text-blue-600 dark:text-blue-400 hover:text-blue-500 dark:hover:text-blue-400"
                       >
                         Ver detalles
                       </Link>
@@ -398,7 +398,7 @@ const RecentNews = () => {
                           href={item.url}
                           target="_blank"
                           rel="noopener noreferrer"
-                          className="inline-flex items-center text-sm font-medium text-blue-600 hover:text-blue-500"
+                          className="inline-flex items-center text-sm font-medium text-blue-600 dark:text-blue-400 hover:text-blue-500 dark:hover:text-blue-400"
                         >
                           <ExternalLink className="h-4 w-4 ml-1" />
                         </a>

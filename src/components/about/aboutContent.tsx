@@ -9,22 +9,22 @@ const steps = [
 export default function AboutContent() {
   return (
     <section className="mx-auto max-w-6xl px-4 py-12 sm:px-6 sm:py-16 lg:px-8">
-      <h2 className="text-2xl font-bold text-gray-900 sm:text-3xl">De una duda a una lectura informada</h2>
+      <h2 className="text-2xl font-bold text-gray-900 dark:text-slate-100 sm:text-3xl">De una duda a una lectura informada</h2>
       <div className="mt-8 grid gap-5 md:grid-cols-3">
         {steps.map(({ icon: Icon, title, text }, index) => (
-          <article key={title} className="min-w-0 rounded-2xl border border-gray-200 bg-white p-6">
+          <article key={title} className="min-w-0 rounded-2xl border border-gray-200 dark:border-slate-700 bg-white dark:bg-slate-900 p-6">
             <div className="mb-6 flex items-center justify-between">
-              <Icon aria-hidden="true" className="h-14 w-14 rounded-2xl bg-blue-50 p-3 text-blue-600" />
-              <span className="text-sm font-semibold text-gray-400">0{index + 1}</span>
+              <Icon aria-hidden="true" className="h-14 w-14 rounded-2xl bg-blue-50 dark:bg-blue-950/50 p-3 text-blue-600 dark:text-blue-400" />
+              <span className="text-sm font-semibold text-gray-400 dark:text-slate-400">0{index + 1}</span>
             </div>
-            <h3 className="text-lg font-semibold text-gray-900">{title}</h3>
-            <p className="mt-3 leading-7 text-gray-600">{text}</p>
+            <h3 className="text-lg font-semibold text-gray-900 dark:text-slate-100">{title}</h3>
+            <p className="mt-3 leading-7 text-gray-600 dark:text-slate-300">{text}</p>
           </article>
         ))}
       </div>
       <div className="mt-10 border-l-4 border-blue-600 pl-6">
-        <h2 className="text-xl font-semibold text-gray-900">La tecnología también tiene límites</h2>
-        <p className="mt-3 max-w-3xl leading-8 text-gray-600">Un análisis automatizado puede equivocarse. HealthCheck apoya la revisión de noticias, pero no reemplaza el criterio profesional ni la atención médica. Ante una decisión sobre tu salud, consulta a un profesional.</p>
+        <h2 className="text-xl font-semibold text-gray-900 dark:text-slate-100">La tecnología también tiene límites</h2>
+        <p className="mt-3 max-w-3xl leading-8 text-gray-600 dark:text-slate-300">Un análisis automatizado puede equivocarse. HealthCheck apoya la revisión de noticias, pero no reemplaza el criterio profesional ni la atención médica. Ante una decisión sobre tu salud, consulta a un profesional.</p>
       </div>
     </section>
   );

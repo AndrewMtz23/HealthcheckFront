@@ -44,14 +44,14 @@ const ConfidenceBar = ({ classification }: ConfidenceBarProps) => {
   
   return (
     <div className="mt-2">
-      <div className="flex items-center justify-between text-xs text-gray-500 mb-1">
+      <div className="flex items-center justify-between text-xs text-gray-500 dark:text-slate-400 mb-1">
         <span className="flex items-center">
           <BarChart2 className="h-3 w-3 mr-1" />
           Confianza
         </span>
         <span>{formattedPercentage}%</span>
       </div>
-      <div className="w-full bg-gray-200 rounded-full h-1.5 overflow-hidden">
+      <div className="w-full bg-gray-200 dark:bg-slate-700 rounded-full h-1.5 overflow-hidden">
         <div 
           className={`h-full ${barColor} rounded-full`}
           style={{ width: `${barPercentage}%` }}

@@ -46,7 +46,7 @@ const ChatButton = () => {
             onClick={handleButtonClick}
             onMouseEnter={() => setShowTooltip(true)}
             onMouseLeave={() => setShowTooltip(false)}
-            className="bg-gradient-to-r from-blue-600 to-blue-700 hover:from-blue-700 hover:to-blue-800 text-white rounded-full w-14 h-14 shadow-lg flex items-center justify-center transition-all duration-200 hover:scale-105"
+            className="bg-gradient-to-r from-blue-600 dark:from-blue-900 to-blue-700 dark:to-blue-800 hover:from-blue-700 dark:hover:from-blue-950 hover:to-blue-800 dark:hover:to-blue-900 text-white rounded-full w-14 h-14 shadow-lg flex items-center justify-center transition-all duration-200 hover:scale-105"
             aria-label="Abrir chat"
           >
             <svg

@@ -16,7 +16,7 @@ export default function InfoCTA({ title, description, href, label }: InfoCTAProp
           <h2 className="text-2xl font-bold">{title}</h2>
           <p className="mt-3 leading-7 text-blue-100">{description}</p>
         </div>
-        <Link href={href} className="inline-flex min-h-11 w-full shrink-0 items-center justify-center gap-3 rounded-lg bg-white px-5 py-3 text-center font-semibold text-blue-700 hover:bg-blue-50 sm:w-auto">
+        <Link href={href} className="inline-flex min-h-11 w-full shrink-0 items-center justify-center gap-3 rounded-lg bg-white dark:bg-slate-900 px-5 py-3 text-center font-semibold text-blue-700 dark:text-blue-300 hover:bg-blue-50 dark:hover:bg-blue-950/50 sm:w-auto">
           {label}
           <FiArrowUpRight aria-hidden="true" className="h-5 w-5 shrink-0" />
         </Link>

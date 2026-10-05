@@ -1,0 +1,28 @@
+.button {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  width: 44px;
+  height: 44px;
+  flex-shrink: 0;
+  padding: 0;
+  border: 0;
+  border-radius: 50%;
+  background: transparent;
+  box-shadow: none;
+  color: #64748b;
+  cursor: pointer;
+  transition: color 160ms ease;
+}
+.button:hover { color: #2563eb; }
+.icon { display: inline-flex; animation: theme-icon-in 300ms cubic-bezier(.2, .7, .2, 1) both; }
+:global(.dark) .button { color: #cbd5e1; }
+:global(.dark) .button:hover { color: #93c5fd; }
+@keyframes theme-icon-in {
+  from { opacity: 0; transform: rotate(-70deg) scale(.65); }
+  to { opacity: 1; transform: rotate(0) scale(1); }
+}
+@media (prefers-reduced-motion: reduce) {
+  .icon { animation: none; }
+  .button { transition: none; }
+}
