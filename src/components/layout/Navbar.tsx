@@ -6,6 +6,7 @@ import { usePathname } from 'next/navigation';
 import { useState } from 'react';
 import { useAuth } from '@/context/AuthContext';
 import UserMenu from './UserMenu';
+import BrandWordmark from './BrandWordmark';
 
 const Navbar = () => {
   const [isMobileMenuOpen, setIsMobileMenuOpen] = useState(false);
@@ -27,7 +28,7 @@ const Navbar = () => {
             <div className="flex-shrink-0 flex items-center">
               <Link href="/" className="flex items-center gap-2 text-xl font-bold text-blue-600">
                 <Image src="/Images/logoHC.png" alt="" width={640} height={449} priority className="h-auto w-12 shrink-0" />
-                HealthCheck
+                <BrandWordmark />
               </Link>
             </div>
             <div className="hidden lg:ml-6 lg:flex lg:items-center">

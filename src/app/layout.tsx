@@ -1,10 +1,8 @@
 import type { Metadata } from 'next';
 import { Inter } from 'next/font/google';
 import './globals.css';
-import Navbar from '@/components/layout/Navbar';
-import Footer from '@/components/layout/Footer';
+import SiteLayout from '@/components/layout/SiteLayout';
 import { AuthProvider } from '@/context/AuthContext';
-import ChatButton from '@/components/chat/ChatButton';
 
 const inter = Inter({ subsets: ['latin'] });
 
@@ -22,10 +20,7 @@ export default function RootLayout({
     <html lang="es">
       <body className={`${inter.className} min-h-screen flex flex-col`}>
         <AuthProvider>
-          <Navbar />
-          <main className="min-w-0 flex-grow pt-16 bg-gray-50">{children}</main>
-          <Footer />
-          <ChatButton />
+          <SiteLayout>{children}</SiteLayout>
         </AuthProvider>
       </body>
     </html>
