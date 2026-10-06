@@ -6,15 +6,15 @@ import { normalizeTheme, resolveTheme, THEME_STORAGE_KEY, type Theme } from '@/l
 const ThemeContext = createContext<{ theme: Theme; setTheme: (theme: Theme) => void } | null>(null);
 
 function applyTheme(theme: Theme) {
-  const resolved = resolveTheme(theme, window.matchMedia('(prefers-color-scheme: dark)').matches);
+  const resolved = resolveTheme(theme);
   document.documentElement.classList.toggle('dark', resolved === 'dark');
   document.documentElement.dataset.theme = theme;
   document.documentElement.style.colorScheme = resolved;
 }
 
 export function ThemeProvider({ children }: { children: React.ReactNode }) {
-  const [theme, setThemeState] = useState<Theme>('system');
-  const preference = useRef<Theme>('system');
+  const [theme, setThemeState] = useState<Theme>('light');
+  const preference = useRef<Theme>('light');
 
   useEffect(() => {
     const initial = normalizeTheme(document.documentElement.dataset.theme);
@@ -22,10 +22,6 @@ export function ThemeProvider({ children }: { children: React.ReactNode }) {
     setThemeState(initial);
     applyTheme(initial);
 
-    const media = window.matchMedia('(prefers-color-scheme: dark)');
-    const onSystemChange = () => {
-      if (preference.current === 'system') applyTheme('system');
-    };
     const onStorageChange = (event: StorageEvent) => {
       if (event.key !== THEME_STORAGE_KEY && event.key !== null) return;
       const next = normalizeTheme(event.newValue);
@@ -33,10 +29,8 @@ export function ThemeProvider({ children }: { children: React.ReactNode }) {
       setThemeState(next);
       applyTheme(next);
     };
-    media.addEventListener('change', onSystemChange);
     window.addEventListener('storage', onStorageChange);
     return () => {
-      media.removeEventListener('change', onSystemChange);
       window.removeEventListener('storage', onStorageChange);
     };
   }, []);

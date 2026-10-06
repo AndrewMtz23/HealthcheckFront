@@ -1,22 +1,22 @@
-export type Theme = 'light' | 'dark' | 'system';
+export type Theme = 'light' | 'dark';
 export const THEME_STORAGE_KEY = 'healthcheck-theme';
 
 export function normalizeTheme(value: string | null | undefined): Theme {
-  return value === 'light' || value === 'dark' ? value : 'system';
+  return value === 'dark' ? 'dark' : 'light';
 }
 
-export function resolveTheme(theme: Theme, systemDark: boolean): 'light' | 'dark' {
-  return theme === 'system' ? (systemDark ? 'dark' : 'light') : theme;
+export function resolveTheme(theme: Theme): Theme {
+  return theme;
 }
 
 // Runs in the document head, before content paints. No user data is interpolated.
 export const themeInitScript = `(() => {
-  let preference = 'system';
+  let preference = 'light';
   try {
     const saved = localStorage.getItem('${THEME_STORAGE_KEY}');
     if (saved === 'light' || saved === 'dark') preference = saved;
   } catch {}
-  const dark = preference === 'dark' || (preference === 'system' && window.matchMedia('(prefers-color-scheme: dark)').matches);
+  const dark = preference === 'dark';
   const root = document.documentElement;
   root.classList.toggle('dark', dark);
   root.dataset.theme = preference;
