@@ -3,6 +3,8 @@
 import Link from 'next/link';
 import { useState, useEffect, useRef } from 'react';
 import { useAuth } from '@/context/AuthContext';
+import { FiGrid } from 'react-icons/fi';
+import UserAvatar from '@/components/ui/UserAvatar';
 
 interface UserMenuProps {
   mobile?: boolean;
@@ -39,23 +41,13 @@ const UserMenu = ({ mobile = false, onMobileMenuClose }: UserMenuProps) => {
     };
   }, [isProfileDropdownOpen]);
 
-  // Función para obtener la inicial del usuario
-  const getUserInitial = () => {
-    if (user?.nombre) {
-      return user.nombre.charAt(0).toUpperCase();
-    }
-    return 'U';
-  };
-
   // Si es la versión móvil, mostrar una versión diferente
   if (mobile) {
     return (
       <div className="border-t border-gray-200 dark:border-slate-700 pt-4 pb-3">
         <div className="flex items-center px-4">
           <div className="flex-shrink-0">
-            <div className="h-10 w-10 rounded-full bg-blue-600 flex items-center justify-center text-white">
-              <span className="text-lg font-medium">{getUserInitial()}</span>
-            </div>
+            <UserAvatar name={user?.nombre} url={user?.imagen_url} className="h-10 w-10 bg-blue-600 text-white text-lg font-medium" />
           </div>
           <div className="ml-3">
             <div className="text-base font-medium text-gray-800 dark:text-slate-100">{user?.nombre}</div>
@@ -63,6 +55,16 @@ const UserMenu = ({ mobile = false, onMobileMenuClose }: UserMenuProps) => {
           </div>
         </div>
         <div className="mt-3 space-y-1">
+          {user?.rol === 'admin' && (
+            <Link
+              href="/admin/dashboard"
+              className="flex items-center px-4 py-2 text-base font-medium text-gray-500 dark:text-slate-400 hover:text-gray-800 dark:hover:text-slate-100 hover:bg-gray-100 dark:hover:bg-slate-800"
+              onClick={onMobileMenuClose}
+            >
+              <FiGrid aria-hidden="true" className="h-5 w-5 mr-3 text-gray-400 dark:text-slate-400" />
+              Dashboard
+            </Link>
+          )}
           <Link
             href="/profile"
             className="flex items-center px-4 py-2 text-base font-medium text-gray-500 dark:text-slate-400 hover:text-gray-800 dark:hover:text-slate-100 hover:bg-gray-100 dark:hover:bg-slate-800"
@@ -108,14 +110,12 @@ const UserMenu = ({ mobile = false, onMobileMenuClose }: UserMenuProps) => {
           type="button"
           className="rounded-full flex text-sm focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-blue-500"
           id="user-menu"
-          aria-expanded="false"
+          aria-expanded={isProfileDropdownOpen}
           aria-haspopup="true"
           onClick={() => setIsProfileDropdownOpen(!isProfileDropdownOpen)}
         >
           <span className="sr-only">Abrir menú de usuario</span>
-          <div className="h-8 w-8 rounded-full bg-blue-600 flex items-center justify-center text-white">
-            <span className="text-base font-medium">{getUserInitial()}</span>
-          </div>
+          <UserAvatar name={user?.nombre} url={user?.imagen_url} className="h-8 w-8 bg-blue-600 text-white text-sm font-medium" />
         </button>
       </div>
       
@@ -129,9 +129,7 @@ const UserMenu = ({ mobile = false, onMobileMenuClose }: UserMenuProps) => {
         >
           <div className="px-4 py-3 border-b border-gray-100 dark:border-slate-800">
             <div className="flex items-center space-x-3">
-              <div className="w-10 h-10 min-w-10 min-h-10 rounded-full bg-blue-600 flex items-center justify-center text-white text-lg font-medium overflow-hidden">
-                <span className="text-lg font-medium">{getUserInitial()}</span>
-              </div>
+              <UserAvatar name={user?.nombre} url={user?.imagen_url} className="h-10 w-10 bg-blue-600 text-white text-lg font-medium" />
               <div>
                 <div className="font-medium text-gray-900 dark:text-slate-100">{user?.nombre}</div>
                 <div className="text-xs text-gray-500 dark:text-slate-400 truncate max-w-[180px]">{user?.email}</div>
@@ -140,6 +138,17 @@ const UserMenu = ({ mobile = false, onMobileMenuClose }: UserMenuProps) => {
           </div>
           
           <div className="py-1">
+            {user?.rol === 'admin' && (
+              <Link
+                href="/admin/dashboard"
+                className="flex items-center px-4 py-2.5 text-sm text-gray-700 dark:text-slate-200 hover:bg-blue-50 dark:hover:bg-blue-950/50 hover:text-blue-700 dark:hover:text-blue-300 transition-colors"
+                role="menuitem"
+                onClick={() => setIsProfileDropdownOpen(false)}
+              >
+                <FiGrid aria-hidden="true" className="h-5 w-5 mr-3 text-gray-400 dark:text-slate-400" />
+                Dashboard
+              </Link>
+            )}
             <Link
               href="/profile"
               className="flex items-center px-4 py-2.5 text-sm text-gray-700 dark:text-slate-200 hover:bg-blue-50 dark:hover:bg-blue-950/50 hover:text-blue-700 dark:hover:text-blue-300 transition-colors"
