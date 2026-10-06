@@ -47,7 +47,7 @@ const NewsVerifier = () => {
     
     try {
       // Preparar datos para la API
-      const requestData: Record<string, any> = {};
+      const requestData: {text?: string; url?: string; usuario_id?: number} = {};
       
       // Mapear el tipo de entrada según la pestaña activa
       if (activeTab === 'texto') {
@@ -158,7 +158,7 @@ const NewsVerifier = () => {
   };
 
   return (
-    <div className="bg-white dark:bg-slate-900 rounded-lg shadow-sm w-[calc(100%-2rem)] max-w-4xl mx-auto my-8">
+    <div id="verificador" className="scroll-mt-24 bg-white dark:bg-slate-900 rounded-lg shadow-sm w-[calc(100%-2rem)] max-w-4xl mx-auto mt-16 mb-8">
       <div className="p-6 sm:p-8">
         <h2 className="text-2xl font-bold text-gray-800 dark:text-slate-100 mb-6">Verificador de información</h2>
         
