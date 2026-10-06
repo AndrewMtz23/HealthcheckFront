@@ -200,7 +200,7 @@ const AdminStatsPage = () => {
                           </div>
                           <div className="w-full bg-gray-200 dark:bg-slate-700 rounded-full h-2.5">
                             <div 
-                              className="bg-purple-600 h-2.5 rounded-full"
+                              className="bg-blue-600 h-2.5 rounded-full"
                               style={{ 
                                 width: `${(stat.total / stats.sourceStats.reduce((sum, s) => sum + s.total, 0)) * 100}%` 
                               }}
@@ -225,7 +225,7 @@ const AdminStatsPage = () => {
                         return (
                           <div key={index} className="flex flex-col items-center flex-1">
                             <div 
-                              className="w-full bg-indigo-500 rounded-t-md"
+                              className="w-full bg-blue-500 rounded-t-md"
                               style={{ height: `${heightPercentage}%` }}
                             ></div>
                             <div className="text-xs text-gray-500 dark:text-slate-400 mt-2 w-full text-center truncate" title={stat.mes}>
