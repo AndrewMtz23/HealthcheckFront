@@ -4,6 +4,7 @@ import NewsFeed from '@/components/news/NewsFeed';
 import HealthResources from '@/components/home/HealthResources';
 import InformedDecisions from '@/components/home/InformedDecisions';
 import HomeGuide from '@/components/home/HomeGuide';
+import BenefitsCarousel from '@/components/home/BenefitsCarousel';
 
 export default function Home() {
   return (
@@ -18,6 +19,7 @@ export default function Home() {
         title="Últimas noticias verificadas"
         subtitle="Mantente informado con contenido verificado por nuestra plataforma"
       />
+      <BenefitsCarousel />
       <InformedDecisions />
       <HomeGuide />
     </div>

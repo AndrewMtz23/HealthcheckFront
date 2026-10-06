@@ -46,12 +46,12 @@ const ChatButton = () => {
             onClick={handleButtonClick}
             onMouseEnter={() => setShowTooltip(true)}
             onMouseLeave={() => setShowTooltip(false)}
-            className="bg-gradient-to-r from-blue-600 dark:from-blue-900 to-blue-700 dark:to-blue-800 hover:from-blue-700 dark:hover:from-blue-950 hover:to-blue-800 dark:hover:to-blue-900 text-white rounded-full w-14 h-14 shadow-lg flex items-center justify-center transition-all duration-200 hover:scale-105"
+            className="group relative bg-gradient-to-r from-blue-600 via-blue-600 to-blue-700 dark:from-blue-800 dark:via-blue-700 dark:to-blue-900 text-white rounded-full w-16 h-16 shadow-[0_12px_32px_rgba(37,99,235,0.35)] ring-4 ring-white/40 dark:ring-slate-900/60 flex items-center justify-center transition-all duration-200 hover:scale-105 hover:shadow-[0_16px_36px_rgba(37,99,235,0.45)]"
             aria-label="Abrir chat"
           >
             <svg
               xmlns="http://www.w3.org/2000/svg"
-              className="h-6 w-6"
+              className="h-7 w-7"
               fill="none"
               viewBox="0 0 24 24"
               stroke="currentColor"
@@ -63,21 +63,19 @@ const ChatButton = () => {
                 d="M8 10h.01M12 10h.01M16 10h.01M9 16H5a2 2 0 01-2-2V6a2 2 0 012-2h14a2 2 0 012 2v8a2 2 0 01-2 2h-5l-5 5v-5z"
               />
             </svg>
-            
-            {/* Indicador de mensajes no leídos */}
+
             {hasUnreadMessages && (
-              <span className="absolute -top-1 -right-1 bg-red-500 text-white rounded-full w-5 h-5 flex items-center justify-center text-xs animate-pulse">
+              <span className="absolute -top-1.5 -right-1.5 bg-red-500 text-white rounded-full w-6 h-6 flex items-center justify-center text-[11px] font-semibold shadow-lg ring-2 ring-white">
                 1
               </span>
             )}
           </button>
-          
-          {/* Tooltip */}
+
           {showTooltip && (
-            <div className="absolute bottom-full right-0 mb-2 bg-gray-800 text-white text-sm rounded-lg py-1 px-3 shadow-lg">
-              <div className="relative">
-                <div className="absolute -bottom-1 right-4 w-2 h-2 bg-gray-800 transform rotate-45"></div>
+            <div className="absolute bottom-full right-0 mb-3 pointer-events-none">
+              <div className="relative bg-slate-900 text-white text-xs sm:text-sm font-medium rounded-xl px-3 py-2 shadow-[0_12px_28px_rgba(15,23,42,0.35)] whitespace-nowrap">
                 <span>Asistente de salud</span>
+                <div className="absolute -bottom-1.5 right-4 h-3 w-3 rotate-45 bg-slate-900 rounded-[2px]" />
               </div>
             </div>
           )}

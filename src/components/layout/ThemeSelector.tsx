@@ -1,13 +1,12 @@
 'use client';
 
-import { Monitor, Moon, Sun } from 'lucide-react';
+import { Moon, Sun } from 'lucide-react';
 import { useTheme } from '@/context/ThemeContext';
 import styles from './ThemeSelector.module.css';
 
 const themes = {
-  light: { label: 'Claro', icon: Sun, next: 'dark' },
-  dark: { label: 'Oscuro', icon: Moon, next: 'system' },
-  system: { label: 'Sistema', icon: Monitor, next: 'light' },
+  light: { label: 'Blanco', icon: Sun, next: 'dark' },
+  dark: { label: 'Negro', icon: Moon, next: 'light' },
 } as const;
 
 export default function ThemeSelector() {

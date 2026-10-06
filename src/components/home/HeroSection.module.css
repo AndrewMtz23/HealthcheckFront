@@ -16,8 +16,14 @@
 .secondary:hover { background: var(--accent-border); }
 .visual { z-index: 1; position: relative; align-self: end; width: 100%; height: 560px; }
 .doctors { display: block; width: 100%; height: 100%; object-fit: contain; object-position: center bottom; }
-.scroll { position: absolute; z-index: 2; bottom: -24px; left: calc(50% - 24px); width: 48px; height: 48px; display: flex; align-items: center; justify-content: center; border-radius: 50%; background: var(--brand); color: white; box-shadow: 0 0 0 8px var(--surface); transition: background .15s; }
-.scroll:hover { background: var(--brand-hover); }
+.scroll { position: absolute; z-index: 2; bottom: -24px; left: calc(50% - 24px); width: 48px; height: 48px; display: flex; align-items: center; justify-content: center; border-radius: 50%; background: var(--brand); color: white; box-shadow: 0 0 0 8px var(--surface); transition: background .2s, transform .2s, box-shadow .2s; }
+.scroll::before { content: ""; position: absolute; inset: -7px; border: 1px solid var(--brand); border-radius: inherit; opacity: 0; pointer-events: none; animation: scroll-pulse 2.4s ease-out infinite; }
+.scroll svg { animation: arrow-bob 1.8s ease-in-out infinite; transition: transform .2s; }
+.scroll:hover { background: var(--brand-hover); transform: translateY(2px) scale(1.08); box-shadow: 0 0 0 8px var(--surface), 0 8px 20px #2563eb40; }
+.scroll:hover svg { animation-play-state: paused; transform: translateY(3px); }
+.scroll:focus-visible { outline: 3px solid var(--brand); outline-offset: 5px; }
+@keyframes arrow-bob { 0%, 100% { transform: translateY(-2px); } 50% { transform: translateY(3px); } }
+@keyframes scroll-pulse { 0% { transform: scale(.85); opacity: .55; } 75%, 100% { transform: scale(1.45); opacity: 0; } }
 @media (min-width: 1440px) { .inner { min-height: 640px; } .visual { height: 590px; } }
 @media (min-width: 768px) and (max-width: 1023px) { .inner { min-height: 520px; gap: 20px; padding: 0 24px; } .copy { padding: 50px 0 60px; } .copy h1 { font-size: 38px; } .copy p { font-size: 15px; } .visual { height: 460px; } .actions a { padding: 12px 20px; } }
 @media (max-width: 767px) {
@@ -32,4 +38,4 @@
   .backdrop { inset: auto 0 0; height: clamp(300px, 85vw, 460px); clip-path: none; }
   .scroll { width: 42px; height: 42px; left: calc(50% - 21px); bottom: -21px; }
 }
-@media (prefers-reduced-motion: reduce) { .actions a, .scroll { transition: none; } }
+@media (prefers-reduced-motion: reduce) { .actions a, .scroll, .scroll svg { transition: none; animation: none; } }
