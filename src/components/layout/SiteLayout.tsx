@@ -9,7 +9,7 @@ export default function SiteLayout({ children }: { children: React.ReactNode }) 
   const pathname = usePathname();
   const isAuthPage = pathname === '/login' || pathname === '/register';
 
-  if (isAuthPage) return <main className="min-w-0 flex-grow">{children}</main>;
+  if (isAuthPage || pathname === '/admin' || pathname.startsWith('/admin/')) return <main className="min-w-0 flex-grow">{children}</main>;
 
   return (
     <>

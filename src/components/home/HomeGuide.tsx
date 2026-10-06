@@ -3,8 +3,8 @@ import Link from 'next/link';
 
 const steps = [
   { number: '01', title: 'Empieza con una pregunta', description: '¿Ese titular suena demasiado bueno para ser cierto? Detente un momento antes de compartirlo.', icon: MessageCircleHeart, color: 'bg-blue-50 dark:bg-blue-950/50 text-blue-600 dark:text-blue-400' },
-  { number: '02', title: 'Mira más allá del titular', description: 'Revisa la fuente, la fecha y el contexto. Una noticia completa cuenta más que una frase.', icon: FileSearch, color: 'bg-teal-50 dark:bg-teal-950/40 text-teal-700 dark:text-teal-300' },
-  { number: '03', title: 'Contrasta y decide', description: 'Compara lo que encuentras con otras fuentes y usa el análisis como un punto de partida.', icon: Layers3, color: 'bg-indigo-50 dark:bg-indigo-950/40 text-indigo-600 dark:text-indigo-300' },
+  { number: '02', title: 'Mira más allá del titular', description: 'Revisa la fuente, la fecha y el contexto. Una noticia completa cuenta más que una frase.', icon: FileSearch, color: 'bg-blue-50 dark:bg-blue-950/40 text-blue-700 dark:text-blue-300' },
+  { number: '03', title: 'Contrasta y decide', description: 'Compara lo que encuentras con otras fuentes y usa el análisis como un punto de partida.', icon: Layers3, color: 'bg-blue-50 dark:bg-blue-950/40 text-blue-600 dark:text-blue-300' },
 ];
 
 export default function HomeGuide() {

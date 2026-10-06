@@ -17,7 +17,7 @@ const ScrapeGoogleNewsPage = () => {
   const [saveToDB, setSaveToDB] = useState<boolean>(false);
   const [isLoading, setIsLoading] = useState<boolean>(false);
   const [error, setError] = useState<string | null>(null);
-  const [result, setResult] = useState<any>(null);
+  const [result, setResult] = useState<{status?: string; message: string; processed_ids?: number[]} | null>(null);
   const [csvUrl, setCsvUrl] = useState<string | null>(null);
 
   // Redirigir si no está autenticado o no es admin

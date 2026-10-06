@@ -2,29 +2,85 @@
 @custom-variant dark (&:where(.dark, .dark *));
 
 :root {
-  --background: #ffffff;
-  --foreground: #171717;
+  --background: #f8fafc;
+  --foreground: #0f172a;
   --surface: #ffffff;
   --muted: #64748b;
+  --border: #e2e8f0;
+  --brand: #2563eb;
+  --brand-hover: #1d4ed8;
+  --accent: #2563eb;
+  --accent-soft: #eff6ff;
+  --accent-border: #bfdbfe;
+  --focus: #2563eb;
+  --success: #15803d;
+  --success-soft: #f0fdf4;
+  --success-border: #bbf7d0;
+  --warning: #92400e;
+  --warning-soft: #fffbeb;
+  --warning-border: #fde68a;
+  --danger: #b91c1c;
+  --danger-soft: #fef2f2;
+  --danger-border: #fecaca;
   --grid-line: #dbeafe;
-  --hero-dot: #93b6ed;
+  --hero-dot: #93c5fd;
   color-scheme: light;
 }
 
+/* Shared scales also power existing Tailwind utilities across public pages. */
 @theme inline {
   --color-background: var(--background);
   --color-foreground: var(--foreground);
+  --color-surface: var(--surface);
+  --color-brand: var(--brand);
+  --color-accent: var(--accent);
+  --color-blue-50: #eff6ff;
+  --color-blue-100: #dbeafe;
+  --color-blue-200: #bfdbfe;
+  --color-blue-300: #93c5fd;
+  --color-blue-400: #60a5fa;
+  --color-blue-500: #3b82f6;
+  --color-blue-600: #2563eb;
+  --color-blue-700: #1d4ed8;
+  --color-blue-800: #1e40af;
+  --color-blue-900: #1e3a8a;
+  --color-blue-950: #172554;
+  --color-gray-50: #f8fafc;
+  --color-gray-100: #f1f5f9;
+  --color-gray-200: #e2e8f0;
+  --color-gray-300: #cbd5e1;
+  --color-gray-400: #94a3b8;
+  --color-gray-500: #64748b;
+  --color-gray-600: #475569;
+  --color-gray-700: #334155;
+  --color-gray-800: #1e293b;
+  --color-gray-900: #0f172a;
+  --color-gray-950: #020617;
   --font-sans: var(--font-geist-sans);
   --font-mono: var(--font-geist-mono);
 }
 
 .dark {
-  --background: #020617;
-  --foreground: #e2e8f0;
-  --surface: #0f172a;
+  --background: #0f172a;
+  --foreground: #f1f5f9;
+  --surface: #1e293b;
   --muted: #94a3b8;
-  --grid-line: #243451;
-  --hero-dot: #3b5275;
+  --border: #334155;
+  --accent: #60a5fa;
+  --accent-soft: #172554;
+  --accent-border: #1e40af;
+  --focus: #60a5fa;
+  --success: #86efac;
+  --success-soft: #052e16;
+  --success-border: #166534;
+  --warning: #fcd34d;
+  --warning-soft: #451a03;
+  --warning-border: #92400e;
+  --danger: #fca5a5;
+  --danger-soft: #450a0a;
+  --danger-border: #991b1b;
+  --grid-line: #334155;
+  --hero-dot: #475569;
   color-scheme: dark;
 }
 
@@ -48,10 +104,10 @@ input, textarea, select {
   }
 }
 
-.dark :focus-visible { outline-color: #60a5fa; }
+
 
 :focus-visible {
-  outline: 2px solid #2563eb;
+  outline: 2px solid var(--focus);
   outline-offset: 3px;
 }
 

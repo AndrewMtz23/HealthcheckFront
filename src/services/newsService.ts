@@ -1,4 +1,4 @@
-import { NewsItem, UserInteraction } from '@/types/news';
+import { NewsItem } from '@/types/news';
 
 const API_URL = 'http://localhost:3003/api';
 const MICROLINK_API = 'https://api.microlink.io';
@@ -125,6 +125,8 @@ export const getNewsById = async (id: number): Promise<NewsItem> => {
  * Obtiene previsualizaciones de URLs con Microlink
  */
 export const getUrlPreview = async (url: string) => {
+  // Reserved demo URLs must never trigger an external preview/scraping request.
+  if (url.startsWith('https://example.invalid/')) return null;
   try {
     const response = await fetch(`${MICROLINK_API}?url=${encodeURIComponent(url)}`);
     const data = await response.json();
