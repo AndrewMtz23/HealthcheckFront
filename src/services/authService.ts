@@ -8,6 +8,7 @@ export interface User {
   nombre: string;
   rol: string;
   telefono?: string;
+  imagen_url?: string | null;
   fecha_registro?: string;
   ultima_conexion?: string;
 }
@@ -99,6 +100,7 @@ export const getProfile = async (): Promise<User> => {
 export const updateProfile = async (updates: {
   nombre?: string;
   telefono?: string;
+  imagen_url?: string | null;
 }): Promise<User> => {
   const token = localStorage.getItem('token');
 
