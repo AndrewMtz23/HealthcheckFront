@@ -1,8 +1,8 @@
 'use client';
 
-import { useState, useEffect } from 'react';
+import { Suspense, useState, useEffect } from 'react';
 import { useRouter, useSearchParams } from 'next/navigation';
-import { AlertTriangle, CheckCircle, Info, Filter } from 'lucide-react';
+import { Filter } from 'lucide-react';
 import SearchBar from '@/components/news/SearchBar';
 import NewsCard from '@/components/news/NewsCard';
 import { 
@@ -17,6 +17,10 @@ import type { NewsItem } from '@/types/news';
 import { useAuth } from '@/context/AuthContext';
 
 export default function NewsPage() {
+  return <Suspense fallback={<div role="status" className="p-12 text-center">Cargando noticias…</div>}><NewsPageContent /></Suspense>;
+}
+
+function NewsPageContent() {
   const searchParams = useSearchParams();
   const router = useRouter();
   const { user } = useAuth();
@@ -119,12 +123,10 @@ export default function NewsPage() {
   };
 
   // Manejar cambios en los filtros
-  const handleFilterChange = (setter: React.Dispatch<React.SetStateAction<any>>) => 
+  const handleFilterChange = (setter: React.Dispatch<React.SetStateAction<number | null>>) =>
     (e: React.ChangeEvent<HTMLSelectElement | HTMLInputElement>) => {
       const value = e.target.value;
-      setter(value === '' ? null : 
-        (e.target.type === 'number' ? parseInt(value) : value)
-      );
+      setter(value === '' ? null : Number(value));
     };
 
   // Manejar interacciones con noticias

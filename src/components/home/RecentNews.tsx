@@ -2,8 +2,7 @@
 
 import { useState, useEffect } from 'react';
 import Link from 'next/link';
-import { useAuth } from '@/context/AuthContext';
-import { AlertTriangle, CheckCircle, Newspaper, ExternalLink, Calendar, BarChart, Info, Image as ImageIcon, Link as LinkIcon } from 'lucide-react';
+import { AlertTriangle, CheckCircle, Newspaper, ExternalLink, Calendar, BarChart, Info } from 'lucide-react';
 
 // Definimos la URL base de la API Gateway
 const API_URL = 'http://localhost:3003/api';
@@ -66,8 +65,6 @@ const RecentNews = () => {
   const [news, setNews] = useState<NewsItem[]>([]);
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState<string | null>(null);
-  const [previewUrl, setPreviewUrl] = useState<string | null>(null);
-  const { user } = useAuth();
 
   useEffect(() => {
     const fetchRecentNews = async () => {
@@ -99,7 +96,7 @@ const RecentNews = () => {
           // Luego obtener las previsualizaciones para cada noticia con URL
           const newsWithPreviews = await Promise.all(
             newsItems.map(async (item: NewsItem) => {
-              if (item.url) {
+              if (item.url && !item.url.startsWith('https://example.invalid/')) {
                 try {
                   const microlinkResponse = await fetch(`${MICROLINK_API}?url=${encodeURIComponent(item.url)}`);
                   const microlinkData = await microlinkResponse.json();
@@ -252,10 +249,6 @@ const RecentNews = () => {
       month: 'long',
       day: 'numeric'
     });
-  };
-
-  const handleUrlPreview = (url: string) => {
-    setPreviewUrl(url === previewUrl ? null : url);
   };
 
   if (loading) {

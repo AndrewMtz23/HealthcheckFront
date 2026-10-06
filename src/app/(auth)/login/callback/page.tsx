@@ -1,9 +1,13 @@
 'use client';
 
-import { useEffect, useState } from 'react';
+import { Suspense, useEffect, useState } from 'react';
 import { useRouter, useSearchParams } from 'next/navigation';
 
 export default function GoogleCallback() {
+  return <Suspense fallback={<div role="status" className="p-12 text-center">Cargando autenticación…</div>}><GoogleCallbackContent /></Suspense>;
+}
+
+function GoogleCallbackContent() {
   const router = useRouter();
   const searchParams = useSearchParams();
   const [error, setError] = useState<string | null>(null);

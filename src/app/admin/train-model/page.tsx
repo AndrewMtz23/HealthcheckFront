@@ -21,7 +21,7 @@ const TrainModelPage = () => {
   const [isTraining, setIsTraining] = useState(false);
   const [error, setError] = useState<string | null>(null);
   const [progress, setProgress] = useState<number | null>(null);
-  const [result, setResult] = useState<any>(null);
+  const [result, setResult] = useState<{model_id: number; evaluation: {precision: number; recall: number; f1_score: number}} | null>(null);
 
   // Redirigir si no está autenticado o no es admin
   useEffect(() => {
@@ -244,7 +244,7 @@ const TrainModelPage = () => {
                         </label>
                         <p className="pl-1">o arrastra y suelta</p>
                       </div>
-                      <p className="text-xs text-gray-500 dark:text-slate-400">CSV con columnas 'text' y 'label'</p>
+                      <p className="text-xs text-gray-500 dark:text-slate-400">CSV con columnas &apos;text&apos; y &apos;label&apos;</p>
                       {file && (
                         <p className="mt-2 text-xs text-green-500">
                           Archivo seleccionado: {fileName} ({(file.size / 1024).toFixed(1)} KB)

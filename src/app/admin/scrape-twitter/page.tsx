@@ -20,7 +20,7 @@ const ScrapeTwitterPage = () => {
   const [saveToDB, setSaveToDB] = useState<boolean>(false);
   const [isLoading, setIsLoading] = useState<boolean>(false);
   const [error, setError] = useState<string | null>(null);
-  const [result, setResult] = useState<any>(null);
+  const [result, setResult] = useState<{status?: string; message: string; processed_ids?: number[]} | null>(null);
   const [csvUrl, setCsvUrl] = useState<string | null>(null);
 
   // Redirigir si no está autenticado o no es admin
@@ -173,7 +173,7 @@ const ScrapeTwitterPage = () => {
                   />
                 </div>
                 <p className="mt-1 text-xs text-gray-500 dark:text-slate-400">
-                  Ejemplo: "noticias salud covid vacunas". Usa OR para operador "O", - para excluir palabras.
+                  Ejemplo: &quot;noticias salud covid vacunas&quot;. Usa OR para operador &quot;O&quot;, - para excluir palabras.
                 </p>
               </div>
 

@@ -26,6 +26,12 @@ import type { NewsItem } from '@/types/news';
 import ConfidenceBar from '@/components/news/ConfidenceBar';
 import ReportModal from '@/components/news/ReportModal';
 
+declare global {
+    interface Window {
+        twttr?: { widgets?: { load: (element: HTMLElement | null) => void } };
+    }
+}
+
 export default function NewsDetailPage() {
     const { id } = useParams();
     const router = useRouter();
@@ -90,7 +96,7 @@ export default function NewsDetailPage() {
         }
 
         try {
-            const result = await createInteraction(Number(id), interactionType);
+            await createInteraction(Number(id), interactionType);
 
             // Actualizar conteos e interacciones
             const updatedCounts = await getInteractionCounts(Number(id));
@@ -267,8 +273,8 @@ export default function NewsDetailPage() {
 
             // Cargar el widget de Twitter con un pequeño retraso para asegurar que DOM esté listo
             setTimeout(() => {
-                if ((window as any).twttr && (window as any).twttr.widgets) {
-                    (window as any).twttr.widgets.load(tweetRef.current);
+                if (window.twttr?.widgets) {
+                    window.twttr.widgets.load(tweetRef.current);
 
                     // Verificar la carga después de un tiempo
                     setTimeout(checkIfLoaded, 1000);
@@ -277,7 +283,7 @@ export default function NewsDetailPage() {
         };
 
         // Cargar el script de Twitter si aún no está cargado
-        if (!(window as any).twttr) {
+        if (!window.twttr) {
             const script = document.createElement('script');
             script.src = 'https://platform.twitter.com/widgets.js';
             script.async = true;
@@ -600,26 +606,26 @@ export default function NewsDetailPage() {
 
                         {/* Información del modelo de ML */}
                         {news.clasificaciones && news.clasificaciones[0]?.modelo && !showOriginal && (
-                            <div className="mt-4 bg-purple-50 dark:bg-purple-950/40 p-4 rounded-lg shadow-sm">
-                                <h3 className="text-md font-semibold text-purple-800 dark:text-purple-300 mb-2 flex items-center">
+                            <div className="mt-4 bg-blue-50 dark:bg-blue-950/40 p-4 rounded-lg shadow-sm">
+                                <h3 className="text-md font-semibold text-blue-800 dark:text-blue-300 mb-2 flex items-center">
                                     <BarChart2 className="mr-2 h-4 w-4" />
                                     Modelo de análisis
                                 </h3>
                                 <div className="grid grid-cols-1 sm:grid-cols-3 gap-3">
                                     <div className="bg-white dark:bg-slate-900 p-3 rounded-md shadow-sm">
-                                        <p className="text-purple-700 dark:text-purple-300 text-xs font-medium">Modelo</p>
+                                        <p className="text-blue-700 dark:text-blue-300 text-xs font-medium">Modelo</p>
                                         <p className="text-gray-800 dark:text-slate-100 font-bold text-sm mt-1">
                                             {news.clasificaciones[0].modelo.nombre} v{news.clasificaciones[0].modelo.version}
                                         </p>
                                     </div>
                                     <div className="bg-white dark:bg-slate-900 p-3 rounded-md shadow-sm">
-                                        <p className="text-purple-700 dark:text-purple-300 text-xs font-medium">Precisión</p>
+                                        <p className="text-blue-700 dark:text-blue-300 text-xs font-medium">Precisión</p>
                                         <p className="text-gray-800 dark:text-slate-100 font-bold text-sm mt-1">
                                             {(news.clasificaciones[0].modelo.precision * 100).toFixed(1)}%
                                         </p>
                                     </div>
                                     <div className="bg-white dark:bg-slate-900 p-3 rounded-md shadow-sm">
-                                        <p className="text-purple-700 dark:text-purple-300 text-xs font-medium">F1-Score</p>
+                                        <p className="text-blue-700 dark:text-blue-300 text-xs font-medium">F1-Score</p>
                                         <p className="text-gray-800 dark:text-slate-100 font-bold text-sm mt-1">
                                             {(news.clasificaciones[0].modelo.f1_score * 100).toFixed(1)}%
                                         </p>

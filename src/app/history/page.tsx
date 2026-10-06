@@ -11,6 +11,7 @@ import {
   HistoryEntry 
 } from '@/services/historyService';
 import { Calendar, Trash2, AlertTriangle, CheckCircle, Info } from 'lucide-react';
+import type { Clasificacion } from '@/types/news';
 
 export default function HistoryPage() {
   const { user, loading } = useAuth();
@@ -143,7 +144,7 @@ export default function HistoryPage() {
   };
 
   // Función para obtener ícono según clasificación
-  const getClassificationIcon = (classifications: any[] | undefined) => {
+  const getClassificationIcon = (classifications: Clasificacion[] | undefined) => {
     if (!classifications || classifications.length === 0) {
       return <Info className="h-5 w-5 text-gray-400 dark:text-slate-400" />;
     }

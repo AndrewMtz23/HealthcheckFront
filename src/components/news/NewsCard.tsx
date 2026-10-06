@@ -8,7 +8,6 @@ import {
   AlertTriangle,
   CheckCircle,
   Calendar,
-  BarChart2,
   ExternalLink,
   ThumbsUp,
   ThumbsDown,
@@ -47,7 +46,7 @@ const NewsCard = ({ news, onInteraction }: NewsCardProps) => {
         month: 'long',
         day: 'numeric'
       });
-    } catch (err) {
+    } catch {
       return 'Fecha inválida';
     }
   };
