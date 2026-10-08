@@ -2,6 +2,7 @@
 
 import { useState } from 'react';
 import { useAuth } from '@/context/AuthContext';
+import Link from 'next/link';
 
 // Definimos la URL base de la API Gateway
 const API_URL = process.env.NEXT_PUBLIC_API_URL || 'http://localhost:4000/api';
@@ -35,10 +36,32 @@ const NewsVerifier = () => {
 
   const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
+    if (!user) {setError('Inicia sesión para analizar una noticia y guardar tu consulta.');return;}
     
-    if (!input.trim()) {
+    const trimmedInput = input.trim();
+    if (!trimmedInput) {
       setError('Por favor, introduce contenido para verificar');
       return;
+    }
+
+    if (activeTab === 'texto') {
+      if (trimmedInput.length < 10) {
+        setError('El texto debe contener al menos 10 caracteres para poder ser analizado.');
+        return;
+      }
+      if (trimmedInput.length > 50000) {
+        setError('El texto excede el límite máximo de 50,000 caracteres.');
+        return;
+      }
+    } else {
+      if (!/^https?:\/\//i.test(trimmedInput)) {
+        setError('Por favor, introduce una URL válida que empiece por http:// o https://');
+        return;
+      }
+      if (trimmedInput.length > 2048) {
+        setError('La URL excede el límite máximo de 2048 caracteres.');
+        return;
+      }
     }
     
     setIsLoading(true);
@@ -46,19 +69,14 @@ const NewsVerifier = () => {
     setResult(null);
     
     try {
-      // Preparar datos para la API
-      const requestData: {text?: string; url?: string; usuario_id?: number} = {};
+      // Preparar datos para la API (la identidad se deriva del token de sesión)
+      const requestData: {text?: string; url?: string} = {};
       
       // Mapear el tipo de entrada según la pestaña activa
       if (activeTab === 'texto') {
-        requestData.text = input;
+        requestData.text = trimmedInput;
       } else if (activeTab === 'url' || activeTab === 'twitter') {
-        requestData.url = input;
-      }
-      
-      // Incluir ID de usuario si está autenticado
-      if (user) {
-        requestData.usuario_id = user.id;
+        requestData.url = trimmedInput;
       }
       
       // Enviar solicitud a la API
@@ -74,7 +92,11 @@ const NewsVerifier = () => {
       const data = await response.json();
       
       if (!response.ok) {
-        throw new Error(data.error || 'Error al verificar la información');
+        if(response.status===503) throw new Error('El análisis no está disponible en este momento. Puedes consultar noticias y tu historial mientras tanto.');
+        if(response.status===504) throw new Error('El servicio de análisis tardó demasiado en responder. Por favor, inténtalo de nuevo.');
+        if(response.status===401) throw new Error('Tu sesión terminó. Vuelve a iniciar sesión para continuar.');
+        if(response.status===403) throw new Error('No tienes permisos para realizar esta operación.');
+        throw new Error(data.message || data.error || 'Error al verificar la información');
       }
       
       setResult(data);
@@ -200,6 +222,7 @@ const NewsVerifier = () => {
         </div>
         
         {/* Input Form */}
+        {!user&&<p className="mb-4 rounded-lg bg-blue-50 p-4 text-blue-800 dark:bg-blue-950 dark:text-blue-200"><Link href="/login" className="font-semibold underline">Inicia sesión</Link> para analizar una noticia y guardar tu consulta.</p>}
         <form onSubmit={handleSubmit} className="space-y-4">
           <div>
             {activeTab === 'texto' ? (
@@ -309,9 +332,27 @@ const NewsVerifier = () => {
             <div className="bg-gray-50 dark:bg-slate-950 px-4 sm:px-6 py-4 border-b border-gray-200 dark:border-slate-700 flex flex-wrap gap-3 justify-between items-center">
               <h3 className="text-lg font-medium text-gray-900 dark:text-slate-100">Resultado del análisis</h3>
               {showExample && (
-                <span className="px-2 py-1 text-xs bg-blue-100 dark:bg-blue-900/40 text-blue-800 dark:text-blue-200 rounded-full">Ejemplo</span>
+                <span className="px-2.5 py-1 text-xs font-semibold bg-amber-100 dark:bg-amber-900/50 text-amber-900 dark:text-amber-200 rounded-full">
+                  Resultado de demostración
+                </span>
               )}
             </div>
+
+            {showExample && (
+              <div className="bg-amber-50 dark:bg-amber-950/40 border-b border-amber-200 dark:border-amber-800/60 p-4 flex flex-wrap items-center justify-between gap-2 text-sm text-amber-800 dark:text-amber-200">
+                <div className="flex items-center gap-2">
+                  <span className="font-semibold">Nota:</span>
+                  <span>Este resultado es un ejemplo ilustrativo de cómo se presenta la verificación. No corresponde a ninguna consulta que hayas ingresado.</span>
+                </div>
+                <button
+                  type="button"
+                  onClick={() => setShowExample(false)}
+                  className="text-xs underline font-medium hover:text-amber-900 dark:hover:text-amber-100"
+                >
+                  Cerrar ejemplo
+                </button>
+              </div>
+            )}
             
             <div className="bg-white dark:bg-slate-900 p-6">
               {/* Visualización de resultado */}
