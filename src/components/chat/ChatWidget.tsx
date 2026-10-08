@@ -1,4 +1,5 @@
 'use client';
+import { sessionFetch } from '@/services/session';
 
 import { useState, useEffect, useRef } from 'react';
 import { useAuth } from '@/context/AuthContext';
@@ -72,7 +73,7 @@ const ChatWidget = ({ onClose }: ChatWidgetProps) => {
     
     try {
       // Enviar mensaje al chatbot
-      const response = await fetch(`${API_URL}/ml/chatbot/chat`, {
+      const response = await sessionFetch(`${API_URL}/ml/chatbot/chat`, {
         method: 'POST',
         headers: {
           'Content-Type': 'application/json',

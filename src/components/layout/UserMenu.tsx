@@ -55,14 +55,14 @@ const UserMenu = ({ mobile = false, onMobileMenuClose }: UserMenuProps) => {
           </div>
         </div>
         <div className="mt-3 space-y-1">
-          {user?.rol === 'admin' && (
+          {user && (
             <Link
-              href="/admin/dashboard"
+              href={user.rol==='admin'?'/admin/dashboard':'/dashboard'}
               className="flex items-center px-4 py-2 text-base font-medium text-gray-500 dark:text-slate-400 hover:text-gray-800 dark:hover:text-slate-100 hover:bg-gray-100 dark:hover:bg-slate-800"
               onClick={onMobileMenuClose}
             >
               <FiGrid aria-hidden="true" className="h-5 w-5 mr-3 text-gray-400 dark:text-slate-400" />
-              Dashboard
+              {user.rol==='admin'?'Dashboard':'Mi espacio'}
             </Link>
           )}
           <Link
@@ -138,15 +138,15 @@ const UserMenu = ({ mobile = false, onMobileMenuClose }: UserMenuProps) => {
           </div>
           
           <div className="py-1">
-            {user?.rol === 'admin' && (
+            {user && (
               <Link
-                href="/admin/dashboard"
+                href={user.rol==='admin'?'/admin/dashboard':'/dashboard'}
                 className="flex items-center px-4 py-2.5 text-sm text-gray-700 dark:text-slate-200 hover:bg-blue-50 dark:hover:bg-blue-950/50 hover:text-blue-700 dark:hover:text-blue-300 transition-colors"
                 role="menuitem"
                 onClick={() => setIsProfileDropdownOpen(false)}
               >
                 <FiGrid aria-hidden="true" className="h-5 w-5 mr-3 text-gray-400 dark:text-slate-400" />
-                Dashboard
+                {user.rol==='admin'?'Dashboard':'Mi espacio'}
               </Link>
             )}
             <Link

@@ -1,4 +1,5 @@
 'use client';
+import { sessionFetch } from '@/services/session';
 
 import { useState, useEffect } from 'react';
 import { useRouter } from 'next/navigation';
@@ -6,7 +7,7 @@ import { useAuth } from '@/context/AuthContext';
 import Link from 'next/link';
 
 // Definimos la URL base de la API Gateway
-const API_URL = 'http://localhost:5000/api';
+const API_URL = process.env.NEXT_PUBLIC_API_URL || 'http://localhost:4000/api';
 
 const ScrapeTwitterPage = () => {
   const { user, loading } = useAuth();
@@ -39,7 +40,7 @@ const ScrapeTwitterPage = () => {
       setResult(null);
       setCsvUrl(null);
 
-      const response = await fetch(`${API_URL}/ml/classify/scrape/twitter`, {
+      const response = await sessionFetch(`${API_URL}/ml/classify/scrape/twitter`, {
         method: 'POST',
         headers: {
           'Authorization': `Bearer ${localStorage.getItem('token')}`,

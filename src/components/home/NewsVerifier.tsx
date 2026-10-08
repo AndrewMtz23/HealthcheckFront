@@ -1,4 +1,5 @@
 'use client';
+import { sessionFetch } from '@/services/session';
 
 import { useState } from 'react';
 import { useAuth } from '@/context/AuthContext';
@@ -80,7 +81,7 @@ const NewsVerifier = () => {
       }
       
       // Enviar solicitud a la API
-      const response = await fetch(`${API_URL}/ml/classify/predict`, {
+      const response = await sessionFetch(`${API_URL}/ml/classify/predict`, {
         method: 'POST',
         headers: {
           'Content-Type': 'application/json',

@@ -1,7 +1,9 @@
 'use client';
 
-import { Suspense, useEffect, useState } from 'react';
+import { Suspense, useEffect, useRef, useState } from 'react';
 import { useRouter, useSearchParams } from 'next/navigation';
+import { useAuth } from '@/context/AuthContext';
+import { getProfile } from '@/services/authService';
 
 export default function GoogleCallback() {
   return <Suspense fallback={<div role="status" className="p-12 text-center">Cargando autenticación…</div>}><GoogleCallbackContent /></Suspense>;
@@ -11,10 +13,15 @@ function GoogleCallbackContent() {
   const router = useRouter();
   const searchParams = useSearchParams();
   const [error, setError] = useState<string | null>(null);
+  const { login } = useAuth();
+  const started = useRef(false);
 
   useEffect(() => {
-    const token = searchParams.get('token');
+    if (started.current) return;
+    started.current = true;
+    const token = new URLSearchParams(window.location.hash.slice(1)).get('token');
     const errorParam = searchParams.get('error');
+    window.history.replaceState(null, '', window.location.pathname);
 
     if (errorParam) {
       setError('Ocurrió un error durante la autenticación con Google.');
@@ -26,29 +33,18 @@ function GoogleCallbackContent() {
       return;
     }
 
-    // Guardar token en localStorage
     localStorage.setItem('token', token);
-    
-    // Intentar decodificar el token para obtener información básica del usuario
-    try {
-      // Nota: esto es una decodificación simple del JWT para obtener los datos del payload
-      // No es una verificación criptográfica completa, eso se hace en el backend
-      const base64Url = token.split('.')[1];
-      const base64 = base64Url.replace(/-/g, '+').replace(/_/g, '/');
-      const payload = JSON.parse(window.atob(base64));
-      
-      localStorage.setItem('user', JSON.stringify({
-        id: payload.id,
-        email: payload.email,
-        rol: payload.rol,
-      }));
-    } catch (err) {
-      console.error('Error decodificando token:', err);
-    }
-    
-    // Redireccionar al dashboard
-    router.push('/dashboard');
-  }, [router, searchParams]);
+    void getProfile().then(profile => {
+      if (localStorage.getItem('token') !== token) return;
+      login(profile, token);
+      router.replace(profile.rol === 'admin' ? '/admin/dashboard' : '/dashboard');
+    }).catch(() => {
+      if (localStorage.getItem('token') === token) {
+        localStorage.removeItem('token'); localStorage.removeItem('user');
+      }
+      setError('No pudimos validar la sesión de Google. Vuelve a iniciar sesión.');
+    });
+  }, [router, searchParams, login]);
 
   if (error) {
     return (

@@ -1,3 +1,4 @@
+import { sessionFetch } from '@/services/session';
 import { useState } from 'react';
 import { AlertTriangle, X } from 'lucide-react';
 import { Fuente } from '@/types/news';
@@ -24,7 +25,7 @@ const ReportModal = ({ fuente, onClose }: ReportModalProps) => {
     try {
       setIsSubmitting(true);
 
-      const response = await fetch('http://localhost:3003/api/reports', {
+      const response = await sessionFetch('http://localhost:3003/api/reports', {
         method: 'POST',
         headers: {
           'Content-Type': 'application/json',

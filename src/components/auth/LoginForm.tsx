@@ -28,7 +28,7 @@ export default function LoginForm() {
         throw new Error('No pudimos completar el acceso. Inténtalo de nuevo.');
       }
       login(response.data.user, response.data.token);
-      router.push(response.data.user.rol === 'admin' ? '/admin/dashboard' : '/news');
+      router.push(response.data.user.rol === 'admin' ? '/admin/dashboard' : '/dashboard');
     } catch (err: unknown) {
       setError(err instanceof TypeError ? 'No pudimos conectar con el servidor. Revisa tu conexión e inténtalo de nuevo.' : err instanceof Error ? err.message : 'Ocurrió un error al iniciar sesión. Inténtalo de nuevo.');
       setIsLoading(false);

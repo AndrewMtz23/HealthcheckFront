@@ -1,5 +1,6 @@
 // src/hooks/useNewsInteraction.ts
 'use client';
+import { sessionFetch } from '@/services/session';
 
 import { useState } from 'react';
 import { useAuth } from '@/context/AuthContext';
@@ -28,7 +29,7 @@ export const useNewsInteraction = () => {
     try {
       const token = localStorage.getItem('token');
       
-      const response = await fetch(`${API_URL}/interactions`, {
+      const response = await sessionFetch(`${API_URL}/interactions`, {
         method: 'POST',
         headers: {
           'Content-Type': 'application/json',

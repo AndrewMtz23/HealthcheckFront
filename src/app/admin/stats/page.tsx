@@ -1,4 +1,5 @@
 'use client';
+import { sessionFetch } from '@/services/session';
 
 import { useState, useEffect } from 'react';
 import { useRouter } from 'next/navigation';
@@ -50,7 +51,7 @@ const AdminStatsPage = () => {
       setError(null);
 
       const token = localStorage.getItem('token');
-      const response = await fetch(`${API_URL}/news/stats/general`, {
+      const response = await sessionFetch(`${API_URL}/news/stats/general`, {
         headers: {
           'Authorization': `Bearer ${token}`,
         },
