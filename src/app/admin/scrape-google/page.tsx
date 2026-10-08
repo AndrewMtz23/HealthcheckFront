@@ -1,4 +1,5 @@
 'use client';
+import { sessionFetch } from '@/services/session';
 
 import { useState, useEffect } from 'react';
 import { useRouter } from 'next/navigation';
@@ -6,7 +7,7 @@ import { useAuth } from '@/context/AuthContext';
 import Link from 'next/link';
 
 // Definimos la URL base de la API Gateway
-const API_URL = 'http://localhost:5000/api';
+const API_URL = process.env.NEXT_PUBLIC_API_URL || 'http://localhost:4000/api';
 
 const ScrapeGoogleNewsPage = () => {
   const { user, loading } = useAuth();
@@ -36,7 +37,7 @@ const ScrapeGoogleNewsPage = () => {
       setResult(null);
       setCsvUrl(null);
 
-      const response = await fetch(`${API_URL}/ml/classify/scrape/google`, {
+      const response = await sessionFetch(`${API_URL}/ml/classify/scrape/google`, {
         method: 'POST',
         headers: {
           'Authorization': `Bearer ${localStorage.getItem('token')}`,

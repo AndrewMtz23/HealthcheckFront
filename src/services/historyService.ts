@@ -1,8 +1,9 @@
+import { sessionFetch } from '@/services/session';
 // src/services/historyService.ts
 import { NewsItem } from '@/types/news';
 
 //const API_URL = process.env.NEXT_PUBLIC_API_URL || 'http://localhost:3003/api';
-const API_URL = 'http://localhost:3003/api';
+const API_URL = process.env.NEXT_PUBLIC_NEWS_API_URL || 'http://localhost:3003/api';
 
 export interface HistoryEntry {
   id: number;
@@ -29,7 +30,8 @@ export const getUserHistory = async (
   page: number = 1,
   limit: number = 10,
   startDate?: string,
-  endDate?: string
+  endDate?: string,
+  signal?: AbortSignal
 ): Promise<HistoryResponse> => {
   try {
     const token = localStorage.getItem('token');
@@ -43,7 +45,8 @@ export const getUserHistory = async (
     if (startDate) url += `&startDate=${encodeURIComponent(startDate)}`;
     if (endDate) url += `&endDate=${encodeURIComponent(endDate)}`;
 
-    const response = await fetch(url, {
+    const response = await sessionFetch(url, {
+      signal,
       headers: {
         'Authorization': `Bearer ${token}`
       }
@@ -77,7 +80,7 @@ export const deleteHistoryEntry = async (entryId: number): Promise<void> => {
       throw new Error('Usuario no autenticado');
     }
 
-    const response = await fetch(`${API_URL}/history/${entryId}`, {
+    const response = await sessionFetch(`${API_URL}/history/${entryId}`, {
       method: 'DELETE',
       headers: {
         'Authorization': `Bearer ${token}`
@@ -104,7 +107,7 @@ export const clearHistory = async (): Promise<void> => {
       throw new Error('Usuario no autenticado');
     }
 
-    const response = await fetch(`${API_URL}/history`, {
+    const response = await sessionFetch(`${API_URL}/history`, {
       method: 'DELETE',
       headers: {
         'Authorization': `Bearer ${token}`

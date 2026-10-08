@@ -1,3 +1,4 @@
+import { sessionFetch, clearSession } from '@/services/session';
 // URL base de la API
 const API_URL = process.env.NEXT_PUBLIC_API_URL || 'http://localhost:3001/api';
 
@@ -26,7 +27,7 @@ export interface AuthResponse {
  * Iniciar sesión con correo y contraseña
  */
 export const login = async (email: string, contrasena: string): Promise<AuthResponse> => {
-  const response = await fetch(`${API_URL}/auth/login`, {
+  const response = await sessionFetch(`${API_URL}/auth/login`, {
     method: 'POST',
     headers: {
       'Content-Type': 'application/json',
@@ -52,7 +53,7 @@ export const register = async (
   contrasena: string,
   telefono?: string
 ): Promise<AuthResponse> => {
-  const response = await fetch(`${API_URL}/auth/register`, {
+  const response = await sessionFetch(`${API_URL}/auth/register`, {
     method: 'POST',
     headers: {
       'Content-Type': 'application/json',
@@ -79,7 +80,7 @@ export const getProfile = async (): Promise<User> => {
     throw new Error('No hay token de autenticación');
   }
 
-  const response = await fetch(`${API_URL}/auth/profile`, {
+  const response = await sessionFetch(`${API_URL}/auth/profile`, {
     headers: {
       Authorization: `Bearer ${token}`,
     },
@@ -108,7 +109,7 @@ export const updateProfile = async (updates: {
     throw new Error('No hay token de autenticación');
   }
 
-  const response = await fetch(`${API_URL}/auth/profile`, {
+  const response = await sessionFetch(`${API_URL}/auth/profile`, {
     method: 'PUT',
     headers: {
       Authorization: `Bearer ${token}`,
@@ -132,23 +133,16 @@ export const updateProfile = async (updates: {
 export const logout = async (): Promise<void> => {
   const token = localStorage.getItem('token');
 
-  // Limpiar almacenamiento local
-  localStorage.removeItem('token');
-  localStorage.removeItem('user');
-
-  // Notificar al servidor (opcional)
   if (token) {
-    try {
-      await fetch(`${API_URL}/auth/logout`, {
+      const response = await sessionFetch(`${API_URL}/auth/logout`, {
         method: 'POST',
         headers: {
           Authorization: `Bearer ${token}`,
         },
       });
-    } catch (error) {
-      console.error('Error al notificar logout al servidor:', error);
-    }
+      if (!response.ok && response.status !== 401) throw new Error('No se pudo cerrar la sesión en el servidor. Intenta de nuevo.');
   }
+  if (localStorage.getItem('token') === token) clearSession();
 };
 
 /**

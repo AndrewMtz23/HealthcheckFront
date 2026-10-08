@@ -1,6 +1,7 @@
+import { sessionFetch } from '@/services/session';
 import { NewsItem } from '@/types/news';
 
-const API_URL = 'http://localhost:3003/api';
+const API_URL = process.env.NEXT_PUBLIC_NEWS_API_URL || 'http://localhost:3003/api';
 const MICROLINK_API = 'https://api.microlink.io';
 
 /**
@@ -8,7 +9,7 @@ const MICROLINK_API = 'https://api.microlink.io';
  */
 export const fetchRecentNews = async (limit: number = 6): Promise<NewsItem[]> => {
   try {
-    const response = await fetch(`${API_URL}/news?limit=${limit}`);
+    const response = await sessionFetch(`${API_URL}/news?limit=${limit}`);
     
     if (!response.ok) {
       throw new Error('Error al cargar noticias recientes');
@@ -72,7 +73,7 @@ export const searchNews = async (
       url += `&fuenteId=${fuenteId}`;
     }
     
-    const response = await fetch(url);
+    const response = await sessionFetch(url);
     
     if (!response.ok) {
       console.error('Error en respuesta:', response.status, response.statusText);
@@ -102,7 +103,7 @@ export const searchNews = async (
  */
 export const getNewsById = async (id: number): Promise<NewsItem> => {
   try {
-    const response = await fetch(`${API_URL}/news/${id}`);
+    const response = await sessionFetch(`${API_URL}/news/${id}`);
     
     if (!response.ok) {
       throw new Error('Error al obtener la noticia');
@@ -128,7 +129,7 @@ export const getUrlPreview = async (url: string) => {
   // Reserved demo URLs must never trigger an external preview/scraping request.
   if (url.startsWith('https://example.invalid/')) return null;
   try {
-    const response = await fetch(`${MICROLINK_API}?url=${encodeURIComponent(url)}`);
+    const response = await sessionFetch(`${MICROLINK_API}?url=${encodeURIComponent(url)}`);
     const data = await response.json();
     
     if (data.status === 'success') {
@@ -181,7 +182,7 @@ export const createInteraction = async (noticiaId: number, tipoInteraccion: stri
       throw new Error('Usuario no autenticado');
     }
     
-    const response = await fetch(`${API_URL}/interactions`, {
+    const response = await sessionFetch(`${API_URL}/interactions`, {
       method: 'POST',
       headers: {
         'Content-Type': 'application/json',
@@ -230,7 +231,7 @@ export const getInteractionStatus = async (noticiaId: number): Promise<{
       };
     }
     
-    const response = await fetch(`${API_URL}/interactions/${noticiaId}/status`, {
+    const response = await sessionFetch(`${API_URL}/interactions/${noticiaId}/status`, {
       headers: {
         'Authorization': `Bearer ${token}`
       }
@@ -306,7 +307,7 @@ export const reportSource = async (fuenteId: number, motivo: string): Promise<{
       throw new Error('Usuario no autenticado');
     }
     
-    const response = await fetch(`${API_URL}/reports`, {
+    const response = await sessionFetch(`${API_URL}/reports`, {
       method: 'POST',
       headers: {
         'Content-Type': 'application/json',
@@ -337,7 +338,7 @@ export const reportSource = async (fuenteId: number, motivo: string): Promise<{
 // Función adicional para obtener temas disponibles
 export const fetchTemas = async () => {
   try {
-    const response = await fetch(`${API_URL}/temas`);
+    const response = await sessionFetch(`${API_URL}/temas`);
     
     if (!response.ok) {
       throw new Error('Error al cargar temas');
@@ -359,7 +360,7 @@ export const fetchTemas = async () => {
 // Función adicional para obtener fuentes disponibles
 export const fetchFuentes = async () => {
   try {
-    const response = await fetch(`${API_URL}/fuentes`);
+    const response = await sessionFetch(`${API_URL}/fuentes`);
     
     if (!response.ok) {
       throw new Error('Error al cargar fuentes');
@@ -396,7 +397,7 @@ export const getInteractionCounts = async (noticiaId: number): Promise<{
       headers['Authorization'] = `Bearer ${token}`;
     }
     
-    const response = await fetch(`${API_URL}/interactions/${noticiaId}/counts`, {
+    const response = await sessionFetch(`${API_URL}/interactions/${noticiaId}/counts`, {
       headers
     });
     

@@ -1,6 +1,6 @@
 'use client';
 
-import { useState, useEffect } from 'react';
+import { useState, useEffect, useCallback, useRef } from 'react';
 import { useRouter } from 'next/navigation';
 import { useAuth } from '@/context/AuthContext';
 import Link from 'next/link';
@@ -28,6 +28,8 @@ export default function HistoryPage() {
   // Estados para filtros
   const [startDate, setStartDate] = useState<string>('');
   const [endDate, setEndDate] = useState<string>('');
+  const [appliedDates, setAppliedDates] = useState({start:'',end:''});
+  const requestVersion = useRef(0);
   const [showFilters, setShowFilters] = useState(false);
   const [isDeleting, setIsDeleting] = useState(false);
   const [showClearConfirm, setShowClearConfirm] = useState(false);
@@ -39,39 +41,42 @@ export default function HistoryPage() {
     }
   }, [loading, user, router]);
 
-  // Cargar historial cuando cambian los parámetros
-  useEffect(() => {
-    if (user) {
-      loadHistory();
-    }
-  }, [user, currentPage]);
-
   // Función para cargar el historial
-  const loadHistory = async () => {
+  const loadHistory = useCallback(async () => {
     if (!user) return;
+    const version = ++requestVersion.current;
 
     try {
       setHistoryLoading(true);
       setError(null);
 
-      const response = await getUserHistory(currentPage, 10, startDate, endDate);
+      const response = await getUserHistory(currentPage, 10, appliedDates.start, appliedDates.end);
+      if(version !== requestVersion.current) return;
+      if(currentPage > Math.max(1,response.totalPages)) {setCurrentPage(Math.max(1,response.totalPages));return;}
       
       setHistory(response.history);
       setTotalItems(response.total);
       setCurrentPage(response.currentPage);
       setTotalPages(response.totalPages);
     } catch (err) {
-      console.error('Error cargando historial:', err);
+      if(version !== requestVersion.current) return;
       setError(err instanceof Error ? err.message : 'Error al cargar el historial');
     } finally {
-      setHistoryLoading(false);
+      if(version === requestVersion.current) setHistoryLoading(false);
     }
-  };
+  },[user,currentPage,appliedDates]);
+
+  useEffect(() => {
+    const requests = requestVersion;
+    void loadHistory();
+    return () => { requests.current++; };
+  },[loadHistory]);
 
   // Función para aplicar filtros
   const applyFilters = () => {
+    if(startDate && endDate && startDate > endDate) {setError('La fecha inicial no puede ser posterior a la final.');return;}
     setCurrentPage(1);
-    loadHistory();
+    setAppliedDates({start:startDate,end:endDate});
   };
 
   // Función para limpiar filtros
@@ -79,7 +84,7 @@ export default function HistoryPage() {
     setStartDate('');
     setEndDate('');
     setCurrentPage(1);
-    loadHistory();
+    setAppliedDates({start:'',end:''});
   };
 
   // Función para eliminar una entrada del historial

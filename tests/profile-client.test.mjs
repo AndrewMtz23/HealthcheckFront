@@ -1,10 +1,12 @@
+import {loadTs} from './support/load-ts.mjs';
 import {test} from 'node:test';
 import assert from 'node:assert/strict';
 import fs from 'node:fs';
 import vm from 'node:vm';
 import {createRequire} from 'node:module';
 const require=createRequire(import.meta.url),ts=require('typescript');
-function load(path,globals={}){const exports={};const source=fs.readFileSync(new URL(`../src/${path}`,import.meta.url),'utf8');const code=ts.transpileModule(source,{compilerOptions:{module:ts.ModuleKind.CommonJS,jsx:ts.JsxEmit.ReactJSX}}).outputText;vm.runInNewContext(code,{exports,require,process:{env:{}},...globals});return exports;}
+const load=loadTs;
+
 test('profile client uses authenticated own-profile route and returns actual data',async()=>{
  let captured;const {profileRequest}=load('services/profileService.ts',{localStorage:{getItem:()=> 'synthetic-token'},fetch:async(url,options)=>{captured={url,options};return {ok:true,json:async()=>({data:{topics:[{tema_id:3}]}})};}});
  const data=await profileRequest('/topics',{method:'POST',body:JSON.stringify({tema_id:3})});assert.equal(captured.url,'http://localhost:4000/api/auth/profile/topics');assert.equal(captured.options.headers.Authorization,'Bearer synthetic-token');assert.equal(captured.options.method,'POST');assert.equal(data.topics[0].tema_id,3);

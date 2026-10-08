@@ -1,4 +1,5 @@
 'use client';
+import { sessionFetch } from '@/services/session';
 
 import { useState, useEffect, useRef } from 'react';
 import { useRouter } from 'next/navigation';
@@ -6,7 +7,7 @@ import { useAuth } from '@/context/AuthContext';
 import Link from 'next/link';
 
 // Definimos la URL base de la API Gateway
-const API_URL = 'http://localhost:5000/api';
+const API_URL = process.env.NEXT_PUBLIC_API_URL || 'http://localhost:4000/api';
 
 const TrainModelPage = () => {
   const { user, loading } = useAuth();
@@ -86,7 +87,7 @@ const TrainModelPage = () => {
       }, 1000);
 
       // Enviar solicitud de entrenamiento
-      const response = await fetch(`${API_URL}/ml/train/train`, {
+      const response = await sessionFetch(`${API_URL}/ml/train/train`, {
         method: 'POST',
         headers: {
           'Authorization': `Bearer ${localStorage.getItem('token')}`,
