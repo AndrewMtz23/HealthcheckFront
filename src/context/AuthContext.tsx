@@ -26,6 +26,10 @@ export const AuthProvider = ({children}: {children: ReactNode}) => {
       setError('Tu sesión terminó. Vuelve a iniciar sesión.');
       router.replace('/login');
     };
+    const passwordChanged = () => {
+      sequence++;
+      setUser(null); setLoading(false); setError(null);
+    };
     const refresh = async () => {
       const current = ++sequence;
       const token = localStorage.getItem('token');
@@ -45,6 +49,7 @@ export const AuthProvider = ({children}: {children: ReactNode}) => {
       } finally {if (live && current === sequence && token === localStorage.getItem('token')) setLoading(false);}
     };
     window.addEventListener('healthcheck:session-ended', ended);
+    window.addEventListener('healthcheck:password-changed', passwordChanged);
     window.addEventListener('healthcheck:permissions-changed', refresh);
     window.addEventListener('focus', refresh);
     window.addEventListener('storage', refresh);
@@ -53,6 +58,7 @@ export const AuthProvider = ({children}: {children: ReactNode}) => {
     return () => {
       live = false; window.clearInterval(timer);
       window.removeEventListener('healthcheck:session-ended', ended);
+      window.removeEventListener('healthcheck:password-changed', passwordChanged);
       window.removeEventListener('healthcheck:permissions-changed', refresh);
       window.removeEventListener('focus', refresh);
       window.removeEventListener('storage', refresh);

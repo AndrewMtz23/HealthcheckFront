@@ -20,7 +20,7 @@ export default function RegisterForm() {
   const [touched, setTouched] = useState({ password: false, confirm: false });
   const [isLoading, setIsLoading] = useState(false);
   const [error, setError] = useState('');
-  const passwordError = touched.password && password.length > 0 && password.length < 6 ? 'Usa al menos 6 caracteres.' : '';
+  const passwordError = touched.password && password.length > 0 && (password.length < 8 || new TextEncoder().encode(password).length > 72) ? 'Usa al menos 8 caracteres y como máximo 72 bytes.' : '';
   const confirmError = touched.confirm && confirmPassword !== password ? 'Las contraseñas no coinciden.' : '';
 
   const handleSubmit = async (event: React.FormEvent<HTMLFormElement>) => {
@@ -28,6 +28,7 @@ export default function RegisterForm() {
     if (isLoading) return;
     setError('');
     setTouched({ password: true, confirm: true });
+    if (password.length < 8 || new TextEncoder().encode(password).length > 72) return;
     if (password !== confirmPassword) {
       event.currentTarget.querySelector<HTMLInputElement>('#confirmPassword')?.focus();
       return;
@@ -56,7 +57,7 @@ export default function RegisterForm() {
         <AuthField id="email" name="email" label="Correo electrónico" type="email" autoComplete="email" required value={email} onChange={(event) => setEmail(event.target.value)} disabled={isLoading} placeholder="tu@ejemplo.com" />
         <AuthField id="phone" name="phone" label="Teléfono" optional type="tel" autoComplete="tel" value={phone} onChange={(event) => setPhone(event.target.value)} disabled={isLoading} placeholder="+52 123 456 7890" />
         <div className={styles.passwordRow}>
-          <AuthField id="password" name="password" label="Contraseña" type="password" autoComplete="new-password" required minLength={6} value={password} onChange={(event) => setPassword(event.target.value)} onBlur={() => setTouched((current) => ({ ...current, password: true }))} disabled={isLoading} placeholder="Tu contraseña" hint="Al menos 6 caracteres." error={passwordError} />
+          <AuthField id="password" name="password" label="Contraseña" type="password" autoComplete="new-password" required minLength={8} maxLength={72} value={password} onChange={(event) => setPassword(event.target.value)} onBlur={() => setTouched((current) => ({ ...current, password: true }))} disabled={isLoading} placeholder="Tu contraseña" hint="Al menos 8 caracteres; máximo 72 bytes." error={passwordError} />
           <AuthField id="confirmPassword" name="confirmPassword" label="Confirmar contraseña" type="password" autoComplete="new-password" required value={confirmPassword} onChange={(event) => setConfirmPassword(event.target.value)} onBlur={() => setTouched((current) => ({ ...current, confirm: true }))} disabled={isLoading} placeholder="Repítela" error={confirmError} />
         </div>
         <SubmitButton loading={isLoading} pending="Creando tu cuenta…">Crear mi cuenta</SubmitButton>

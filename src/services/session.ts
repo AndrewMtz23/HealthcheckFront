@@ -1,7 +1,7 @@
-export function clearSession(): void {
+export function clearSession(event = 'healthcheck:session-ended'): void {
   localStorage.removeItem('token');
   localStorage.removeItem('user');
-  window.dispatchEvent(new Event('healthcheck:session-ended'));
+  window.dispatchEvent(new Event(event));
 }
 
 export async function sessionFetch(input: RequestInfo | URL, init?: RequestInit): Promise<Response> {
