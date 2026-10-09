@@ -1,6 +1,6 @@
 ﻿'use client';
 
-import { useState } from 'react';
+import { useEffect, useState } from 'react';
 import Link from 'next/link';
 import { useRouter } from 'next/navigation';
 import { useAuth } from '@/context/AuthContext';
@@ -16,6 +16,17 @@ export default function LoginForm() {
   const [password, setPassword] = useState('');
   const [isLoading, setIsLoading] = useState(false);
   const [error, setError] = useState('');
+  useEffect(() => {
+    const reason = new URLSearchParams(window.location.search).get('error');
+    const messages: Record<string,string> = {
+      'google-cancelado':'Cancelaste el acceso con Google. Puedes intentarlo de nuevo.',
+      'metodo-original':'Usa el método con el que creaste tu cuenta. Por seguridad, no vinculamos cuentas automáticamente.',
+      'google-no-disponible':'El acceso con Google no está disponible temporalmente.',
+      'autenticacion-fallida':'No se pudo validar el acceso con Google. Inicia el proceso de nuevo.',
+      'cuenta-inactiva':'No se puede acceder a esta cuenta.',
+    };
+    if (reason) {setError(messages[reason] || 'No se pudo completar el acceso. Intenta de nuevo.');window.history.replaceState(null,'',window.location.pathname);}
+  }, []);
 
   const handleSubmit = async (event: React.FormEvent<HTMLFormElement>) => {
     event.preventDefault();
@@ -45,6 +56,7 @@ export default function LoginForm() {
         <AuthField id="password" name="password" label="Contraseña" type="password" autoComplete="current-password" required value={password} onChange={(event) => setPassword(event.target.value)} disabled={isLoading} placeholder="Escribe tu contraseña" />
         <SubmitButton loading={isLoading} pending="Iniciando sesión…">Iniciar sesión</SubmitButton>
       </form>
+      <p className={styles.switch}><Link href="/forgot-password">¿Olvidaste tu contraseña?</Link></p>
       <EmailDivider />
       <GoogleButton disabled={isLoading} />
       <p className={styles.switch}>¿Aún no tienes cuenta? <Link href="/register">Crea tu cuenta</Link></p>

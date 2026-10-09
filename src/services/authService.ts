@@ -4,6 +4,7 @@ const API_URL = process.env.NEXT_PUBLIC_API_URL || 'http://localhost:3001/api';
 
 // Interfaces
 export interface User {
+  password_enabled?: boolean;
   id: number;
   email: string;
   nombre: string;
