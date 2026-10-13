@@ -1,4 +1,5 @@
 import HeroSection from '@/components/home/HeroSection';
+import OurServices from '@/components/home/OurServices'; 
 import NewsVerifier from '@/components/home/NewsVerifier';
 import NewsFeed from '@/components/news/NewsFeed';
 import HealthResources from '@/components/home/HealthResources';
@@ -10,6 +11,10 @@ export default function Home() {
   return (
     <div>
       <HeroSection />
+      
+      {/* Nuevo componente agregado aquí */}
+      <OurServices /> 
+      
       <HealthResources />
       <NewsVerifier />
 
