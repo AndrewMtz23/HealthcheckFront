@@ -4,7 +4,7 @@ export interface Preferences {id:number|null;recibir_notificaciones:boolean;frec
 export interface Topic {id:number;nombre:string;descripcion:string|null}
 export interface SelectedTopic {id:number;tema_id:number;tema_nombre:string;activo:boolean}
 export interface PreferencesData {legacy_sms?:boolean;preferences:Preferences;topics:SelectedTopic[];delivery_enabled:boolean}
-export interface Notification {id:number;titulo:string;mensaje:string;tipo:'email'|'sms';enviada:boolean;fecha_creacion:string;fecha_envio:string|null;noticia_id:number|null;noticia_titulo:string|null}
+export interface Notification {id:number;titulo:string;mensaje:string;tipo:'email'|'sms';enviada:boolean;fecha_creacion:string;fecha_envio:string|null;noticia_id:number|null;noticia_titulo:string|null;delivery_state?:string;attempts?:number|null;error_code?:string|null;next_attempt_at?:string|null}
 export interface NotificationsData {items:Notification[];total:number;page:number;totalPages:number;delivery_enabled:boolean}
 export async function profileRequest<T>(path:string,options:RequestInit={}):Promise<T>{
  const token=localStorage.getItem('token');if(!token)throw new Error('Tu sesión terminó. Vuelve a iniciar sesión.');

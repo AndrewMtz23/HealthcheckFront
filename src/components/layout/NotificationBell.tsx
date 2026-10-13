@@ -1,0 +1,17 @@
+'use client';
+import Link from 'next/link';
+import {Bell,Check,LoaderCircle} from 'lucide-react';
+import {useCallback,useEffect,useRef,useState} from 'react';
+import {useAuth} from '@/context/AuthContext';
+import {getInbox,markSystemAnnouncementRead,type InboxPage} from '@/services/inboxService';
+import styles from './NotificationCenter.module.css';
+export default function NotificationBell(){
+ const {user}=useAuth();const [open,setOpen]=useState(false),[data,setData]=useState<InboxPage|null>(null),[loading,setLoading]=useState(false),[error,setError]=useState('');const root=useRef<HTMLDivElement>(null),button=useRef<HTMLButtonElement>(null);
+ const refresh=useCallback(async()=>{if(!user)return;setLoading(true);try{setData(await getInbox({limit:5,page:1}));setError('');}catch(e){setError((e as Error).message);}finally{setLoading(false);}},[user]);
+ useEffect(()=>{if(user)void refresh();else setData(null);},[user,refresh]);
+ useEffect(()=>{if(!open)return;const outside=(e:PointerEvent)=>{if(!root.current?.contains(e.target as Node))setOpen(false);};const key=(e:KeyboardEvent)=>{if(e.key==='Escape'){setOpen(false);button.current?.focus();}};document.addEventListener('pointerdown',outside);document.addEventListener('keydown',key);return()=>{document.removeEventListener('pointerdown',outside);document.removeEventListener('keydown',key);};},[open]);
+ if(!user)return null;
+ async function read(id:number){try{await markSystemAnnouncementRead(id);await refresh();}catch(e){setError((e as Error).message);}}
+ return <div className={styles.root} ref={root}><button ref={button} type="button" className={styles.trigger} aria-label={`Notificaciones${data?.unread_count?`, ${data.unread_count} sin leer`:''}`} aria-expanded={open} aria-controls="notification-popover" onClick={()=>{setOpen(v=>!v);if(!open)void refresh();}}><Bell size={20}/>{!!data?.unread_count&&<span className={styles.count} aria-live="polite">{data.unread_count>99?'99+':data.unread_count}</span>}</button>
+ {open&&<section id="notification-popover" className={styles.popover} aria-label="Notificaciones recientes"><header className={styles.popoverHeader}><strong>Notificaciones</strong><button type="button" aria-label="Actualizar notificaciones" onClick={()=>void refresh()}><LoaderCircle size={16} className={loading?styles.spin:''}/></button></header>{error?<p className={styles.state} role="alert">{error}</p>:loading&&!data?<p className={styles.state}>Cargando…</p>:!data?.items.length?<p className={styles.state}>No tienes notificaciones recientes.</p>:<ul>{data.items.map(item=><li key={`${item.source}-${item.id}`}><button className={styles.item} onClick={()=>item.source==='system'&&!item.read_at?void read(item.id):undefined}><span className={styles.itemType}>{item.source==='system'?`Aviso del sitio - ${item.kind}`:'Alerta de noticias'}{item.source==='system'&&!item.read_at&&<span className={styles.unread} aria-label="Sin leer"/>}</span><strong>{item.title}</strong><span className={styles.itemBody}>{item.body}</span><span>{new Date(item.created_at).toLocaleString('es-MX',{dateStyle:'medium',timeStyle:'short',timeZone:'America/Mexico_City'})}</span>{item.source==='news'&&<small>Correo: {item.delivery_state==='sent'?'aceptado por SMTP':item.delivery_state==='pending'?'pendiente':item.delivery_state||'sin registro'}</small>}</button></li>)}</ul>}<Link className={styles.all} href="/notifications" onClick={()=>setOpen(false)}>Ver todas las notificaciones <Check size={15}/></Link></section>}</div>;
+}
