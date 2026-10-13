@@ -8,6 +8,7 @@ import { useAuth } from '@/context/AuthContext';
 import UserMenu from './UserMenu';
 import BrandWordmark from './BrandWordmark';
 import ThemeSelector from './ThemeSelector';
+import NotificationBell from './NotificationBell';
 import styles from './Navbar.module.css';
 const information = [
   { href: '/about', label: 'Acerca de HealthCheck', icon: Info },
@@ -41,7 +42,7 @@ export default function Navbar() {
           {more && <div id="more-navigation" className={styles.dropdown}>{information.map(({href,label,icon:Icon}) => <Link key={href} href={href} aria-current={active(href) ? 'page' : undefined} onClick={() => setMore(false)}><Icon size={17}/>{label}</Link>)}</div>}
         </div>
       </nav>
-      <div className={styles.account}><ThemeSelector/><div className={styles.desktopAccount}>{user ? <UserMenu/> : <><Link href="/login" className={styles.login}><LogIn size={16}/>Iniciar sesión</Link><Link href="/register" className={styles.register}><UserPlus size={16}/>Registrarse</Link></>}</div><button className={styles.mobileToggle} aria-label={mobile ? 'Cerrar menú' : 'Abrir menú'} aria-expanded={mobile} aria-controls="mobile-navigation" onClick={() => setMobile(value => !value)}>{mobile ? <X/> : <Menu/>}</button></div>
+      <div className={styles.account}><ThemeSelector/>{user&&<NotificationBell/>}<div className={styles.desktopAccount}>{user ? <UserMenu/> : <><Link href="/login" className={styles.login}><LogIn size={16}/>Iniciar sesión</Link><Link href="/register" className={styles.register}><UserPlus size={16}/>Registrarse</Link></>}</div><button className={styles.mobileToggle} aria-label={mobile ? 'Cerrar menú' : 'Abrir menú'} aria-expanded={mobile} aria-controls="mobile-navigation" onClick={() => setMobile(value => !value)}>{mobile ? <X/> : <Menu/>}</button></div>
     </div>
     {mobile && <nav id="mobile-navigation" className={styles.mobileNavigation} aria-label="Navegación móvil">{navLinks}<details><summary><Info size={17}/>Más<ChevronDown size={15}/></summary><div>{information.map(({href,label,icon:Icon}) => <Link href={href} key={href} aria-current={active(href) ? 'page' : undefined} onClick={() => setMobile(false)}><Icon size={17}/>{label}</Link>)}</div></details>{user ? <UserMenu mobile onMobileMenuClose={() => setMobile(false)}/> : <><Link href="/login" onClick={() => setMobile(false)}><LogIn size={17}/>Iniciar sesión</Link><Link href="/register" onClick={() => setMobile(false)}><UserPlus size={17}/>Registrarse</Link></>}</nav>}
   </header>;

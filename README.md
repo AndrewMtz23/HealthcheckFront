@@ -12,7 +12,7 @@ HealthCheck Frontend is built with Next.js, React, and TypeScript. It connects t
 - Review and clear consultation history.
 - Manage notification preferences.
 - Use a chatbot to investigate news.
-- Access administration pages for statistics, model training, and content collection.
+- Manage users, sources, topics and source reports through the administrative panel; inspect news, activity, model records and notification records. Legacy training/scraping pages remain in source but are not linked in the new sidebar; they are blocked in the local diagnostic runtime.
 
 ## Technology
 
@@ -58,11 +58,14 @@ The current code uses a mixture of direct service URLs and a shared `NEXT_PUBLIC
 | --- | --- |
 | Authentication | `http://localhost:3001/api` |
 | News and consultation history | `http://localhost:3003/api` |
-| Notifications and preferences | `http://localhost:3004/api` |
+| Personal preferences, topics and notifications | `http://localhost:4000/api/auth/profile/*` |
+| Administrative users | `http://localhost:4000/api/auth/admin/users` |
+| Other administrative modules | `http://localhost:3003/api/admin/*` |
+| Legacy notification clients (not used by the current profile) | `http://localhost:3004/api` |
 | Verification and chat | `http://localhost:4000/api` |
 | ML administration | `http://localhost:5000/api` |
 
-For the existing local setup, leave `NEXT_PUBLIC_API_URL` unset so clients use their individual defaults. Setting it replaces the base URL in multiple clients that otherwise target different services; it does not update every hardcoded URL.
+Current local profile and administrative clients default to the gateway for Auth and directly to news for content. `NEXT_PUBLIC_API_URL=http://localhost:4000/api` is used by the local setup; `NEXT_PUBLIC_NEWS_API_URL` configures the administrative news client. Some legacy clients still share the general override or hardcode service URLs: inspect each consumer before changing these variables for deployment. The current profile uses `profileService.ts`, not the legacy preferences/notification clients.
 
 Before deploying, review the API clients and administration pages and configure their destinations for your environment. Configure backend CORS and OAuth redirect URLs to match the frontend address. Keep credentials out of the repository; variables prefixed with `NEXT_PUBLIC_` are visible to browser clients.
 
@@ -73,7 +76,7 @@ npm run build
 npm start
 ```
 
-`npm run build` creates the Next.js production build; `npm start` serves it. These commands are provided by the project and have not been validated as part of the repository separation.
+`npm run build` creates the Next.js production build; `npm start` serves it. The production build was validated on 2026-10-06 (21/21 pages); the frontend test suite passed 13/13. Existing non-blocking lint warnings remain. Browser visual and end-to-end interaction verification is still pending.
 
 ## Informational pages
 
@@ -95,3 +98,22 @@ and review the copy before using it as a definitive legal notice.
 Commit source files and `package-lock.json`. The `.gitignore` excludes local environment files, dependencies, Next.js output, logs, and editor settings. Safe `.env.example` files may be tracked.
 
 This repository starts with a single initial commit containing the current frontend, including consultation history changes. Previous Git history is not imported. The original project copy is retained separately.
+
+## Current interface and roles
+
+- `/admin/dashboard` and `/admin/[section]`: active administrators only. The shared shell includes the real logo, collapsible desktop sidebar, mobile navigation and AdminFooter.
+- `/profile`: image by URL, editable name/phone, notification preferences, selected topics and notification history. The server owns validation and record ownership checks.
+- `admin` and `usuario` are the only roles; active/inactive is an account status. Dashboard appears in the administrator account menu.
+- Navbar centers desktop links and groups about/contact/privacy/terms under More.
+- Home keeps HeroSection, HealthResources, NewsVerifier, NewsFeed, InformedDecisions and HomeGuide. Do not replace existing sections when adding new ones.
+- Shared color tokens live in `src/app/globals.css`; admin/profile/auth styles consume them. Blue is the brand; green/amber/red express states; gray means inactive/unclassified.
+- Home photographs are local assets. Pexels IDs 5215008 (Antoni Shkraba), 4266936 (Cedric Fauntleroy), 7088834 (MART PRODUCTION); original source links are recorded in the local Docs/Admin/home-fotografias.md. `doctors.png` remains the hero image.
+
+## Published feature branch
+
+`feat/admin-profile-home` was pushed with six feature commits on 2026-10-06; last verified remote commit: `8020f03`. No merge or PR was performed in that session. Documentation edits are local only and must not be included in a future push without explicit authorization.
+
+
+## Actualización local — 2026-10-07
+
+Dashboard personal disponible en `/dashboard` y seis módulos. El login de usuario y el menú Mi espacio apuntan al dashboard; admin conserva `/admin/dashboard`. News e historial usan `NEXT_PUBLIC_NEWS_API_URL` (por defecto `http://localhost:3003/api`), configurada antes del build. Nuevas preferencias solo por correo; históricos SMS conservados. Detalles en `../Docs/User/verificacion.md` (local).
