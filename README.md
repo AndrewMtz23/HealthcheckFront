@@ -2,7 +2,7 @@
 
 **A web interface for health news analysis, article discovery, and personalized notifications.**
 
-HealthCheck Frontend is built with Next.js, React, and TypeScript. It connects to the [HealthCheck backend](https://github.com/AndrewMtz23/HealthcheckBack) to submit news for analysis, browse articles, manage accounts, and review consultation history.
+HealthCheck Frontend is built with Next.js, React, and TypeScript. It connects to the [HealthCheck Backend](https://github.com/AndrewMtz23/HealthcheckBack) to submit news for analysis, browse articles, manage accounts, and review consultation history.
 
 ## Features
 
@@ -12,7 +12,8 @@ HealthCheck Frontend is built with Next.js, React, and TypeScript. It connects t
 - Review and clear consultation history.
 - Manage notification preferences.
 - Use a chatbot to investigate news.
-- Manage users, sources, topics and source reports through the administrative panel; inspect news, activity, model records and notification records. Legacy training/scraping pages remain in source but are not linked in the new sidebar; they are blocked in the local diagnostic runtime.
+- Access an administrative panel to manage users, sources, topics, reports, news, and activity records.
+- Access a personalized dashboard with user-specific features.
 
 ## Technology
 
@@ -24,7 +25,7 @@ HealthCheck Frontend is built with Next.js, React, and TypeScript. It connects t
 | Icons | Lucide React |
 | API requests | Axios and browser fetch |
 
-## Project structure
+## Project Structure
 
 ```text
 src/
@@ -37,7 +38,7 @@ src/
 public/           # Static assets
 ```
 
-## Local development
+## Local Development
 
 Install Node.js and npm, then clone the repository:
 
@@ -48,72 +49,85 @@ npm ci
 npm run dev
 ```
 
-Open `http://localhost:3000`. Start and configure the backend services separately; the frontend does not include the database, model weights, or server processes.
+Open `http://localhost:3000`.
 
-### Backend connections
+Start and configure the backend services separately. The frontend does not include the database, model weights, or server processes.
 
-The current code uses a mixture of direct service URLs and a shared `NEXT_PUBLIC_API_URL` override.
+### Backend Connections
+
+The application communicates with several backend services for authentication, news management, verification, notifications, and administration.
 
 | Feature | Default local destination |
 | --- | --- |
 | Authentication | `http://localhost:3001/api` |
 | News and consultation history | `http://localhost:3003/api` |
-| Personal preferences, topics and notifications | `http://localhost:4000/api/auth/profile/*` |
+| Personal preferences and notifications | `http://localhost:4000/api/auth/profile/*` |
 | Administrative users | `http://localhost:4000/api/auth/admin/users` |
 | Other administrative modules | `http://localhost:3003/api/admin/*` |
-| Legacy notification clients (not used by the current profile) | `http://localhost:3004/api` |
+| Legacy notification clients | `http://localhost:3004/api` |
 | Verification and chat | `http://localhost:4000/api` |
 | ML administration | `http://localhost:5000/api` |
 
-Current local profile and administrative clients default to the gateway for Auth and directly to news for content. `NEXT_PUBLIC_API_URL=http://localhost:4000/api` is used by the local setup; `NEXT_PUBLIC_NEWS_API_URL` configures the administrative news client. Some legacy clients still share the general override or hardcode service URLs: inspect each consumer before changing these variables for deployment. The current profile uses `profileService.ts`, not the legacy preferences/notification clients.
+The current local environment uses `NEXT_PUBLIC_API_URL` and `NEXT_PUBLIC_NEWS_API_URL` for configurable API connections.
 
-Before deploying, review the API clients and administration pages and configure their destinations for your environment. Configure backend CORS and OAuth redirect URLs to match the frontend address. Keep credentials out of the repository; variables prefixed with `NEXT_PUBLIC_` are visible to browser clients.
+Some legacy clients may use direct service URLs. Review API configurations before deploying.
 
-## Build commands
+Configure backend CORS and OAuth redirect URLs to match the frontend address. Never store credentials in the repository, as variables prefixed with `NEXT_PUBLIC_` are accessible to browser clients.
+
+## Build Commands
 
 ```bash
 npm run build
 npm start
 ```
 
-`npm run build` creates the Next.js production build; `npm start` serves it. The production build was validated on 2026-10-06 (21/21 pages); the frontend test suite passed 13/13. Existing non-blocking lint warnings remain. Browser visual and end-to-end interaction verification is still pending.
+`npm run build` generates the production build, while `npm start` serves the application.
 
-## Informational pages
+## Informational Pages
 
-`/about`, `/terms`, `/privacy`, and `/contact` compose their sections from
-`src/components/<route>/<route>Hero.tsx`, `<route>Content.tsx`, and `<route>CTA.tsx`.
-Shared presentation lives in `src/components/info`.
+The application includes the following informational pages:
 
-Set `HEALTHCHECK_CONTACT_EMAIL` to the public support address before building
-to enable the email link on `/contact`. Without it, the page explains that
-direct contact is unavailable and points to the existing source reporting flow.
-There is no contact submission API or simulated delivery confirmation.
+- `/about` — Project information.
+- `/terms` — Terms of service.
+- `/privacy` — Privacy information.
+- `/contact` — Contact information.
 
-Terms and privacy content are explicitly preliminary. Complete the service
-operator details, retention periods, processors, and privacy request channel,
-and review the copy before using it as a definitive legal notice.
+These pages use reusable components located in `src/components/` and shared presentation elements in `src/components/info`.
 
-## Repository maintenance
+Set `HEALTHCHECK_CONTACT_EMAIL` to configure the public contact address before building.
 
-Commit source files and `package-lock.json`. The `.gitignore` excludes local environment files, dependencies, Next.js output, logs, and editor settings. Safe `.env.example` files may be tracked.
+The terms and privacy content are preliminary and require review before production use.
 
-This repository starts with a single initial commit containing the current frontend, including consultation history changes. Previous Git history is not imported. The original project copy is retained separately.
+## Authors
 
-## Current interface and roles
+This project was developed collaboratively by:
 
-- `/admin/dashboard` and `/admin/[section]`: active administrators only. The shared shell includes the real logo, collapsible desktop sidebar, mobile navigation and AdminFooter.
-- `/profile`: image by URL, editable name/phone, notification preferences, selected topics and notification history. The server owns validation and record ownership checks.
-- `admin` and `usuario` are the only roles; active/inactive is an account status. Dashboard appears in the administrator account menu.
-- Navbar centers desktop links and groups about/contact/privacy/terms under More.
-- Home keeps HeroSection, HealthResources, NewsVerifier, NewsFeed, InformedDecisions and HomeGuide. Do not replace existing sections when adding new ones.
-- Shared color tokens live in `src/app/globals.css`; admin/profile/auth styles consume them. Blue is the brand; green/amber/red express states; gray means inactive/unclassified.
-- Home photographs are local assets. Pexels IDs 5215008 (Antoni Shkraba), 4266936 (Cedric Fauntleroy), 7088834 (MART PRODUCTION); original source links are recorded in the local Docs/Admin/home-fotografias.md. `doctors.png` remains the hero image.
+<table>
+  <tr>
+    <td align="center">
+      <a href="https://github.com/AndrewMtz23">
+        <img src="https://wsrv.nl/?url=github.com/AndrewMtz23.png&w=120&h=120&fit=cover&mask=circle" width="40" height="40" alt="AndrewMtz23" />
+        <br />
+        <b>AndrewMtz23</b>
+      </a>
+    </td>
+    <td align="center">
+      <a href="https://github.com/zudno">
+        <img src="https://wsrv.nl/?url=github.com/zudno.png&w=120&h=120&fit=cover&mask=circle" width="40" height="40" alt="zudno" />
+        <br />
+        <b>zudno</b>
+      </a>
+    </td>
+    <td align="center">
+      <a href="https://github.com/UrielSC24">
+        <img src="https://wsrv.nl/?url=github.com/UrielSC24.png&w=120&h=120&fit=cover&mask=circle" width="40" height="40" alt="UrielSC24" />
+        <br />
+        <b>UrielSC24</b>
+      </a>
+    </td>
+  </tr>
+</table>
+  
+**Repository:** [HealthCheck Frontend](https://github.com/AndrewMtz23/HealthcheckFront)
 
-## Published feature branch
-
-`feat/admin-profile-home` was pushed with six feature commits on 2026-10-06; last verified remote commit: `8020f03`. No merge or PR was performed in that session. Documentation edits are local only and must not be included in a future push without explicit authorization.
-
-
-## Actualización local — 2026-10-07
-
-Dashboard personal disponible en `/dashboard` y seis módulos. El login de usuario y el menú Mi espacio apuntan al dashboard; admin conserva `/admin/dashboard`. News e historial usan `NEXT_PUBLIC_NEWS_API_URL` (por defecto `http://localhost:3003/api`), configurada antes del build. Nuevas preferencias solo por correo; históricos SMS conservados. Detalles en `../Docs/User/verificacion.md` (local).
+**Backend:** [HealthCheck Backend](https://github.com/AndrewMtz23/HealthcheckBack)
