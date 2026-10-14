@@ -330,12 +330,7 @@ export default function HistoryPage() {
                       </button>
                     </div>
                     <div className="mt-2">
-                      <Link
-                        href={`/news/${entry.noticia_id}`}
-                        className="text-lg font-semibold text-gray-900 dark:text-slate-100 hover:text-blue-600 dark:hover:text-blue-400"
-                      >
-                        {entry.noticia.titulo}
-                      </Link>
+                      {entry.noticia.available===false?<span className="text-lg font-semibold text-gray-900 dark:text-slate-100 hover:text-blue-600 dark:hover:text-blue-400">Noticia no disponible</span>:<Link href={`/news/${entry.noticia_id}`} className="text-lg font-semibold text-gray-900 dark:text-slate-100 hover:text-blue-600 dark:hover:text-blue-400">{entry.noticia.titulo}</Link>}
                       <p className="mt-1 text-sm text-gray-600 dark:text-slate-300 line-clamp-2">
                         {entry.noticia.contenido}
                       </p>

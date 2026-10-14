@@ -106,7 +106,7 @@ export const getNewsById = async (id: number): Promise<NewsItem> => {
     const response = await sessionFetch(`${API_URL}/news/${id}`);
     
     if (!response.ok) {
-      throw new Error('Error al obtener la noticia');
+      throw new Error(response.status===410?'Esta noticia fue retirada y ya no está disponible.':response.status===404?'Esta noticia no está disponible.':'Error al obtener la noticia');
     }
     
     const data = await response.json();

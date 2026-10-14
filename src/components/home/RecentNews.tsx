@@ -1,4 +1,5 @@
 'use client';
+import EditorialStatus from '@/components/news/EditorialStatus';
 
 import { useState, useEffect } from 'react';
 import Link from 'next/link';
@@ -49,6 +50,7 @@ interface Fuente {
 }
 
 interface NewsItem {
+  human_reviewed?:boolean;editorial_origin?:string;analysis_status?:string;
   id: number;
   titulo: string;
   contenido: string;
@@ -173,7 +175,7 @@ const RecentNews = () => {
     return (
       <span className={`inline-flex items-center px-2.5 py-0.5 rounded-full text-xs font-medium ${badgeColor}`}>
         {icon}
-        {classification.resultado.toUpperCase()}
+        Modelo: {classification.resultado.toUpperCase()}
       </span>
     );
   };
@@ -356,7 +358,7 @@ const RecentNews = () => {
                     </Link>
                     
                     {/* Barra de confianza */}
-                    {renderConfidenceBar(item.clasificaciones?.[0])}
+                    <EditorialStatus news={item}/>{renderConfidenceBar(item.clasificaciones?.[0])}
                     
                     <p className="mt-3 text-base text-gray-500 dark:text-slate-400">
                       {item.preview?.description ? item.preview.description : truncateText(item.contenido)}

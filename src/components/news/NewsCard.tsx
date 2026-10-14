@@ -1,4 +1,5 @@
 'use client';
+import EditorialStatus from '@/components/news/EditorialStatus';
 
 import { useState, useEffect } from 'react';
 import Link from 'next/link';
@@ -127,7 +128,7 @@ const NewsCard = ({ news, onInteraction }: NewsCardProps) => {
     return (
       <span className={`inline-flex items-center px-2.5 py-0.5 rounded-full text-xs font-medium ${badgeColor}`}>
         {icon}
-        {classification.resultado.toUpperCase()}
+        Modelo: {classification.resultado.toUpperCase()}
       </span>
     );
   };
@@ -173,7 +174,7 @@ const NewsCard = ({ news, onInteraction }: NewsCardProps) => {
     }
 
     const shareUrl = `${window.location.origin}/news/${news.id}`;
-    const shareText = `${news.titulo} - Verificado por HealthCheck`;
+    const shareText = `${news.titulo} - Publicado en HealthCheck`;
 
     // Registrar interacción de compartir
     await onInteraction(news.id, 'compartir');
@@ -271,7 +272,7 @@ const NewsCard = ({ news, onInteraction }: NewsCardProps) => {
               </h3>
             </Link>
 
-            {/* Barra de confianza */}
+            <EditorialStatus news={news}/>{/* Barra de confianza */}
             {news.clasificaciones && news.clasificaciones.length > 0 && (
               <ConfidenceBar classification={news.clasificaciones[0]} />
             )}
