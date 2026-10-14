@@ -1,4 +1,5 @@
 'use client';
+import EditorialStatus from '@/components/news/EditorialStatus';
 
 import { useState, useEffect, useRef } from 'react';
 import { useParams, useRouter } from 'next/navigation';
@@ -120,7 +121,7 @@ export default function NewsDetailPage() {
         }
 
         const shareUrl = `${window.location.origin}/news/${id}`;
-        const shareText = `${news?.titulo} - Verificado por HealthCheck`;
+        const shareText = `${news?.titulo} - Publicado en HealthCheck`;
 
         // Registrar interacción de compartir
         await handleInteraction('compartir');
@@ -129,7 +130,7 @@ export default function NewsDetailPage() {
         if (navigator.share) {
             try {
                 await navigator.share({
-                    title: 'HealthCheck - Noticia Verificada',
+                    title: 'HealthCheck - Noticia publicada',
                     text: shareText,
                     url: shareUrl
                 });
@@ -189,7 +190,7 @@ export default function NewsDetailPage() {
         return (
             <span className={`inline-flex items-center px-3 py-1 rounded-full text-xs font-medium ${badgeColor} shadow-sm`}>
                 <Icon className="mr-1 h-3 w-3" />
-                {classification.resultado.toUpperCase()}
+                Modelo: {classification.resultado.toUpperCase()}
             </span>
         );
     };
@@ -462,7 +463,7 @@ export default function NewsDetailPage() {
                                 )}
                             </div>
 
-                            {/* Barra de confianza */}
+                            <EditorialStatus news={news}/>{/* Barra de confianza */}
                             {news.clasificaciones && news.clasificaciones.length > 0 && (
                                 <div className="mt-1">
                                     <ConfidenceBar classification={news.clasificaciones[0]} />

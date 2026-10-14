@@ -39,6 +39,12 @@ export interface ModelML {
   }
   
   export interface NewsItem {
+    available?: boolean;
+    editorial_state?: string;
+    editorial_origin?: string;
+    editorial_published_at?: string;
+    human_reviewed?: boolean;
+    analysis_status?: 'current'|'outdated'|'none';
     id: number;
     titulo: string;
     contenido: string;
