@@ -141,3 +141,11 @@ This project was developed collaboratively by:
 **Repository:** [HealthCheck Frontend](https://github.com/AndrewMtz23/HealthcheckFront)
 
 **Backend:** [HealthCheck Backend](https://github.com/AndrewMtz23/HealthcheckBack)
+
+## GitHub Actions
+
+`ci.yml` runs on pull requests to `main`, pushes to `main` and feature/chore branches, and manual dispatch. Frontend unit tests, lint and a production Next.js build with local API URLs.
+
+`codeql.yml` analyzes the repository languages and GitHub Actions on the same events and weekly after integration into the default branch. Official actions are pinned to commit SHAs; CI has read-only repository permissions, dependency caches, timeouts and cancellation of superseded runs. CodeQL has permission to upload security findings.
+
+The workflows do not deploy, use application credentials, train models or send notifications. Existing lint warnings remain visible; errors fail the job.
