@@ -1,0 +1,5 @@
+import type {ResultRow,ResultStatus} from '@/types/linkMonitor';
+export const labels:Record<ResultStatus|'stale'|'unchecked',string>={available:'Disponible',not_found:'No encontrado',restricted:'Acceso restringido',rate_limited:'Límite del sitio',site_error:'Error del sitio',connection_failed:'Fallo de conexión',uncheckable:'No comprobable',stale:'Desactualizado',unchecked:'Sin revisar'};
+export function resultLabel(row:Pick<ResultRow,'freshness'|'result'>):string{return row.freshness!=='current'?labels[row.freshness==='stale'?'stale':'unchecked']:row.result?labels[row.result.status]:'Sin revisar';}
+export function safeLink(raw:string):string|null{try{const u=new URL(raw);return ['https:','http:'].includes(u.protocol)&&!u.username&&!u.password?u.href:null;}catch{return null;}}
+export class RequestGeneration{private current=0;private stopped=false;begin(){this.stopped=false;return ++this.current;}accepts(value:number){return !this.stopped&&this.current===value;}stop(){this.stopped=true;this.current++;}}
