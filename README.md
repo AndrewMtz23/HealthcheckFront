@@ -76,9 +76,9 @@ NEXT_PUBLIC_API_URL=http://localhost:4000/api
 NEXT_PUBLIC_NEWS_API_URL=http://localhost:3003/api
 ```
 
-The root BAT supplies these values automatically for its protected startup. Notification preferences and inbox use Auth; the notification worker is not a browser API. News validates the active administrator and forwards monitor requests to Go. Do not add `LINK_MONITOR_INTERNAL_TOKEN` to this project or any `NEXT_PUBLIC_*` variable.
+The root BAT supplies these values automatically for its local startup. Notification preferences and inbox use Auth; the notification worker is not a browser API. News validates the active administrator and forwards monitor requests to Go. Do not add `LINK_MONITOR_INTERNAL_TOKEN` to this project or any `NEXT_PUBLIC_*` variable.
 
-The monitor button is intentionally unavailable in diagnostic mode. Normal operation requires the monitor migration, matching internal tokens in the backend and both News/Go running outside diagnostic mode; see the [monitor README](../HealthcheckBack/services/link-monitor-service/README.md).
+Default BAT startup enables manual analysis and link checks while keeping email and automatic scraping disabled. `--diagnostic` blocks these manual operations. Normal operation requires the monitor migration and an active ML model; see the [monitor README](https://github.com/AndrewMtz23/HealthcheckBack/blob/main/services/link-monitor-service/README.md).
 
 Some legacy clients may use direct service URLs. Review API configurations before deploying.
 
@@ -149,3 +149,5 @@ This project was developed collaboratively by:
 `codeql.yml` analyzes the repository languages and GitHub Actions on the same events and weekly after integration into the default branch. Official actions are pinned to commit SHAs; CI has read-only repository permissions, dependency caches, timeouts and cancellation of superseded runs. CodeQL has permission to upload security findings.
 
 The workflows do not deploy, use application credentials, train models or send notifications. Existing lint warnings remain visible; errors fail the job.
+
+CI graph: lint and tests run independently; both must pass before the production build starts.
