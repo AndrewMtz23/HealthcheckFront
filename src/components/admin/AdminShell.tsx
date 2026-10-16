@@ -11,7 +11,7 @@ import { getProfile } from '@/services/authService';
 import { State } from './ui';
 import UserAvatar from '@/components/ui/UserAvatar';
 import { manageDrawerFocus } from './navigation';
-const groups = [{ name: 'Gestión', items: [['dashboard', 'Vista general', LayoutDashboard], ['users', 'Usuarios', Users]] }, { name: 'Contenido', items: [['news', 'Noticias', Newspaper], ['sources', 'Fuentes', Globe], ['topics', 'Temas', Tags]] }, { name: 'Control', items: [['link-monitor', 'Monitor de enlaces', Globe], ['reports', 'Reportes', Flag], ['activity', 'Actividad', History]] }, { name: 'Sistema', items: [['models', 'Modelos', Boxes], ['notifications', 'Notificaciones', Bell], ['announcements', 'Avisos del sitio', Bell]] }] as const;
+const groups = [{ name: 'Gestión', items: [['dashboard', 'Vista general', LayoutDashboard], ['users', 'Usuarios', Users]] }, { name: 'Contenido', items: [['news', 'Noticias', Newspaper], ['sources', 'Fuentes', Globe], ['topics', 'Temas', Tags]] }, { name: 'Control', items: [['link-monitor', 'Monitor de enlaces', Globe], ['reports', 'Reportes', Flag], ['logs', 'Logs', History]] }, { name: 'Sistema', items: [['models', 'Modelos', Boxes], ['notifications', 'Notificaciones', Bell], ['announcements', 'Avisos del sitio', Bell]] }] as const;
 export default function AdminShell({ children }: {
     children: ReactNode;
 }) {

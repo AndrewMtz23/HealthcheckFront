@@ -1,0 +1,6 @@
+export type LogsQuery=Record<'q'|'action'|'entity'|'service'|'outcome'|'sensitivity'|'userId'|'startDate'|'endDate'|'page'|'limit',string>;
+export interface LogEntry {id:string;occurred_at:string|null;recorded_at:string;effective_at:string;user_id:number|null;actor_type:'user'|'system'|'anonymous';actor_role:string|null;user_name:string|null;user_email:string|null;user_photo:string|null;action:string;entity:string;entity_id:string|null;service:string;outcome:string;description:string;sensitivity:string;origin:string;request_id:string;source_reference:string|null;ip_address?:string|null;user_agent?:string|null;metadata?:Record<string,unknown>;}
+export interface LogsPage {items:LogEntry[];total:number;page:number;limit:number;totalPages:number;calculatedAt:string;}
+export interface LogSummary {total:number;todayCount:number;sensitiveCount:number;uniqueActorsToday:number;topEntity:string|null;calculatedAt:string;}
+export interface LogTrendData {topActions:string[];series:{day:string;action:string;count:number;total:number}[];calculatedAt:string;}
+export interface LogCatalog {version:number;services:string[];actions:Record<string,{label:string;entity:string;sensitivity:string;metadata:string[]}>;}
