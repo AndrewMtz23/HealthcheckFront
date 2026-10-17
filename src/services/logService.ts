@@ -6,10 +6,14 @@ async function request(path:string,signal?:AbortSignal){
  const token=localStorage.getItem('token');
  const response=await sessionFetch(`${process.env.NEXT_PUBLIC_NEWS_API_URL||'http://localhost:3003/api'}/admin/logs${path}`,{signal,headers:{Authorization:`Bearer ${token||''}`},cache:'no-store'});
  if(localStorage.getItem('token')!==token)throw Object.assign(new Error('La sesión cambió.'),{name:'AbortError'});
- if(!response.ok){const body=await response.json().catch(()=>null);if([401,403].includes(response.status))window.dispatchEvent(new CustomEvent('admin-access-error',{detail:response.status}));throw new LogsError(response.status,body?.message||'No se pudieron consultar los Logs.');}
+ if(!response.ok){const body=await response.json().catch(()=>null);if(localStorage.getItem('token')!==token)throw Object.assign(new Error('La sesión cambió.'),{name:'AbortError'});if([401,403].includes(response.status))window.dispatchEvent(new CustomEvent('admin-access-error',{detail:response.status}));throw new LogsError(response.status,body?.message||'No se pudieron consultar los Logs.');}
  return response;
 }
-async function data<T>(path:string,signal?:AbortSignal):Promise<T>{return (await (await request(path,signal)).json()).data;}
+async function data<T>(path:string,signal?:AbortSignal):Promise<T>{
+ const token=localStorage.getItem('token'),body=await (await request(path,signal)).json();
+ if(localStorage.getItem('token')!==token)throw Object.assign(new Error('La sesión cambió.'),{name:'AbortError'});
+ return body.data;
+}
 export const getLogs=(q:LogsQuery,signal?:AbortSignal)=>data<LogsPage>('?'+encodeQuery(q),signal);
 export const getLogSummary=(q:LogsQuery,signal?:AbortSignal)=>data<LogSummary>('/summary?'+encodeQuery(q),signal);
 export const getLogTrend=(q:LogsQuery,signal?:AbortSignal)=>data<LogTrendData>('/trend?'+encodeQuery(q),signal);
