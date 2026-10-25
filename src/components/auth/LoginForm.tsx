@@ -8,6 +8,7 @@ import { login as loginRequest } from '@/services/authService';
 import AuthField from './AuthField';
 import { EmailDivider, FormError, GoogleButton, SubmitButton } from './AuthActions';
 import styles from './auth.module.css';
+import {toast} from '@/lib/feedback';
 
 export default function LoginForm() {
   const router = useRouter();
@@ -39,9 +40,12 @@ export default function LoginForm() {
         throw new Error('No pudimos completar el acceso. Inténtalo de nuevo.');
       }
       login(response.data.user, response.data.token);
+      toast.success('Sesión iniciada.');
       router.push(response.data.user.rol === 'admin' ? '/admin/dashboard' : '/dashboard');
     } catch (err: unknown) {
-      setError(err instanceof TypeError ? 'No pudimos conectar con el servidor. Revisa tu conexión e inténtalo de nuevo.' : err instanceof Error ? err.message : 'Ocurrió un error al iniciar sesión. Inténtalo de nuevo.');
+      const message = err instanceof TypeError ? 'No pudimos conectar con el servidor. Revisa tu conexión e inténtalo de nuevo.' : err instanceof Error ? err.message : 'Ocurrió un error al iniciar sesión. Inténtalo de nuevo.';
+      setError(message);
+      toast.error(message);
       setIsLoading(false);
     }
   };

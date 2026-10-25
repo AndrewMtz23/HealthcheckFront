@@ -7,6 +7,7 @@ import {changePassword, requestRecovery, resetPassword} from '@/services/recover
 import AuthField from './AuthField';
 import {FormError, SubmitButton} from './AuthActions';
 import styles from './auth.module.css';
+import {toast} from '@/lib/feedback';
 
 export default function PasswordForm({mode}: {mode: 'forgot' | 'reset' | 'change'}) {
   const {user, loading, error: sessionError} = useAuth();
@@ -31,9 +32,11 @@ export default function PasswordForm({mode}: {mode: 'forgot' | 'reset' | 'change
     }
     setBusy(true);
     try {
-      setMessage(mode === 'forgot' ? await requestRecovery(email.trim()) : mode === 'reset' ? await resetPassword(token, password) : await changePassword(actual, password));
+      const result = mode === 'forgot' ? await requestRecovery(email.trim()) : mode === 'reset' ? await resetPassword(token, password) : await changePassword(actual, password);
+      setMessage(result);
+      toast.success(result);
       setActual('');setPassword('');setConfirm('');setToken('');
-    } catch (e) {setError(e instanceof TypeError ? 'No pudimos conectar. Revisa tu conexión e inténtalo de nuevo.' : e instanceof Error ? e.message : 'No se pudo completar la solicitud.');}
+    } catch (e) {const failure = e instanceof TypeError ? 'No pudimos conectar. Revisa tu conexión e inténtalo de nuevo.' : e instanceof Error ? e.message : 'No se pudo completar la solicitud.';setError(failure);toast.error(failure);}
     finally {setBusy(false);}
   }
 

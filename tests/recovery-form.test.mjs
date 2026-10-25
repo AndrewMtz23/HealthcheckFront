@@ -7,7 +7,8 @@ function form(mode,services={}) {
  const state=[],effects=[],replaced=[];let cursor=0;
  const react={useState(value){const i=cursor++;if(!(i in state))state[i]=value;return [state[i],v=>state[i]=v];},useRef(value){const i=cursor++;if(!(i in state))state[i]={current:value};return state[i];},useEffect(fn){effects.push(fn);}};
  const Form=loadTs('components/auth/PasswordForm.tsx',{Error,TypeError,TextEncoder,URLSearchParams,window:{location:{hash:'#token='+'a'.repeat(64),pathname:'/reset-password'},history:{replaceState:(_a,_b,path)=>replaced.push(path)}},require(name){
-  if(name==='react')return react;
+  if(name==='@/lib/feedback')return {toast:{success(){},error(){},info(){}},feedbackStore:{dismiss(){}}};
+   if(name==='react')return react;
   if(name==='@/context/AuthContext')return {useAuth:()=>({user:{id:1,password_enabled:true},loading:false})};
   if(name==='@/services/recoveryService')return services;
   if(name==='./AuthField')return {__esModule:true,default:'input'};
