@@ -1,7 +1,8 @@
 'use client';
+import { toast } from '@/lib/feedback';
 import { sessionFetch } from '@/services/session';
 
-import { useState, useEffect } from 'react';
+import { useState, useEffect, useRef } from 'react';
 import { useRouter } from 'next/navigation';
 import { useAuth } from '@/context/AuthContext';
 import Link from 'next/link';
@@ -12,6 +13,7 @@ const API_URL = process.env.NEXT_PUBLIC_API_URL || 'http://localhost:4000/api';
 const ScrapeTwitterPage = () => {
   const { user, loading } = useAuth();
   const router = useRouter();
+  const pending = useRef(false);
   
   const [query, setQuery] = useState<string>('noticias salud covid vacunas');
   const [limit, setLimit] = useState<number>(10);
@@ -33,7 +35,10 @@ const ScrapeTwitterPage = () => {
 
   const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
+    if (pending.current) return;
     
+    pending.current = true;
+    toast.info('Recopilando publicaciones. Espera el resultado.');
     try {
       setIsLoading(true);
       setError(null);
@@ -74,10 +79,13 @@ const ScrapeTwitterPage = () => {
         const data = await response.json();
         setResult(data);
       }
+      toast.success(saveToDB ? 'Recopilación completada y noticias guardadas.' : 'Recopilación completada. El CSV está listo para descargar.');
     } catch (err) {
       setError(err instanceof Error ? err.message : 'Error desconocido');
+      toast.error(err instanceof Error ? err.message : 'Error desconocido');
       console.error('Error en scraping:', err);
     } finally {
+      pending.current = false;
       setIsLoading(false);
     }
   };

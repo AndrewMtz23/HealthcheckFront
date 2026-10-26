@@ -1,4 +1,5 @@
 'use client';
+import { toast } from '@/lib/feedback';
 import { sessionFetch } from '@/services/session';
 
 import { useState, useEffect, useRef } from 'react';
@@ -12,6 +13,7 @@ const API_URL = process.env.NEXT_PUBLIC_API_URL || 'http://localhost:4000/api';
 const TrainModelPage = () => {
   const { user, loading } = useAuth();
   const router = useRouter();
+  const pending = useRef(false);
   const fileInputRef = useRef<HTMLInputElement>(null);
   
   const [file, setFile] = useState<File | null>(null);
@@ -43,6 +45,7 @@ const TrainModelPage = () => {
 
   const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
+    if (pending.current) return;
     console.log('Iniciando envío del formulario');
     console.log('File state:', file);
 
@@ -51,6 +54,8 @@ const TrainModelPage = () => {
       return;
     }
 
+    pending.current = true;
+    toast.info('Enviando solicitud de entrenamiento. Puede tardar varios minutos.');
     try {
       setIsTraining(true);
       setError(null);
@@ -111,6 +116,7 @@ const TrainModelPage = () => {
       const data = await response.json();
       console.log('Datos de respuesta:', data);
       setResult(data);
+      toast.success('Entrenamiento completado.');
 
       // Esperar 3 segundos antes de redirigir
       setTimeout(() => {
@@ -120,7 +126,9 @@ const TrainModelPage = () => {
     } catch (err) {
       console.error('Error completo:', err);
       setError(err instanceof Error ? err.message : 'Error desconocido');
+      toast.error(err instanceof Error ? err.message : 'Error desconocido');
     } finally {
+      pending.current = false;
       setIsTraining(false);
     }
   };
