@@ -1,4 +1,5 @@
 'use client';
+import { toast } from '@/lib/feedback';
 
 import { useState, useEffect } from 'react';
 import { useRouter } from 'next/navigation';
@@ -77,6 +78,7 @@ const NewsFeed = ({
     try {
       // Crear interacción en el backend
       await createInteraction(newsId, interactionType);
+      if (interactionType !== 'compartir') toast.success('Tu valoración se actualizó.');
       
       // Actualizar el estado local para reflejar el cambio inmediatamente
       setNews(prevNews => 
@@ -115,7 +117,7 @@ const NewsFeed = ({
       );
     } catch (error) {
       console.error('Error handling interaction:', error);
-      alert('Error al procesar tu interacción. Inténtalo de nuevo.');
+      toast.error('Error al procesar tu interacción. Inténtalo de nuevo.');
     }
   };
 

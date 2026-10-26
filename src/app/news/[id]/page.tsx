@@ -1,4 +1,5 @@
 'use client';
+import { toast } from '@/lib/feedback';
 import EditorialStatus from '@/components/news/EditorialStatus';
 
 import { useState, useEffect, useRef } from 'react';
@@ -98,6 +99,7 @@ export default function NewsDetailPage() {
 
         try {
             await createInteraction(Number(id), interactionType);
+            if (interactionType !== 'compartir') toast.success('Tu valoración se actualizó.');
 
             // Actualizar conteos e interacciones
             const updatedCounts = await getInteractionCounts(Number(id));
@@ -108,7 +110,7 @@ export default function NewsDetailPage() {
             setUserInteractions(updatedInteractions);
         } catch (error) {
             console.error('Error en interacción:', error);
-            alert('Error al procesar tu interacción');
+            toast.error('Error al procesar tu interacción');
         }
     };
 
@@ -123,28 +125,20 @@ export default function NewsDetailPage() {
         const shareUrl = `${window.location.origin}/news/${id}`;
         const shareText = `${news?.titulo} - Publicado en HealthCheck`;
 
-        // Registrar interacción de compartir
-        await handleInteraction('compartir');
-
-        // Compartir usando Web Share API o fallback
-        if (navigator.share) {
-            try {
-                await navigator.share({
-                    title: 'HealthCheck - Noticia publicada',
-                    text: shareText,
-                    url: shareUrl
-                });
-            } catch (error) {
-                console.error('Error compartiendo:', error);
-                // Fallback: copiar al portapapeles
-                await navigator.clipboard.writeText(shareUrl);
-                alert('Enlace copiado al portapapeles');
-            }
-        } else {
-            // Fallback para navegadores que no soportan Web Share API
-            const twitterShareUrl = `https://twitter.com/intent/tweet?text=${encodeURIComponent(shareText)}&url=${encodeURIComponent(shareUrl)}`;
-            window.open(twitterShareUrl, '_blank');
-        }
+    try {
+      if (navigator.share) {
+        await navigator.share({ title: 'HealthCheck', text: shareText, url: shareUrl });
+        toast.success('Noticia compartida.');
+      } else {
+        await navigator.clipboard.writeText(shareUrl);
+        toast.success('Enlace copiado al portapapeles.');
+      }
+    } catch (error) {
+      if (error instanceof Error && error.name === 'AbortError') return;
+      toast.error('No se pudo compartir la noticia. Inténtalo de nuevo.');
+      return;
+    }
+    await handleInteraction('compartir');
     };
 
     const formatDate = (dateString?: string) => {

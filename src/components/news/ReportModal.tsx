@@ -1,3 +1,4 @@
+import { toast } from '@/lib/feedback';
 import { sessionFetch } from '@/services/session';
 import { useState } from 'react';
 import { AlertTriangle, X } from 'lucide-react';
@@ -44,6 +45,7 @@ const ReportModal = ({ fuente, onClose }: ReportModalProps) => {
       
         // Si el mensaje dice que ya se reportó, no lo trates como error grave
         if (mensaje.toLowerCase().includes('ya has reportado')) {
+          toast.info(mensaje);
           setMessage({ type: 'error', text: mensaje }); // O type: 'info' si querés otro color
           return; // ← salimos sin tirar error
         }
@@ -53,6 +55,7 @@ const ReportModal = ({ fuente, onClose }: ReportModalProps) => {
       }      
 
       setMessage({ type: 'success', text: 'Reporte enviado correctamente' });
+      toast.success('Reporte enviado correctamente.');
 
       // Cerrar modal automáticamente después de 2 segundos en caso de éxito
       setTimeout(() => {
@@ -61,6 +64,7 @@ const ReportModal = ({ fuente, onClose }: ReportModalProps) => {
 
     } catch (error) {
       console.error('Error al enviar reporte:', error);
+      toast.error(error instanceof Error ? error.message : 'Error al enviar reporte');
       setMessage({
         type: 'error',
         text: error instanceof Error ? error.message : 'Error al enviar reporte'

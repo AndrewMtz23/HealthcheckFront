@@ -1,4 +1,5 @@
 'use client';
+import { toast } from '@/lib/feedback';
 
 import { Suspense, useState, useEffect } from 'react';
 import { useRouter, useSearchParams } from 'next/navigation';
@@ -132,12 +133,13 @@ function NewsPageContent() {
   // Manejar interacciones con noticias
   const handleInteraction = async (newsId: number, interactionType: string) => {
     if (!user) {
-      alert('Debes iniciar sesión para interactuar con noticias');
+      toast.error('Debes iniciar sesión para interactuar con noticias');
       return;
     }
     
     try {
       await createInteraction(newsId, interactionType);
+      if (interactionType !== 'compartir') toast.success('Tu valoración se actualizó.');
       
       // Actualizar estado local de interacciones
       setNewsItems(prevNews => 
@@ -173,7 +175,7 @@ function NewsPageContent() {
       );
     } catch (error) {
       console.error('Error handling interaction:', error);
-      alert('Error al procesar tu interacción. Inténtalo de nuevo.');
+      toast.error('Error al procesar tu interacción. Inténtalo de nuevo.');
     }
   };
 
