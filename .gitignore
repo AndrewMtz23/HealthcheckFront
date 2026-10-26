@@ -55,3 +55,9 @@ Thumbs.db
 Desktop.ini
 *.tmp
 *.bak
+
+# Source code for the administrative Logs module
+!src/app/admin/logs/
+!src/app/admin/logs/**
+!src/components/admin/logs/
+!src/components/admin/logs/**

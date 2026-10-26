@@ -1,4 +1,5 @@
 'use client';
+import { toast } from '@/lib/feedback';
 import { sessionFetch } from '@/services/session';
 
 import { useState } from 'react';
@@ -66,6 +67,7 @@ const NewsVerifier = () => {
     }
     
     setIsLoading(true);
+    toast.info('Análisis iniciado. Puede tardar unos momentos.');
     setError(null);
     setResult(null);
     
@@ -102,8 +104,11 @@ const NewsVerifier = () => {
       
       setResult(data);
       setShowExample(false);
+      toast.success('Análisis completado.');
     } catch (err) {
-      setError(err instanceof Error ? err.message : 'Error desconocido');
+      const message = err instanceof Error ? err.message : 'No se pudo completar el análisis.';
+      setError(message);
+      toast.error(message);
     } finally {
       setIsLoading(false);
     }
@@ -148,7 +153,7 @@ const NewsVerifier = () => {
         <div className="bg-gray-50 dark:bg-slate-950 px-4 py-2 border-b text-sm font-medium text-gray-700 dark:text-slate-200">
           Vista previa
         </div>
-        <div className="bg-white dark:bg-slate-900 p-4 h-64 overflow-hidden">
+        <div className="bg-white dark:bg-slate-900 p-4 h-[360px] sm:h-[480px] overflow-hidden">
           {isTwitter ? (
             <div className="flex items-center justify-center h-full text-gray-400 dark:text-slate-400">
               Vista previa de Twitter no disponible
@@ -181,7 +186,7 @@ const NewsVerifier = () => {
   };
 
   return (
-    <div id="verificador" className="scroll-mt-24 bg-white dark:bg-slate-900 rounded-lg shadow-sm w-[calc(100%-2rem)] max-w-4xl mx-auto mt-16 mb-8">
+    <div id="verificador" className="scroll-mt-24 bg-white dark:bg-slate-900 rounded-lg shadow-sm w-[calc(100%-2rem)] max-w-6xl mx-auto mt-16 mb-8">
       <div className="p-6 sm:p-8">
         <h2 className="text-2xl font-bold text-gray-800 dark:text-slate-100 mb-6">Verificador de información</h2>
         
@@ -339,6 +344,13 @@ const NewsVerifier = () => {
               )}
             </div>
 
+            {!showExample && Number.isInteger(result?.["Consulta ID"]) && (result?.["Consulta ID"] ?? 0) > 0 && (
+              <div role="status" className="flex flex-wrap items-center justify-between gap-2 border-b border-gray-200 dark:border-slate-700 bg-blue-50 dark:bg-blue-950/30 px-6 py-3 text-sm">
+                <span>Guardado en tu historial</span>
+                <Link href="/dashboard/history" className="font-medium text-blue-600 dark:text-blue-400 underline underline-offset-4">Ver historial</Link>
+              </div>
+            )}
+
             {showExample && (
               <div className="bg-amber-50 dark:bg-amber-950/40 border-b border-amber-200 dark:border-amber-800/60 p-4 flex flex-wrap items-center justify-between gap-2 text-sm text-amber-800 dark:text-amber-200">
                 <div className="flex items-center gap-2">
@@ -357,7 +369,7 @@ const NewsVerifier = () => {
             
             <div className="bg-white dark:bg-slate-900 p-6">
               {/* Visualización de resultado */}
-              <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
+              <div className="grid grid-cols-1 lg:grid-cols-2 gap-8 [&>div]:min-w-0">
                 <div>
                   {/* Info principal */}
                   <div className="mb-6">
@@ -449,7 +461,7 @@ const NewsVerifier = () => {
                       <div className="bg-gray-50 dark:bg-slate-950 px-4 py-2 border-b text-sm font-medium text-gray-700 dark:text-slate-200">
                         Texto analizado
                       </div>
-                      <div className="bg-white dark:bg-slate-900 p-4 max-h-64 overflow-y-auto">
+                      <div className="bg-white dark:bg-slate-900 p-4 max-h-[480px] overflow-y-auto">
                         {(showExample ? exampleResult["Texto Completo"] : result?.["Texto Completo"] || '')
                           .split('\n')
                           .map((paragraph, idx) => (

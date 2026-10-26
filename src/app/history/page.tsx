@@ -1,4 +1,5 @@
 'use client';
+import {toast,confirmAction} from '@/lib/feedback';
 
 import { useState, useEffect, useCallback, useRef } from 'react';
 import { useRouter } from 'next/navigation';
@@ -32,7 +33,6 @@ export default function HistoryPage() {
   const requestVersion = useRef(0);
   const [showFilters, setShowFilters] = useState(false);
   const [isDeleting, setIsDeleting] = useState(false);
-  const [showClearConfirm, setShowClearConfirm] = useState(false);
 
   // Redirigir si no está autenticado
   useEffect(() => {
@@ -93,7 +93,9 @@ export default function HistoryPage() {
 
     try {
       setIsDeleting(true);
+      if (!await confirmAction({title:'Eliminar consulta',message:'¿Eliminar esta consulta de tu historial?',confirmLabel:'Eliminar',danger:true})) return;
       await deleteHistoryEntry(entryId);
+      toast.success('Consulta eliminada del historial.');
       
       // Actualizar la lista sin recargar de la API
       setHistory(history.filter(entry => entry.id !== entryId));
@@ -109,6 +111,7 @@ export default function HistoryPage() {
     } catch (err) {
       console.error('Error eliminando entrada:', err);
       setError(err instanceof Error ? err.message : 'Error al eliminar la entrada');
+      toast.error(err instanceof Error ? err.message : 'Error al eliminar la entrada');
     } finally {
       setIsDeleting(false);
     }
@@ -120,17 +123,20 @@ export default function HistoryPage() {
 
     try {
       setIsDeleting(true);
+      if (!await confirmAction({title:'Limpiar historial',message:'¿Eliminar todo tu historial de consultas? Esta acción no se puede deshacer.',confirmLabel:'Eliminar historial',danger:true})) return;
       await clearHistory();
+      toast.success('Historial eliminado.');
       
       // Actualizar estados
       setHistory([]);
       setTotalItems(0);
       setCurrentPage(1);
       setTotalPages(1);
-      setShowClearConfirm(false);
+
     } catch (err) {
       console.error('Error eliminando historial:', err);
       setError(err instanceof Error ? err.message : 'Error al eliminar el historial');
+      toast.error(err instanceof Error ? err.message : 'Error al eliminar el historial');
     } finally {
       setIsDeleting(false);
     }
@@ -199,7 +205,7 @@ export default function HistoryPage() {
             </button>
             
             <button
-              onClick={() => setShowClearConfirm(true)}
+              onClick={handleClearHistory}
               className="text-red-600 dark:text-red-300 hover:text-red-800 dark:hover:text-red-300 font-medium flex items-center"
               disabled={totalItems === 0 || isDeleting}
             >
@@ -330,7 +336,16 @@ export default function HistoryPage() {
                       </button>
                     </div>
                     <div className="mt-2">
-                      {entry.noticia.available===false?<span className="text-lg font-semibold text-gray-900 dark:text-slate-100 hover:text-blue-600 dark:hover:text-blue-400">Noticia no disponible</span>:<Link href={`/news/${entry.noticia_id}`} className="text-lg font-semibold text-gray-900 dark:text-slate-100 hover:text-blue-600 dark:hover:text-blue-400">{entry.noticia.titulo}</Link>}
+                      {entry.noticia.available===false?<span className="text-lg font-semibold text-gray-900 dark:text-slate-100 hover:text-blue-600 dark:hover:text-blue-400">Noticia no disponible</span>:entry.noticia.private_analysis?<h3 className="text-lg font-semibold text-gray-900 dark:text-slate-100">{entry.noticia.titulo}</h3>:<Link href={`/news/${entry.noticia_id}`} className="text-lg font-semibold text-gray-900 dark:text-slate-100 hover:text-blue-600 dark:hover:text-blue-400">{entry.noticia.titulo}</Link>}
+                      {entry.noticia.private_analysis && (
+                        <div className="mt-2">
+                          <span className="rounded-full bg-blue-50 dark:bg-blue-950 px-2 py-1 text-xs text-blue-700 dark:text-blue-300">An?lisis personal ? Sin publicar</span>
+                          <details className="mt-3 text-sm text-gray-700 dark:text-slate-200">
+                            <summary className="cursor-pointer font-medium text-blue-600 dark:text-blue-400">Leer texto analizado</summary>
+                            <div className="mt-3 max-h-[480px] overflow-y-auto whitespace-pre-wrap break-words leading-relaxed">{entry.noticia.contenido}</div>
+                          </details>
+                        </div>
+                      )}
                       <p className="mt-1 text-sm text-gray-600 dark:text-slate-300 line-clamp-2">
                         {entry.noticia.contenido}
                       </p>
@@ -415,35 +430,6 @@ export default function HistoryPage() {
         </div>
       </div>
 
-      {/* Modal de confirmación para limpiar historial */}
-      {showClearConfirm && (
-        <div className="fixed inset-0 bg-black bg-opacity-50 flex items-center justify-center z-50 p-4">
-          <div className="bg-white dark:bg-slate-900 rounded-lg shadow-xl w-full max-w-md p-6">
-            <div className="text-center">
-              <AlertTriangle className="h-12 w-12 text-red-500 mx-auto mb-4" />
-              <h3 className="text-xl font-medium text-gray-900 dark:text-slate-100 mb-2">Confirmar acción</h3>
-              <p className="text-gray-600 dark:text-slate-300 mb-6">
-                ¿Estás seguro de que deseas eliminar todo tu historial de consultas? Esta acción no se puede deshacer.
-              </p>
-              <div className="flex justify-center space-x-4">
-                <button
-                  onClick={() => setShowClearConfirm(false)}
-                  className="px-4 py-2 border border-gray-300 dark:border-slate-600 rounded-md text-gray-700 dark:text-slate-200 bg-white dark:bg-slate-900 hover:bg-gray-50 dark:hover:bg-slate-950"
-                >
-                  Cancelar
-                </button>
-                <button
-                  onClick={handleClearHistory}
-                  disabled={isDeleting}
-                  className="px-4 py-2 border border-transparent rounded-md text-white bg-red-600 hover:bg-red-700"
-                >
-                  {isDeleting ? 'Eliminando...' : 'Eliminar historial'}
-                </button>
-              </div>
-            </div>
-          </div>
-        </div>
-      )}
     </div>
   );
 }

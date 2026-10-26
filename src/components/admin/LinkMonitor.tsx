@@ -1,5 +1,6 @@
 'use client';
 import {useEffect,useRef,useState} from 'react';
+import {toast} from '@/lib/feedback';
 import {ExternalLink,Link2,Play,RefreshCw,ShieldCheck} from 'lucide-react';
 import {getLinkMonitorRun,listLinkMonitorResults,startLinkMonitor,LinkMonitorError} from '@/services/linkMonitorService';
 import type {MonitorRun,ResultsPage} from '@/types/linkMonitor';
@@ -8,6 +9,7 @@ const runLabels={queued:'En espera',running:'Revisando enlaces',completed:'Revis
 const date=(value:string)=>new Intl.DateTimeFormat('es-MX',{dateStyle:'medium',timeStyle:'short',timeZone:'America/Mexico_City'}).format(new Date(value));
 export default function LinkMonitor(){
  const [run,setRun]=useState<MonitorRun|null>(null),[data,setData]=useState<ResultsPage|null>(null),[page,setPage]=useState(1),[status,setStatus]=useState(''),[revision,setRevision]=useState(0),[loading,setLoading]=useState(true),[starting,setStarting]=useState(false),[error,setError]=useState(''),[blocked,setBlocked]=useState(false);
+ const trackedRun=useRef<string|null>(null);const startPending=useRef(false);
  const generation=useRef(new RequestGeneration());const active=run?.state==='queued'||run?.state==='running';
  useEffect(()=>{
   const guard=generation.current;let timer:ReturnType<typeof setTimeout>|undefined,controller:AbortController|undefined,disposed=false,shouldPoll=active;
@@ -17,6 +19,7 @@ export default function LinkMonitor(){
    try{
     const [nextRun,nextData]=await Promise.all([getLinkMonitorRun(controller.signal),listLinkMonitorResults({page,status},controller.signal)]);
     if(!guard.accepts(version)||disposed)return;setRun(nextRun);setData(nextData);setError('');
+    if(nextRun&&trackedRun.current===nextRun.id&&!['queued','running'].includes(nextRun.state)){trackedRun.current=null;if(nextRun.state==='completed')toast.success('Revisión de enlaces completada.');else toast.error(runLabels[nextRun.state]);}
     if(page>1&&nextData.items.length===0){setPage(1);return;}
     shouldPoll=nextRun?.state==='queued'||nextRun?.state==='running';if(shouldPoll)timer=setTimeout(()=>void refresh(),3000);
    }catch(e){if(!guard.accepts(version)||disposed||controller.signal.aborted||(e instanceof Error&&e.name==='AbortError'))return;setError(e instanceof Error?e.message:'No se pudo consultar el monitor.');if(e instanceof LinkMonitorError&&(e.status===401||e.status===403)){guard.stop();setBlocked(true);}else if(shouldPoll){timer=setTimeout(()=>void refresh(),3000);}}
@@ -26,7 +29,7 @@ export default function LinkMonitor(){
   setLoading(true);void refresh();document.addEventListener('visibilitychange',visibility);
   return()=>{disposed=true;guard.stop();controller?.abort();if(timer)clearTimeout(timer);document.removeEventListener('visibilitychange',visibility);};
  },[page,status,revision,blocked,active]);
- async function start(){if(starting||active||blocked)return;setStarting(true);setError('');generation.current.stop();try{const result=await startLinkMonitor();setRun(result.run);setRevision(v=>v+1);}catch(e){setError(e instanceof Error?e.message:'No se pudo iniciar la revisión.');if(e instanceof LinkMonitorError&&(e.status===401||e.status===403))setBlocked(true);}finally{setStarting(false);}}
+ async function start(){if(startPending.current||active||blocked)return;startPending.current=true;setStarting(true);setError('');generation.current.stop();try{const result=await startLinkMonitor();trackedRun.current=result.run.id;toast.success(result.created?'Revisión de enlaces iniciada.':'Ya hay una revisión de enlaces en curso.');setRun(result.run);setRevision(v=>v+1);}catch(e){setError(e instanceof Error?e.message:'No se pudo iniciar la revisión.');if(e instanceof LinkMonitorError&&(e.status===401||e.status===403))setBlocked(true);}finally{startPending.current=false;setStarting(false);}}
  const counts=data?.summary||{};const available=counts.available||0;const attention=(counts.not_found||0)+(counts.site_error||0)+(counts.connection_failed||0);const progress=run&&run.total_urls?Math.round(run.processed_urls/run.total_urls*100):0;
  return <section className="a-link-monitor"><header className="a-heading"><div><h1><Link2/>Monitor de enlaces</h1><p>Comprueba si las referencias originales de tus noticias siguen disponibles.</p></div><div className="lm-actions"><button className="a-button" aria-label="Actualizar resultados" disabled={loading||starting||blocked} onClick={()=>setRevision(v=>v+1)}><RefreshCw size={16}/></button><button className="a-button primary" disabled={loading||starting||active||blocked} onClick={()=>void start()}><Play size={16}/>{starting?'Iniciando…':active?'Revisión en curso':'Revisar enlaces'}</button></div></header>
  <div className="lm-purpose"><ShieldCheck size={18}/><p>Disponibilidad técnica de las fuentes. Los resultados no cambian la publicación ni la clasificación de una noticia.</p><span>REVISIÓN MANUAL</span></div>

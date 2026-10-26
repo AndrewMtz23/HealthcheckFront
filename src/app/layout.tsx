@@ -5,6 +5,7 @@ import SiteLayout from '@/components/layout/SiteLayout';
 import { AuthProvider } from '@/context/AuthContext';
 import { ThemeProvider } from '@/context/ThemeContext';
 import { themeInitScript } from '@/lib/theme';
+import FeedbackProvider from '@/components/ui/FeedbackProvider';
 
 const inter = Inter({ subsets: ['latin'] });
 
@@ -22,9 +23,9 @@ export default function RootLayout({
     <html lang="es" suppressHydrationWarning>
       <head><script dangerouslySetInnerHTML={{ __html: themeInitScript }} /></head>
       <body className={`${inter.className} min-h-screen flex flex-col`}>
-        <ThemeProvider><AuthProvider>
+        <ThemeProvider><FeedbackProvider><AuthProvider>
           <SiteLayout>{children}</SiteLayout>
-        </AuthProvider></ThemeProvider>
+        </AuthProvider></FeedbackProvider></ThemeProvider>
       </body>
     </html>
   );

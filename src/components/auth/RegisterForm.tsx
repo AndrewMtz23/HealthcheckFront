@@ -8,6 +8,7 @@ import { useAuth } from '@/context/AuthContext';
 import AuthField from './AuthField';
 import { EmailDivider, FormError, GoogleButton, SubmitButton } from './AuthActions';
 import styles from './auth.module.css';
+import {toast} from '@/lib/feedback';
 
 export default function RegisterForm() {
   const router = useRouter();
@@ -40,9 +41,12 @@ export default function RegisterForm() {
         throw new Error('No pudimos iniciar tu sesión. Intenta acceder con tu correo y contraseña.');
       }
       login(response.data.user, response.data.token);
+      toast.success('Tu cuenta se creó correctamente.');
       router.push(response.data.user.rol === 'admin' ? '/admin/dashboard' : '/news');
     } catch (err: unknown) {
-      setError(err instanceof TypeError ? 'No pudimos conectar con el servidor. Revisa tu conexión e inténtalo de nuevo.' : err instanceof Error ? err.message : 'Ocurrió un error al crear tu cuenta. Inténtalo de nuevo.');
+      const message = err instanceof TypeError ? 'No pudimos conectar con el servidor. Revisa tu conexión e inténtalo de nuevo.' : err instanceof Error ? err.message : 'Ocurrió un error al crear tu cuenta. Inténtalo de nuevo.';
+      setError(message);
+      toast.error(message);
       setIsLoading(false);
     }
   };

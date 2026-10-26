@@ -40,6 +40,7 @@ export interface ModelML {
   
   export interface NewsItem {
     available?: boolean;
+    private_analysis?: boolean;
     editorial_state?: string;
     editorial_origin?: string;
     editorial_published_at?: string;

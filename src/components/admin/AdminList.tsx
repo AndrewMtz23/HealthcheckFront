@@ -11,7 +11,7 @@ import { State, Status, Badge, date, value, labels } from './ui';
 import AdminEditor from './AdminEditor';
 import AdminDetail from './AdminDetail';
 import NewsEditor from './NewsEditor';
-import NewsEditorialPanel,{editorialStateLabels} from './NewsEditorialPanel';
+import NewsEditorialPanel,{editorialStateLabels,editorialStateTones} from './NewsEditorialPanel';
 import { TopicFilter } from './TopicFilter';
 export const modules = {
     users: { title: 'Control de usuarios', description: 'Administra las cuentas, sus roles y su acceso a HealthCheck.', icon: Users, columns: ['Identidad', 'Correo electrónico', 'Rol', 'Estado', 'Registro / acceso'], filters: [['rol', 'Rol', 'admin', 'usuario'], ['activo', 'Estado', 'true', 'false']] },
@@ -65,7 +65,7 @@ export default function AdminList({ section }: {
     function cells(r: Row) {
         switch (section) {
             case 'users': return <><td><div className="a-identity"><UserAvatar name={String(r.nombre)} url={r.imagen_url ? String(r.imagen_url) : null} className="a-avatar"/><div><strong>{value(r.nombre)}</strong><small>#{r.id}{Number(r.id) === user?.id ? ' · Tu cuenta' : ''}</small></div></div></td><td>{value(r.email)}</td><td><Status status={r.rol}/></td><td><Status status={r.activo}/></td><td>{date(r.fecha_registro)}<small>Acceso: {r.ultima_conexion ? date(r.ultima_conexion) : 'Sin acceso registrado'}</small></td></>;
-            case 'news': return <><td><strong className="a-truncate">{value(r.titulo)}</strong><small>#{r.id} {String(r.url || '').startsWith('https://example.invalid/') && <Badge>Demostración</Badge>}</small></td><td>{value(r.fuente)}<small>{value(r.tema)}</small></td><td><Status status={r.resultado}/></td><td><Badge>{editorialStateLabels[String(r.editorial_state)]||String(r.editorial_state)}</Badge></td><td>{date(r.fecha_publicacion)}</td></>;
+            case 'news': return <><td><strong className="a-truncate">{value(r.titulo)}</strong><small>#{r.id} {String(r.url || '').startsWith('https://example.invalid/') && <Badge>Demostración</Badge>}</small></td><td>{value(r.fuente)}<small>{value(r.tema)}</small></td><td className="a-news-classification"><Status status={r.resultado}/></td><td><Badge tone={editorialStateTones[String(r.editorial_state)]||'neutral'}>{editorialStateLabels[String(r.editorial_state)]||String(r.editorial_state)}</Badge></td><td>{date(r.fecha_publicacion)}</td></>;
             case 'sources': return <><td><strong>{value(r.nombre)}</strong></td><td><span className="a-truncate">{value(r.url)}</span></td><td>{value(r.confiabilidad)} / 1</td><td><Badge tone={r.verificada ? 'green' : 'neutral'}>{r.verificada ? 'Verificada' : 'Sin verificar'}</Badge></td><td>{value(r.reportes)}</td></>;
             case 'topics': return <><td><strong>{value(r.nombre)}</strong></td><td><span className="a-truncate">{value(r.descripcion)}</span></td><td><span className="a-truncate">{value(r.palabras_clave)}</span></td><td><Status status={r.activo}/></td></>;
             case 'reports': return <><td><strong className="a-truncate">{value(r.motivo)}</strong><small>Reporte #{r.id}</small></td><td>{value(r.fuente)}</td><td><Status status={r.estado}/></td><td>{date(r.fecha_reporte)}<small>Revisión: {r.fecha_revision ? date(r.fecha_revision) : 'Pendiente'}</small></td></>;

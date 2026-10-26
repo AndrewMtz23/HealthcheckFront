@@ -1,4 +1,5 @@
 'use client';
+import {toast,feedbackStore} from '@/lib/feedback';
 import React, {createContext, useContext, useState, useEffect, ReactNode} from 'react';
 import {User, getProfile, logout as logoutService} from '@/services/authService';
 import {clearSession} from '@/services/session';
@@ -80,20 +81,25 @@ export const AuthProvider = ({children}: {children: ReactNode}) => {
     } catch {clearSession();}
   }, [user]);
 
+  useEffect(() => {
+    if (!error) return;
+    const id = toast.error(error);
+    return () => { if (id !== undefined) feedbackStore.dismiss(id); };
+  }, [error]);
+
   const login = (profile: User, token: string) => {
     localStorage.setItem('token', token);
     localStorage.setItem('user', JSON.stringify(profile));
     setUser(profile); setError(null); setLoading(false);
   };
   const logout = async () => {
-    try {await logoutService(); setError(null);}
-    catch {setError('No se pudo cerrar la sesión en el servidor. Intenta de nuevo.');}
+    try {await logoutService(); setError(null); toast.success('Sesión cerrada.');}
+    catch {toast.error('No se pudo cerrar la sesión en el servidor. Intenta de nuevo.');}
   };
   const updateUser = (profile: User) => {
     setUser(profile); localStorage.setItem('user', JSON.stringify(profile));
   };
   return <AuthContext.Provider value={{user, loading, error, login, logout, updateUser}}>
-    {error && <div role="alert" className="px-4 py-2 text-center">{error}</div>}
     {children}
   </AuthContext.Provider>;
 };

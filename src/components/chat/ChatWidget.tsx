@@ -1,4 +1,5 @@
 'use client';
+import { toast } from '@/lib/feedback';
 import { sessionFetch } from '@/services/session';
 
 import { useState, useEffect, useRef } from 'react';
@@ -102,6 +103,8 @@ const ChatWidget = ({ onClose }: ChatWidgetProps) => {
       setMessages(prev => [...prev, botMessage]);
     } catch (error) {
       console.error('Error en chatbot:', error);
+      toast.error('No se pudo procesar tu mensaje. Inténtalo de nuevo.');
+      setInput(userMessage.content);
       
       // Mensaje de error como respuesta del bot
       const errorMessage: Message = {

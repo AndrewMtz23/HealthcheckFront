@@ -1,7 +1,8 @@
 'use client';
-import { useState, type FormEvent } from 'react';
+import { useRef, useState, type FormEvent } from 'react';
 import type { Row, Section } from '@/types/admin';
 import { adminRequest } from '@/services/adminService';
+import { confirmAction, toast } from '@/lib/feedback';
 import { Dialog } from './ui';
 import { UserRound, Mail, Phone, LockKeyhole, ShieldCheck, ImagePlus, Link2, Eye, Trash2, Save, X, LoaderCircle } from 'lucide-react';
 import UserAvatar from '@/components/ui/UserAvatar';
@@ -14,6 +15,7 @@ export default function AdminEditor({ section, row, onClose, onSaved }: {
     onSaved: () => void;
 }) {
     const [busy, setBusy] = useState(false);
+    const pending = useRef(false);
     const [error, setError] = useState('');
     const { user, updateUser } = useAuth();
     const [imageUrl, setImageUrl] = useState(String(row?.imagen_url || ''));
@@ -31,7 +33,7 @@ export default function AdminEditor({ section, row, onClose, onSaved }: {
     const names: Partial<Record<Section, string>> = { users: 'usuario', sources: 'fuente', topics: 'tema', reports: 'reporte' };
     async function submit(event: FormEvent<HTMLFormElement>) {
         event.preventDefault();
-        if (busy)
+        if (pending.current)
             return;
         const form = new FormData(event.currentTarget);
         const data: Record<string, unknown> = {};
@@ -48,21 +50,23 @@ export default function AdminEditor({ section, row, onClose, onSaved }: {
             data.verificada = form.has('verificada');
             data.confiabilidad = Number(form.get('confiabilidad'));
         }
-        if (row && section === 'users' && (data.rol !== row.rol || data.activo !== row.activo) && !window.confirm('¿Confirmas el cambio de rol o acceso de esta cuenta?'))
-            return;
-        if (report && data.estado === 'revisado' && !window.confirm('Marcar como revisado reducirá 0.1 la confiabilidad de la fuente una sola vez. ¿Continuar?'))
-            return;
+        pending.current = true;
         setBusy(true);
         setError('');
         try {
+            if (row && section === 'users' && (data.rol !== row.rol || data.activo !== row.activo) && !await confirmAction({title: 'Cambiar acceso de la cuenta', message: '¿Confirmas el cambio de rol o acceso de esta cuenta?', confirmLabel: 'Confirmar cambios', danger: true})) return;
+            if (report && data.estado === 'revisado' && !await confirmAction({title: 'Resolver reporte', message: 'Marcar como revisado reducirá 0.1 la confiabilidad de la fuente una sola vez. ¿Continuar?', confirmLabel: 'Marcar revisado'})) return;
             const saved = await adminRequest<User>(section, row ? `/${row.id}` : '', { method: row ? 'PATCH' : 'POST', body: JSON.stringify(data) });
             if (section === 'users' && user && saved.id === user.id) updateUser({ ...user, ...saved });
+            toast.success(report ? 'Reporte resuelto.' : 'Cambios guardados correctamente.');
             onSaved();
         }
         catch (e) {
             setError((e as Error).message);
+            toast.error((e as Error).message);
         }
         finally {
+            pending.current = false;
             setBusy(false);
         }
     }

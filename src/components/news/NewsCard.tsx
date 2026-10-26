@@ -1,4 +1,5 @@
 'use client';
+import { toast } from '@/lib/feedback';
 import EditorialStatus from '@/components/news/EditorialStatus';
 
 import { useState, useEffect } from 'react';
@@ -176,20 +177,25 @@ const NewsCard = ({ news, onInteraction }: NewsCardProps) => {
     const shareUrl = `${window.location.origin}/news/${news.id}`;
     const shareText = `${news.titulo} - Publicado en HealthCheck`;
 
-    // Registrar interacción de compartir
-    await onInteraction(news.id, 'compartir');
-
-    // Actualizar conteos localmente
     try {
-      const updatedCounts = await getInteractionCounts(news.id);
-      setInteractionCounts(updatedCounts);
+      if (navigator.share) {
+        await navigator.share({ title: 'HealthCheck', text: shareText, url: shareUrl });
+        toast.success('Noticia compartida.');
+      } else {
+        await navigator.clipboard.writeText(shareUrl);
+        toast.success('Enlace copiado al portapapeles.');
+      }
+    } catch (error) {
+      if (error instanceof Error && error.name === 'AbortError') return;
+      toast.error('No se pudo compartir la noticia. Inténtalo de nuevo.');
+      return;
+    }
+    await onInteraction(news.id, 'compartir');
+    try {
+      setInteractionCounts(await getInteractionCounts(news.id));
     } catch (error) {
       console.error('Error actualizando conteos:', error);
     }
-
-    // Fallback: Compartir en Twitter
-    const twitterShareUrl = `https://twitter.com/intent/tweet?text=${encodeURIComponent(shareText)}&url=${encodeURIComponent(shareUrl)}`;
-    window.open(twitterShareUrl, '_blank');
   };
 
   return (
